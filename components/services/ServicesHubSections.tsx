@@ -214,7 +214,7 @@ export function CarePlanSection() {
           </p>
         </div>
 
-        <div className="rounded-xl border border-white/10 bg-[#17181b] p-6 sm:p-8 light:bg-[#fff] light:shadow-[0_20px_50px_-24px_rgb(26_24_20/0.18)]">
+        <div className="rounded-xl border border-white/10 bg-[#0f2346] p-6 sm:p-8 light:bg-[#fff] light:shadow-[0_20px_50px_-24px_rgb(15_35_70/0.18)]">
           <div className="flex items-center justify-between gap-4">
             <p className="font-semibold text-white">Website health</p>
             <span className="rounded border border-brass-400/40 px-2 py-0.5 text-[11px] font-semibold tracking-[0.16em] text-brass-300 uppercase">
@@ -260,7 +260,7 @@ export function ServicesCtaBand({
   return (
     <section aria-labelledby="services-cta-title" className="py-16 md:py-20">
       <div className="section-container">
-        <div className="relative isolate overflow-hidden rounded-2xl border border-brass-400/25 bg-[#17181b] px-6 py-12 text-center sm:px-12 md:py-16 light:bg-[#fff]">
+        <div className="relative isolate overflow-hidden rounded-2xl border border-brass-400/25 bg-[#0f2346] px-6 py-12 text-center sm:px-12 md:py-16 light:bg-[#fff]">
           <div
             aria-hidden="true"
             className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(70%_90%_at_50%_0%,rgb(var(--gold)/0.14),transparent_70%)]"

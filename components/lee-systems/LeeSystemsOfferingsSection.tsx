@@ -90,13 +90,13 @@ export function LeeSystemsOfferingsSection() {
 
 function OfferingCard({ offering }: { offering: Offering }) {
   return (
-    <article className="group flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#17181b] transition-colors duration-300 hover:border-brass-400/55 light:bg-[#fff] light:shadow-[0_20px_50px_-24px_rgb(26_24_20/0.18)]">
-      <div className="relative aspect-[16/9] overflow-hidden bg-[#121316] light:bg-[#eef1f6]">
+    <article className="group flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#0f2346] transition-colors duration-300 hover:border-brass-400/55 light:bg-[#fff] light:shadow-[0_20px_50px_-24px_rgb(15_35_70/0.18)]">
+      <div className="relative aspect-[16/9] overflow-hidden bg-[#0a1830] light:bg-[#eef1f6]">
         {offering.media}
         {/* Fades the picture into the card so the copy can ride up over it. */}
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent from-45% to-[#17181b] light:from-60% light:to-[#fff]"
+          className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent from-45% to-[#0f2346] light:from-60% light:to-[#fff]"
         />
       </div>
 
@@ -151,7 +151,7 @@ function WebsiteMedia() {
   );
 
   return (
-    <div className="absolute inset-0 bg-[radial-gradient(70%_80%_at_50%_100%,rgba(201,162,75,0.18),transparent_70%)] light:bg-[radial-gradient(70%_80%_at_50%_100%,rgba(138,106,31,0.16),transparent_70%)]">
+    <div className="absolute inset-0 bg-[radial-gradient(70%_80%_at_50%_100%,rgba(157,187,240,0.18),transparent_70%)] light:bg-[radial-gradient(70%_80%_at_50%_100%,rgba(23,71,154,0.16),transparent_70%)]">
       <WebsiteDeck shots={shots} />
     </div>
   );

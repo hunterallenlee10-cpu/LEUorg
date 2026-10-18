@@ -93,7 +93,7 @@ export default function AiCallsDemo({ formPath, assets }: DemoProps) {
     >
       <div className="grid h-full grid-cols-1 content-start gap-4 p-4 sm:grid-cols-[280px_1fr] sm:p-5 lg:gap-6">
         {/* The phone */}
-        <div className="mx-auto flex h-[440px] w-full max-w-[280px] flex-col overflow-hidden rounded-[2rem] border-[6px] border-neutral-800 bg-[#0b0c0e] shadow-2xl light:bg-[#fff]">
+        <div className="mx-auto flex h-[440px] w-full max-w-[280px] flex-col overflow-hidden rounded-[2rem] border-[6px] border-neutral-800 bg-[#050b18] shadow-2xl light:bg-[#fff]">
           <div className="border-b border-white/10 px-4 pt-6 pb-3 text-center">
             <p className="text-[11px] tracking-wider text-neutral-400 uppercase">
               {demo.step === RING ? "Incoming call · 11:48 PM" : ended ? "Call ended" : "AI assistant on the line"}

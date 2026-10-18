@@ -121,7 +121,7 @@ export function FrameShell({
   return (
     <div
       ref={frameRef}
-      className="overflow-hidden rounded-xl border border-white/10 bg-[#111214] light:bg-[#fff] light:shadow-[0_20px_50px_-24px_rgb(26_24_20/0.18)]"
+      className="overflow-hidden rounded-xl border border-white/10 bg-[#07101f] light:bg-[#fff] light:shadow-[0_20px_50px_-24px_rgb(15_35_70/0.18)]"
     >
       <div className="flex flex-col items-start gap-3 border-b border-white/10 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-5">
         <div className="flex w-full min-w-0 items-center gap-3 sm:w-auto">
