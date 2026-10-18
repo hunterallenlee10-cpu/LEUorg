@@ -80,7 +80,7 @@ export function WebsiteDeck({ shots }: { shots: DeckShot[] }) {
             className="ls-deck-card absolute top-[14%] left-[8%] w-[62%]"
           >
             <div
-              className={`overflow-hidden rounded-lg border border-white/15 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.9)] light:shadow-[0_24px_50px_-20px_rgb(26_24_20/0.35)] transition-transform duration-[1200ms] ease-[cubic-bezier(.16,1,.3,1)] motion-reduce:transition-none ${
+              className={`overflow-hidden rounded-lg border border-white/15 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.9)] light:shadow-[0_24px_50px_-20px_rgb(15_35_70/0.35)] transition-transform duration-[1200ms] ease-[cubic-bezier(.16,1,.3,1)] motion-reduce:transition-none ${
                 pose === "front"
                   ? "group-hover:translate-x-2 group-hover:rotate-1"
                   : pose === "back"

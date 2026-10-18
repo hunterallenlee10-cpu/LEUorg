@@ -45,10 +45,10 @@ export async function renderLeuOg({
           flexDirection: "column",
           justifyContent: "space-between",
           padding: "64px 80px",
-          backgroundColor: "#0A0A0A",
+          backgroundColor: "#000000",
           backgroundImage:
-            "radial-gradient(circle at 88% 0%, rgba(251, 191, 36, 0.2) 0%, rgba(251, 191, 36, 0) 55%)",
-          color: "#F5F3EE",
+            "radial-gradient(circle at 88% 0%, rgba(157, 187, 240, 0.2) 0%, rgba(157, 187, 240, 0) 55%)",
+          color: "#F9FBFC",
           fontFamily: "sans-serif",
         }}
       >
@@ -61,7 +61,7 @@ export async function renderLeuOg({
                 display: "flex",
                 fontSize: 40,
                 fontWeight: 700,
-                color: "#FBBF24",
+                color: "#9DBBF0",
               }}
             >
               {label}
@@ -90,7 +90,7 @@ export async function renderLeuOg({
           }}
         >
           <span>Lee Enterprises Unlimited</span>
-          <span style={{ color: "#FBBF24" }}>{domain}</span>
+          <span style={{ color: "#9DBBF0" }}>{domain}</span>
         </div>
       </div>
     ),

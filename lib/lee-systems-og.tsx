@@ -26,7 +26,7 @@ export function renderLeeSystemsOg(line: string) {
           justifyContent: "space-between",
           padding: "72px 80px",
           background: "#0F0F0F",
-          color: "#F5F3EE",
+          color: "#F9FBFC",
           fontFamily: "sans-serif",
         }}
       >
@@ -36,7 +36,7 @@ export function renderLeeSystemsOg(line: string) {
             fontSize: 34,
             fontWeight: 700,
             letterSpacing: 6,
-            color: "#F5F3EE",
+            color: "#F9FBFC",
           }}
         >
           LEE ENTERPRISES UNLIMITED
@@ -63,7 +63,7 @@ export function renderLeeSystemsOg(line: string) {
           }}
         >
           <span>Built personally for you</span>
-          <span style={{ color: "#D4A857" }}>{ogDomain}</span>
+          <span style={{ color: "#9DBBF0" }}>{ogDomain}</span>
         </div>
       </div>
     ),

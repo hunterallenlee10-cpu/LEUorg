@@ -102,13 +102,13 @@ export function HomeFeature() {
 
           <div className="ds-phone absolute right-0 bottom-0 w-[38%] min-w-[9.5rem]">
             <div className="ds-phone-screen px-3 pt-5 pb-4">
-              <p className="font-mono text-[0.55rem] uppercase tracking-[0.25em] text-[#c9a24b]">LEU Automations</p>
+              <p className="font-mono text-[0.55rem] uppercase tracking-[0.25em] text-[#9dbbf0]">LEU Automations</p>
               <ul className="mt-3 space-y-2">
                 {feed.map(({ Icon, title, body }) => (
                   <li key={title} className="flex gap-2 rounded-md border border-white/10 bg-white/[0.04] p-2">
-                    <Icon className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#c9a24b]" strokeWidth={2} />
+                    <Icon className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#9dbbf0]" strokeWidth={2} />
                     <span className="min-w-0">
-                      <span className="block text-[0.65rem] font-semibold leading-tight text-[#f5f3ee]">{title}</span>
+                      <span className="block text-[0.65rem] font-semibold leading-tight text-[#f9fbfc]">{title}</span>
                       <span className="block text-[0.6rem] leading-snug text-[#a1a1aa]">{body}</span>
                     </span>
                   </li>

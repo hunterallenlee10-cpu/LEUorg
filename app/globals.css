@@ -20,12 +20,12 @@
    --------------------------------------------------------------------------- */
 
 .hero-split {
-  background: radial-gradient(120% 90% at 50% 0%, #1a1b1f 0%, #0e0f11 60%, #0a0b0c 100%);
+  background: radial-gradient(120% 90% at 50% 0%, #0f2346 0%, #050b18 60%, #000000 100%);
 }
 
 /* Light: the same pool of light from the top, in daylight greys. */
 :root[data-theme="light"] .hero-split {
-  background: radial-gradient(120% 90% at 50% 0%, #ffffff 0%, #f7f3ea 60%, #efe8d8 100%);
+  background: radial-gradient(120% 90% at 50% 0%, #ffffff 0%, #f9fbfc 60%, #f2f5fb 100%);
 }
 
 /* The headline block: a screen tall from 640px up (short of that on very
@@ -670,11 +670,11 @@
 }
 
 .calc-range:focus-visible::-webkit-slider-thumb {
-  box-shadow: 0 0 0 4px rgb(201 162 75 / 0.45);
+  box-shadow: 0 0 0 4px rgb(157 187 240 / 0.45);
 }
 
 .calc-range:focus-visible::-moz-range-thumb {
-  box-shadow: 0 0 0 4px rgb(201 162 75 / 0.45);
+  box-shadow: 0 0 0 4px rgb(157 187 240 / 0.45);
 }
 
 /* Light: a white thumb in a navy ring. Each pseudo-element needs its own
@@ -725,7 +725,7 @@
   row-gap: 0.25rem;
   padding: 0.875rem 1rem;
   border-top: 1px solid rgb(var(--ink) / 0.08);
-  background: rgb(14 15 17 / 0.72);
+  background: rgb(0 0 0 / 0.72);
   backdrop-filter: blur(8px);
 }
 
@@ -842,7 +842,7 @@
   border: 1px solid rgb(var(--amber) / 0.35);
   border-radius: 9999px;
   background: rgb(var(--amber) / 0.08);
-  color: #e2c275;
+  color: #b9cff5;
 }
 
 /* On the light page a capsule reads as a white chip resting on it, and the
@@ -852,7 +852,7 @@
 }
 
 :root[data-theme="light"] .bm-pill-icon {
-  color: #7f611b;
+  color: #17479a;
 }
 
 .bm-pill-badge {
@@ -861,14 +861,14 @@
   gap: 0.375rem;
   padding: 0.3125rem 0.75rem;
   border-radius: 9999px;
-  background: #c9a24b;
+  background: #9dbbf0;
   color: var(--color-neutral-950);
   font-size: 0.8125rem;
   font-weight: 700;
 }
 
 :root[data-theme="light"] .bm-pill-badge {
-  background: #8a6a1f;
+  background: #17479a;
 }
 
 /* The framed "screens" the rows show: a hairline, a lit top edge and a faint
@@ -892,19 +892,19 @@
 :root[data-theme="light"] .bm-shift-panel {
   border-color: #e1e6ee;
   background:
-    radial-gradient(120% 80% at 100% 0%, rgb(138 106 31 / 0.06), transparent 55%),
+    radial-gradient(120% 80% at 100% 0%, rgb(23 71 154 / 0.06), transparent 55%),
     #ffffff;
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 0.9),
-    0 30px 60px -32px rgb(26 24 20 / 0.22),
-    0 2px 6px -2px rgb(26 24 20 / 0.06);
+    0 30px 60px -32px rgb(15 35 70 / 0.22),
+    0 2px 6px -2px rgb(15 35 70 / 0.06);
 }
 
 .bm-live-dot {
   width: 0.4375rem;
   height: 0.4375rem;
   border-radius: 9999px;
-  background: #c9a24b;
+  background: #9dbbf0;
   box-shadow: 0 0 0 0 rgb(var(--amber) / 0.6);
   animation: bmLivePulse 1.8s ease-out infinite;
 }
@@ -925,13 +925,13 @@
   height: 1.05em;
   margin-left: 2px;
   vertical-align: text-bottom;
-  background: #c9a24b;
+  background: #9dbbf0;
   animation: bmCaret 0.9s steps(1) infinite;
 }
 
 :root[data-theme="light"] .bm-live-dot,
 :root[data-theme="light"] .bm-caret {
-  background: #8a6a1f;
+  background: #17479a;
 }
 
 /* The year clock's (BmYearClock) arc gradient and its sweeping seconds tick.
@@ -941,25 +941,25 @@
 }
 
 .bm-clock-stop-b {
-  stop-color: #a8a5a0;
+  stop-color: #a9b4c8;
 }
 
 .bm-clock-tick {
   stroke: #ffffff;
-  filter: drop-shadow(0 0 4px rgb(201 162 75 / 0.6));
+  filter: drop-shadow(0 0 4px rgb(157 187 240 / 0.6));
 }
 
 :root[data-theme="light"] .bm-clock-stop-a {
-  stop-color: #b8913a;
+  stop-color: #2a62c9;
 }
 
 :root[data-theme="light"] .bm-clock-stop-b {
-  stop-color: #5e4610;
+  stop-color: #0f2346;
 }
 
 :root[data-theme="light"] .bm-clock-tick {
-  stroke: #7a5c16;
-  filter: drop-shadow(0 0 3px rgb(138 106 31 / 0.45));
+  stroke: #133b82;
+  filter: drop-shadow(0 0 3px rgb(23 71 154 / 0.45));
 }
 
 @keyframes bmCaret {
@@ -1025,15 +1025,15 @@
   height: 2.75rem;
   border: 1px solid rgb(var(--amber) / 0.35);
   border-radius: 9999px;
-  background: #121316;
-  color: #e2c275;
+  background: #0a1830;
+  color: #b9cff5;
   animation: bmNodeGlow 4.8s ease-out infinite;
 }
 
 /* The stop is a disc cut out of the panel, so on the white sheet it is white. */
 :root[data-theme="light"] .bm-path-node {
   background: #ffffff;
-  color: #7f611b;
+  color: #17479a;
 }
 
 @keyframes bmNodeGlow {
@@ -1071,7 +1071,7 @@
 }
 
 :root[data-theme="light"] .bm-path-light {
-  background: linear-gradient(180deg, transparent, #b8913a);
+  background: linear-gradient(180deg, transparent, #2a62c9);
 }
 
 @keyframes bmPathLight {
@@ -1176,12 +1176,12 @@
   height: 2px;
   width: 100%;
   transform-origin: left;
-  background: linear-gradient(90deg, #a8a5a0, #ffffff);
+  background: linear-gradient(90deg, #a9b4c8, #ffffff);
   animation: bmTabProgress 6s linear both;
 }
 
 :root[data-theme="light"] .bm-tab-progress {
-  background: linear-gradient(90deg, #5e4610, #b8913a);
+  background: linear-gradient(90deg, #0f2346, #2a62c9);
 }
 
 .bm-tab-progress--full {
@@ -1254,7 +1254,7 @@
 /* Navy thinned by alpha turns lavender on a pale page, so in light the fade
    starts from solid navy and the resting opacity is higher. */
 :root[data-theme="light"] .bm-tenet-num {
-  background-image: linear-gradient(180deg, #8a6a1f 0%, rgb(138 106 31 / 0.12) 95%);
+  background-image: linear-gradient(180deg, #17479a 0%, rgb(23 71 154 / 0.12) 95%);
   opacity: 0.9;
 }
 
@@ -1325,10 +1325,10 @@
   width: var(--bm-badge);
   height: var(--bm-badge);
   border-radius: 0.75rem;
-  background: linear-gradient(180deg, #f0d894 0%, #c9a24b 55%, #a88534 100%);
+  background: linear-gradient(180deg, #d8e1f0 0%, #9dbbf0 55%, #6f98e0 100%);
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 0.6),
-    0 12px 32px -12px rgb(201 162 75 / 0.25);
+    0 12px 32px -12px rgb(157 187 240 / 0.25);
   color: var(--color-neutral-950);
   font-size: 0.9375rem;
   font-weight: 800;
@@ -1337,10 +1337,10 @@
 
 /* The gold squares become the navy of the page's buttons. */
 :root[data-theme="light"] .bm-step-badge {
-  background: linear-gradient(180deg, #b8913a 0%, #8a6a1f 55%, #6e5317 100%);
+  background: linear-gradient(180deg, #2a62c9 0%, #17479a 55%, #0f2346 100%);
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 0.25),
-    0 12px 32px -12px rgb(138 106 31 / 0.45);
+    0 12px 32px -12px rgb(23 71 154 / 0.45);
 }
 
 /* The line: across the whole strip from md up, fading out past the first and
@@ -1436,14 +1436,14 @@
     100deg,
     var(--color-brass-200) 0%,
     var(--color-brass-400) 55%,
-    #a8a5a0 100%
+    #a9b4c8 100%
   );
   -webkit-background-clip: text;
   background-clip: text;
 }
 
 :root[data-theme="light"] .tools-title-accent {
-  background-image: linear-gradient(100deg, #5e4610 0%, #8a6a1f 55%, #b8913a 100%);
+  background-image: linear-gradient(100deg, #0f2346 0%, #17479a 55%, #2a62c9 100%);
 }
 
 .tools-row {
@@ -1541,14 +1541,13 @@
 }
 
 @theme {
-  /* LEU accent, as first built in brass gold (#D4A857). The
-     Lee Systems pages use this scale where the rest of the site uses amber.
-     Both themes re-point it ("Light and dark themes" below: platinum in dark,
-     navy in light), which is why it isn't `inline`: the utilities have to
-     read the variables. */
-  --color-brass-200: #ebd3a0;
-  --color-brass-300: #e0be78;
-  --color-brass-400: #d4a857;
+  /* The LEU accent scale. The Lee Systems pages use it where the rest of the
+     site uses amber. Both themes re-point it ("Light and dark themes" below:
+     light blue in dark, university blue in light), which is why it isn't
+     `inline`: the utilities have to read the variables. */
+  --color-brass-200: #d8e1f0;
+  --color-brass-300: #b9cff5;
+  --color-brass-400: #9dbbf0;
 }
 
 @theme inline {
@@ -1568,28 +1567,32 @@
 /* ---------------------------------------------------------------------------
    Light and dark themes
 
-   The black-and-gold redesign (2026-10-18, after university.com's structure):
-   - Dark, the default: near-black (#0E0F11) with gold (#C9A24B) as the one
-     accent, the LEU gold logo's colour.
-   - Light: ivory and deep gold, turned on by `data-theme="light"` on <html>,
+   university.com's colours (2026-10-18, replacing black and gold):
+   - Dark, the default: navy and black. A black page (#000000), navy
+     (#0F2346) cards, panels and bands, and blue as the accent: #1F56B8
+     button fills (university's #17479A a step brighter, so the edge holds
+     on black) and light blue #9DBBF0 for accent text.
+   - Light: university.com itself. Off-white page #F9FBFC, #F2F5FB for
+     alternate rows, navy #0F2346 text and buttons, blue #17479A accents,
+     and black feature bands. Turned on by `data-theme="light"` on <html>,
      set by the theme switch (components/ui/ThemeToggle.tsx) and, before the
      first paint, by the inline script in app/layout.tsx.
 
    It works by re-pointing colour variables rather than restyling components:
    - Tailwind's own colour variables, so `text-white`, `bg-neutral-950`,
      `text-amber-400`, `bg-brass-400` and the rest follow the theme. Amber
-     and brass are both names for the gold accent. In light the neutral scale
-     is mirrored (950, the page, becomes the lightest) and white becomes ink.
+     and brass are both names for the blue accent (the names are from the
+     gold design). In light the neutral scale is mirrored (950, the page,
+     becomes the lightest) and white becomes navy ink.
    - Four colours as bare RGB channels for this stylesheet, written
      `rgb(var(--ink) / 0.1)`: --ink (text, hairlines, white washes), --gold
      and --amber (the accent) and --ground (the page).
    - The `--ds-*` variables, read by the design-system rules ("LEU design
      system" near the end of this file).
 
-   Contrast (WCAG): gold #C9A24B on #0E0F11 is 8.0:1 and #0E0F11 on gold is
-   the same, so gold text and gold buttons pass AA at any size. In light the
-   accent text is #7F611B on ivory #F7F3EA (5.2:1); gold buttons keep the
-   bright gold fill with near-black text (8.0:1) in both themes.
+   Contrast (WCAG): light blue #9DBBF0 is 11.2:1 on black and 7.0:1 on navy;
+   white on the #1F56B8 button is 6.8:1. In light, navy text on #F9FBFC is
+   15:1, blue #17479A is 8.6:1, and white on the navy button is 15:1.
    --------------------------------------------------------------------------- */
 :root {
   /* The native UI (scrollbars, <select> popups, autofill) follows the theme.
@@ -1601,87 +1604,87 @@
      (the @theme inline block above); pills (rounded-full) are unaffected. */
   --radius: 0.1875rem;
 
-  --ink: 245 243 238;
-  --gold: 201 162 75;
-  --amber: 201 162 75;
-  --ground: 14 15 17;
-  --fg-dim: #8a8a93;
+  --ink: 249 251 252;
+  --gold: 157 187 240;
+  --amber: 157 187 240;
+  --ground: 0 0 0;
+  --fg-dim: #8a96ad;
 
-  /* Near-black, a hair cool, so raised surfaces read as layers. */
-  --color-white: #f5f3ee;
-  --color-neutral-50: #fafafa;
-  --color-neutral-100: #f4f4f5;
-  --color-neutral-200: #e4e4e7;
-  --color-neutral-300: #d4d4d8;
-  --color-neutral-400: #a1a1aa;
-  --color-neutral-500: #71717a;
-  --color-neutral-600: #52525b;
-  --color-neutral-700: #36393e;
-  --color-neutral-800: #24272c;
-  --color-neutral-900: #16181b;
-  --color-neutral-950: #0e0f11;
+  /* Black page, navy surfaces, cool navy-tinted greys for text. */
+  --color-white: #f9fbfc;
+  --color-neutral-50: #f9fbfc;
+  --color-neutral-100: #f2f5fb;
+  --color-neutral-200: #e2e8f2;
+  --color-neutral-300: #c8d1e0;
+  --color-neutral-400: #a9b4c8;
+  --color-neutral-500: #7d8aa3;
+  --color-neutral-600: #5d6b85;
+  --color-neutral-700: #2a4170;
+  --color-neutral-800: #1a3060;
+  --color-neutral-900: #0f2346;
+  --color-neutral-950: #000000;
 
-  /* Gold. 400 is the accent; 200 the brightest highlight. */
-  --color-amber-200: #f0d894;
-  --color-amber-300: #e2c275;
-  --color-amber-400: #c9a24b;
-  --color-amber-500: #a88534;
-  --color-brass-200: #f0d894;
-  --color-brass-300: #e2c275;
-  --color-brass-400: #c9a24b;
+  /* Light blue. 400 is the accent; 200 the brightest highlight. */
+  --color-amber-200: #d8e1f0;
+  --color-amber-300: #b9cff5;
+  --color-amber-400: #9dbbf0;
+  --color-amber-500: #6f98e0;
+  --color-brass-200: #d8e1f0;
+  --color-brass-300: #b9cff5;
+  --color-brass-400: #9dbbf0;
 
   /* Design-system values (see "LEU design system"). */
-  --ds-bg: #0e0f11;
-  --ds-surface: #16181b;
-  --ds-raised: #1d2024;
-  --ds-line: rgb(245 243 238 / 0.1);
-  --ds-text: #f5f3ee;
-  --ds-muted: #a1a1aa;
-  --ds-gold: #c9a24b;
-  --ds-gold-hi: #e2c275;
-  --ds-gold-text: #c9a24b;
-  --ds-on-gold: #0e0f11;
-  --ds-band: #16181b;
-  --ds-alt: #16181b;
-  --ds-focus: #e2c275;
+  --ds-bg: #000000;
+  --ds-surface: #0f2346;
+  --ds-raised: #152d58;
+  --ds-line: rgb(249 251 252 / 0.12);
+  --ds-text: #f9fbfc;
+  --ds-muted: #a9b4c8;
+  --ds-gold: #1f56b8;
+  --ds-gold-hi: #2a62c9;
+  --ds-gold-text: #9dbbf0;
+  --ds-on-gold: #ffffff;
+  --ds-band: #0f2346;
+  --ds-alt: #0a1830;
+  --ds-focus: #9dbbf0;
 }
 
 :root[data-theme="light"] {
   color-scheme: light;
 
-  --ink: 26 24 20;
-  --gold: 127 97 27;
-  --amber: 127 97 27;
-  --ground: 247 243 234;
-  --fg-dim: #6b6355;
+  --ink: 15 35 70;
+  --gold: 23 71 154;
+  --amber: 23 71 154;
+  --ground: 249 251 252;
+  --fg-dim: #5d6b85;
 
-  /* Warm ink for everything that was white. */
-  --color-white: #1a1814;
+  /* Navy ink for everything that was white. */
+  --color-white: #0f2346;
 
-  /* The neutral scale, mirrored and warmed: text greys darken, surfaces
-     lighten to ivory and white. */
-  --color-neutral-50: #12110e;
-  --color-neutral-100: #1a1814;
-  --color-neutral-200: #2a2722;
-  --color-neutral-300: #3f3a32;
-  --color-neutral-400: #554e43;
-  --color-neutral-500: #645c4f;
-  --color-neutral-600: #857c6c;
-  --color-neutral-700: #d6ccb8;
-  --color-neutral-800: #e9e2d3;
+  /* The neutral scale, mirrored: text greys darken toward navy, surfaces
+     lighten to university's off-white and white. */
+  --color-neutral-50: #07122a;
+  --color-neutral-100: #0f2346;
+  --color-neutral-200: #1d3157;
+  --color-neutral-300: #2f4166;
+  --color-neutral-400: #4b5a75;
+  --color-neutral-500: #5d6b85;
+  --color-neutral-600: #7d889e;
+  --color-neutral-700: #d8e1f0;
+  --color-neutral-800: #e6ecf6;
   --color-neutral-900: #ffffff;
-  --color-neutral-950: #f7f3ea;
+  --color-neutral-950: #f9fbfc;
 
-  /* Deep gold, dark enough to read as text on ivory. */
-  --color-amber-200: #5e4610;
-  --color-amber-300: #6e5317;
-  --color-amber-400: #7f611b;
-  --color-amber-500: #6e5317;
-  --color-brass-200: #5e4610;
-  --color-brass-300: #6e5317;
-  --color-brass-400: #7f611b;
+  /* University blue, dark enough to read as text on the off-white page. */
+  --color-amber-200: #0f2346;
+  --color-amber-300: #133b82;
+  --color-amber-400: #17479a;
+  --color-amber-500: #133b82;
+  --color-brass-200: #0f2346;
+  --color-brass-300: #133b82;
+  --color-brass-400: #17479a;
 
-  /* Status colours, darkened to read on ivory. */
+  /* Status colours, darkened to read on the light page. */
   --color-red-200: #991b1b;
   --color-red-300: #b91c1c;
   --color-red-400: #dc2626;
@@ -1691,19 +1694,19 @@
   --color-yellow-400: #a16207;
   --color-cyan-400: #0e7490;
 
-  --ds-bg: #f7f3ea;
+  --ds-bg: #f9fbfc;
   --ds-surface: #ffffff;
-  --ds-raised: #fbf8f1;
-  --ds-line: rgb(26 24 20 / 0.12);
-  --ds-text: #1a1814;
-  --ds-muted: #554e43;
-  --ds-gold: #c9a24b;
-  --ds-gold-hi: #b8913a;
-  --ds-gold-text: #7f611b;
-  --ds-on-gold: #0e0f11;
-  --ds-band: #0e0f11;
-  --ds-alt: #efe8d8;
-  --ds-focus: #7f611b;
+  --ds-raised: #f2f5fb;
+  --ds-line: rgb(15 35 70 / 0.12);
+  --ds-text: #0f2346;
+  --ds-muted: #4b5a75;
+  --ds-gold: #0f2346;
+  --ds-gold-hi: #17479a;
+  --ds-gold-text: #17479a;
+  --ds-on-gold: #ffffff;
+  --ds-band: #000000;
+  --ds-alt: #f2f5fb;
+  --ds-focus: #17479a;
 }
 
 @layer base {
@@ -2309,11 +2312,11 @@
   /* The frame's accent: the bright, rim and deep stops of what lights up, and
      the calls panel's tint. Platinum here; the light theme keeps the video in
      its original brass (below). */
-  --paths-hi: #f0d894;
-  --paths-edge: #e2c275;
-  --paths-lo: #a88534;
-  --paths-warm: 201 162 75;
-  background: #0a0a0a;
+  --paths-hi: #d8e1f0;
+  --paths-edge: #b9cff5;
+  --paths-lo: #6f98e0;
+  --paths-warm: 157 187 240;
+  background: #000000;
   box-shadow:
     0 40px 90px -40px rgb(0 0 0 / 0.9),
     0 0 70px -30px rgb(var(--gold) / 0.22);
@@ -2327,32 +2330,32 @@
 :root[data-theme="light"] .ls-paths-frame {
   color-scheme: dark;
   --ink: 255 255 255;
-  --gold: 201 162 75;
-  --amber: 201 162 75;
-  --ground: 14 15 17;
-  --color-white: #f4f4f5;
-  --color-neutral-50: #fafafa;
-  --color-neutral-100: #f4f4f5;
-  --color-neutral-200: #e4e4e7;
-  --color-neutral-300: #d4d4d8;
-  --color-neutral-400: #a1a1aa;
-  --color-neutral-500: #71717a;
-  --color-neutral-600: #52525b;
-  --color-neutral-700: #36393e;
-  --color-neutral-800: #26282c;
-  --color-neutral-900: #17181b;
-  --color-neutral-950: #0e0f11;
-  --color-brass-200: #f0d894;
-  --color-brass-300: #e2c275;
-  --color-brass-400: #c9a24b;
-  --paths-hi: #f0d894;
-  --paths-edge: #e2c275;
-  --paths-lo: #a88534;
-  --paths-warm: 201 162 75;
-  border-color: rgb(26 24 20 / 0.12);
+  --gold: 157 187 240;
+  --amber: 157 187 240;
+  --ground: 0 0 0;
+  --color-white: #f9fbfc;
+  --color-neutral-50: #f9fbfc;
+  --color-neutral-100: #f2f5fb;
+  --color-neutral-200: #e2e8f2;
+  --color-neutral-300: #c8d1e0;
+  --color-neutral-400: #a9b4c8;
+  --color-neutral-500: #7d8aa3;
+  --color-neutral-600: #5d6b85;
+  --color-neutral-700: #2a4170;
+  --color-neutral-800: #1a3060;
+  --color-neutral-900: #0f2346;
+  --color-neutral-950: #000000;
+  --color-brass-200: #d8e1f0;
+  --color-brass-300: #b9cff5;
+  --color-brass-400: #9dbbf0;
+  --paths-hi: #d8e1f0;
+  --paths-edge: #b9cff5;
+  --paths-lo: #6f98e0;
+  --paths-warm: 157 187 240;
+  border-color: rgb(15 35 70 / 0.12);
   box-shadow:
-    0 40px 80px -36px rgb(26 24 20 / 0.45),
-    0 18px 36px -24px rgb(26 24 20 / 0.3);
+    0 40px 80px -36px rgb(15 35 70 / 0.45),
+    0 18px 36px -24px rgb(15 35 70 / 0.3);
 }
 
 @media (min-width: 640px) {
@@ -3092,7 +3095,7 @@
 
 /* The accent of a price: "$0" here, and "+$10,000s" on the "Take action" card. */
 .ls-price {
-  background: linear-gradient(180deg, #f0d894 0%, #c9a24b 55%, #a88534 100%);
+  background: linear-gradient(180deg, #d8e1f0 0%, #9dbbf0 55%, #6f98e0 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -3101,7 +3104,7 @@
 /* Gold text doesn't hold up on white, so in the light theme the price falls
    through the navy of the buttons instead. */
 :root[data-theme="light"] .ls-price {
-  background-image: linear-gradient(180deg, #b8913a 0%, #8a6a1f 55%, #6e5317 100%);
+  background-image: linear-gradient(180deg, #2a62c9 0%, #17479a 55%, #0f2346 100%);
 }
 
 /* Its opposite: the red of money lost, "Lose money" on the by-hand path of "Two
@@ -3177,21 +3180,21 @@
        than gold on graphite, so it carries about two thirds of the alpha. */
     radial-gradient(
       90% 70% at 50% 12%,
-      rgb(201 162 75 / 0.085) 0%,
-      rgb(168 165 160 / 0.03) 45%,
+      rgb(157 187 240 / 0.085) 0%,
+      rgb(169 180 200 / 0.03) 45%,
       transparent 75%
     ),
     /* A ground with a centre, so the frame is not flat black behind the field. */
-    radial-gradient(115% 95% at 50% 8%, #121316 0%, #0b0c0e 58%, #000 100%);
+    radial-gradient(115% 95% at 50% 8%, #0a1830 0%, #050b18 58%, #000 100%);
 
   /* The canvas palette, as bare channels. BmHeroBackground reads these at
      draw time and again when the theme changes, so the field follows the
      theme like everything else on the page. */
-  --bmc-gold: 201, 162, 75;
-  --bmc-gold-lit: 226, 194, 117;
+  --bmc-gold: 157, 187, 240;
+  --bmc-gold-lit: 185, 207, 245;
   --bmc-gold-hot: 255, 255, 255;
-  --bmc-glow: 168, 133, 52;
-  --bmc-canopy: 14, 15, 17;
+  --bmc-glow: 111, 152, 224;
+  --bmc-canopy: 0, 0, 0;
   --bmc-links: 1;
 }
 
@@ -3203,16 +3206,16 @@
   background:
     radial-gradient(
       90% 70% at 50% 12%,
-      rgb(138 106 31 / 0.09) 0%,
-      rgb(138 106 31 / 0.03) 45%,
+      rgb(23 71 154 / 0.09) 0%,
+      rgb(23 71 154 / 0.03) 45%,
       transparent 75%
     ),
-    radial-gradient(115% 95% at 50% 8%, #ffffff 0%, #f5f0e4 58%, #ece4d2 100%);
+    radial-gradient(115% 95% at 50% 8%, #ffffff 0%, #f2f5fb 58%, #e6ecf6 100%);
 
-  --bmc-gold: 138, 106, 31;
-  --bmc-gold-lit: 94, 70, 16;
-  --bmc-gold-hot: 200, 150, 46;
-  --bmc-glow: 184, 145, 58;
+  --bmc-gold: 23, 71, 154;
+  --bmc-gold-lit: 15, 35, 70;
+  --bmc-gold-hot: 42, 98, 201;
+  --bmc-glow: 42, 98, 201;
   --bmc-canopy: 246, 247, 249;
   --bmc-links: 1.5;
 }
@@ -3932,44 +3935,48 @@ a.ds-card:focus-visible {
 }
 
 /* ---- the full-bleed dark band (alternating rows, closing banner) ----
-   Stays near-black in the light theme too, like university.com's black
-   feature bands on its light page. */
+   Navy on the black page in dark; black in the light theme, like
+   university.com's black feature bands on its light page. */
 .ds-band {
   background: var(--ds-band);
-  color: #f5f3ee;
+  color: #f9fbfc;
 }
 
 :root[data-theme="light"] .ds-band {
   color-scheme: dark;
-  --ds-text: #f5f3ee;
-  --ds-muted: #a1a1aa;
-  --ds-gold-text: #c9a24b;
-  --ds-surface: #16181b;
-  --ds-line: rgb(245 243 238 / 0.12);
-  --ds-bg: #0e0f11;
-  --ds-focus: #e2c275;
-  --ink: 245 243 238;
-  --ground: 14 15 17;
-  --color-white: #f5f3ee;
-  --color-neutral-50: #fafafa;
-  --color-neutral-100: #f4f4f5;
-  --color-neutral-200: #e4e4e7;
-  --color-neutral-300: #d4d4d8;
-  --color-neutral-400: #a1a1aa;
-  --color-neutral-500: #71717a;
-  --color-neutral-600: #52525b;
-  --color-neutral-700: #36393e;
-  --color-neutral-800: #24272c;
-  --color-neutral-900: #16181b;
-  --color-neutral-950: #0e0f11;
-  --color-amber-200: #f0d894;
-  --color-amber-300: #e2c275;
-  --color-amber-400: #c9a24b;
-  --color-amber-500: #a88534;
-  --color-brass-200: #f0d894;
-  --color-brass-300: #e2c275;
-  --color-brass-400: #c9a24b;
-  --gold: 201 162 75;
+  --ds-text: #f9fbfc;
+  --ds-muted: #a9b4c8;
+  --ds-gold-text: #9dbbf0;
+  --ds-surface: #0f2346;
+  --ds-line: rgb(249 251 252 / 0.12);
+  --ds-bg: #000000;
+  --ds-focus: #9dbbf0;
+  --ds-gold: #1f56b8;
+  --ds-gold-hi: #2a62c9;
+  --ds-on-gold: #ffffff;
+  --ink: 249 251 252;
+  --ground: 0 0 0;
+  --color-white: #f9fbfc;
+  --color-neutral-50: #f9fbfc;
+  --color-neutral-100: #f2f5fb;
+  --color-neutral-200: #e2e8f2;
+  --color-neutral-300: #c8d1e0;
+  --color-neutral-400: #a9b4c8;
+  --color-neutral-500: #7d8aa3;
+  --color-neutral-600: #5d6b85;
+  --color-neutral-700: #2a4170;
+  --color-neutral-800: #1a3060;
+  --color-neutral-900: #0f2346;
+  --color-neutral-950: #000000;
+  --color-amber-200: #d8e1f0;
+  --color-amber-300: #b9cff5;
+  --color-amber-400: #9dbbf0;
+  --color-amber-500: #6f98e0;
+  --color-brass-200: #d8e1f0;
+  --color-brass-300: #b9cff5;
+  --color-brass-400: #9dbbf0;
+  --gold: 157 187 240;
+  --amber: 157 187 240;
 }
 
 /* An alternate row: a step off the page colour in both themes, for rows
@@ -4085,9 +4092,9 @@ a.ds-card:focus-visible {
 }
 
 .ds-laptop-screen {
-  border: 1px solid rgb(245 243 238 / 0.14);
+  border: 1px solid rgb(249 251 252 / 0.14);
   border-radius: 0.75rem 0.75rem 0 0;
-  background: #0b0c0e;
+  background: #050b18;
   padding: 2.2%;
 }
 
@@ -4107,14 +4114,14 @@ a.ds-card:focus-visible {
   top: 0;
   height: 0.3rem;
   border-radius: 0 0 0.4rem 0.4rem;
-  background: #121316;
+  background: #0a1830;
 }
 
 .ds-phone {
   position: relative;
-  border: 1px solid rgb(245 243 238 / 0.2);
+  border: 1px solid rgb(249 251 252 / 0.2);
   border-radius: 1.6rem;
-  background: #0b0c0e;
+  background: #050b18;
   padding: 0.45rem;
   box-shadow: 0 30px 60px -25px rgb(0 0 0 / 0.8);
 }
@@ -4122,7 +4129,7 @@ a.ds-card:focus-visible {
 .ds-phone-screen {
   overflow: hidden;
   border-radius: 1.2rem;
-  background: #111214;
+  background: #07101f;
 }
 
 /* ---- entrance: fade up on scroll ----

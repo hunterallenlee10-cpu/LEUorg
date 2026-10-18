@@ -1,26 +1,31 @@
-# Design system (black and gold, 2026-10-18)
+# Design system (university.com colours, 2026-10-18)
 
-The site follows university.com's structure in LEU's own colours, type and
-copy. The study behind it (screenshots and computed styles) is in
-`design-ref/DESIGN-NOTES.md`; the after screenshots are in `design-ref/after/`.
+The site follows university.com's structure and, since 2026-10-18, its
+colours, in LEU's own type and copy. The study behind it (screenshots and
+computed styles) is in `design-ref/DESIGN-NOTES.md`.
 
 ## Tokens
 
-All in `app/globals.css`, "Light and dark themes".
+All in `app/globals.css`, "Light and dark themes". Light is university.com's
+palette; dark is navy and black.
 
 | Token | Dark (default) | Light |
 | --- | --- | --- |
-| Page `--ds-bg` | `#0E0F11` | `#F7F3EA` ivory |
-| Surface `--ds-surface` | `#16181B` | `#FFFFFF` |
-| Text `--ds-text` | `#F5F3EE` | `#1A1814` |
-| Muted `--ds-muted` | `#A1A1AA` (7.5:1) | `#554E43` |
-| Gold fill `--ds-gold` | `#C9A24B` | `#C9A24B` |
-| Gold text `--ds-gold-text` | `#C9A24B` (8.0:1) | `#7F611B` (5.2:1) |
-| Focus ring `--ds-focus` | `#E2C275` | `#7F611B` |
+| Page `--ds-bg` | `#000000` black | `#F9FBFC` |
+| Surface `--ds-surface` | `#0F2346` navy | `#FFFFFF` |
+| Alternate row `--ds-alt` | `#0A1830` | `#F2F5FB` |
+| Text `--ds-text` | `#F9FBFC` | `#0F2346` navy |
+| Muted `--ds-muted` | `#A9B4C8` | `#4B5A75` |
+| Button fill `--ds-gold` | `#1F56B8` blue | `#0F2346` navy |
+| Accent text `--ds-gold-text` | `#9DBBF0` light blue | `#17479A` blue |
+| Text on buttons `--ds-on-gold` | `#FFFFFF` | `#FFFFFF` |
+| Band `--ds-band` | `#0F2346` navy | `#000000` black |
+| Focus ring `--ds-focus` | `#9DBBF0` | `#17479A` |
 
-Tailwind's `amber-*` and `brass-*` colours are both the gold accent, so
-existing utilities follow the theme. `.ds-band` is a panel that stays
-near-black in the light theme too (The Journey, the closing banner).
+Tailwind's `amber-*` and `brass-*` colours are both the blue accent (the
+names are left from the gold design), so existing utilities follow the
+theme. `.ds-band` is a panel that stays dark in the light theme too (The
+Journey, the closing banner).
 
 ## Type
 

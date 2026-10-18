@@ -34,7 +34,7 @@ export function MiniPreview({
       aria-hidden="true"
       data-play={inView ? "" : undefined}
       className={clsx(
-        "svc-mp @container relative aspect-[16/10] overflow-hidden rounded-lg border border-white/10 bg-[#0c0d0f] select-none light:bg-[#f6f7f9]",
+        "svc-mp @container relative aspect-[16/10] overflow-hidden rounded-lg border border-white/10 bg-[#050b18] select-none light:bg-[#f6f7f9]",
         className
       )}
     >
@@ -120,7 +120,7 @@ function GetFoundPreview() {
             className={clsx(
               "absolute inset-x-0 flex h-[10cqw] items-center gap-[2cqw] rounded-[1cqw] border px-[2.4cqw]",
               row.you
-                ? "svc-a-rankup z-10 border-brass-400/60 bg-[#17181b] light:bg-[#fff]"
+                ? "svc-a-rankup z-10 border-brass-400/60 bg-[#0f2346] light:bg-[#fff]"
                 : "svc-a-rankdown border-white/10 bg-white/[0.03]"
             )}
           >
@@ -163,7 +163,7 @@ function GetFoundPreview() {
 
 function Phone916({ children }: { children: React.ReactNode }) {
   return (
-    <div className="absolute top-[6%] bottom-[6%] left-1/2 aspect-[9/16] -translate-x-1/2 overflow-hidden rounded-[3cqw] border-[0.6cqw] border-white/15 bg-[#151619] light:bg-[#fff]">
+    <div className="absolute top-[6%] bottom-[6%] left-1/2 aspect-[9/16] -translate-x-1/2 overflow-hidden rounded-[3cqw] border-[0.6cqw] border-white/15 bg-[#0f2346] light:bg-[#fff]">
       {children}
     </div>
   );
@@ -264,7 +264,7 @@ function CustomAiPreview() {
         </span>
         <span className="text-[2.1cqw] text-neutral-400">&ldquo;40 feet of gutter&hellip;&rdquo;</span>
       </div>
-      <div className="relative rounded-[1.2cqw] border border-white/10 bg-[#17181b] p-[3cqw] light:bg-[#fff]">
+      <div className="relative rounded-[1.2cqw] border border-white/10 bg-[#0f2346] p-[3cqw] light:bg-[#fff]">
         <p className="text-[2.6cqw] font-bold text-white">Quote</p>
         {[78, 64, 70].map((width, i) => (
           <span

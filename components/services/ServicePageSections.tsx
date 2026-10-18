@@ -146,7 +146,7 @@ export function IncludedSection({ group }: { group: ServiceGroup }) {
           {group.items.map((item) => (
             <li
               key={item.name}
-              className="rounded-xl border border-white/10 bg-[#17181b] p-6 light:bg-[#fff] light:shadow-[0_20px_50px_-24px_rgb(26_24_20/0.18)]"
+              className="rounded-xl border border-white/10 bg-[#0f2346] p-6 light:bg-[#fff] light:shadow-[0_20px_50px_-24px_rgb(15_35_70/0.18)]"
             >
               <CircleCheck aria-hidden="true" strokeWidth={1.5} className="h-6 w-6 text-brass-400" />
               <h3 className="mt-4 text-lg leading-snug font-bold text-white">{item.name}</h3>
@@ -175,7 +175,7 @@ export function AudienceSection({ group }: { group: ServiceGroup }) {
             return (
               <li
                 key={industry}
-                className="overflow-hidden rounded-xl border border-white/10 bg-[#17181b] light:bg-[#fff] light:shadow-[0_20px_50px_-24px_rgb(26_24_20/0.18)]"
+                className="overflow-hidden rounded-xl border border-white/10 bg-[#0f2346] light:bg-[#fff] light:shadow-[0_20px_50px_-24px_rgb(15_35_70/0.18)]"
               >
                 <div className="relative aspect-[16/9] overflow-hidden border-b border-white/10">
                   {image ? (
@@ -264,7 +264,7 @@ export function PairsSection({ group }: { group: ServiceGroup }) {
               <li key={slug}>
                 <Link
                   href={servicePath(slug)}
-                  className="group flex h-full flex-col gap-5 rounded-xl border border-white/10 bg-[#17181b] p-5 transition-colors hover:border-brass-400/50 motion-reduce:transition-none sm:flex-row sm:items-center light:bg-[#fff]"
+                  className="group flex h-full flex-col gap-5 rounded-xl border border-white/10 bg-[#0f2346] p-5 transition-colors hover:border-brass-400/50 motion-reduce:transition-none sm:flex-row sm:items-center light:bg-[#fff]"
                 >
                   <MiniPreview slug={slug} className="w-full shrink-0 sm:w-56" />
                   <span>

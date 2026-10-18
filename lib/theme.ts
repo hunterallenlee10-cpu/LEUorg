@@ -11,8 +11,8 @@ export const DEFAULT_THEME: Theme = "dark";
 
 /** The browser bar colour for each theme (the `theme-color` meta). */
 export const THEME_COLORS: Record<Theme, string> = {
-  dark: "#0E0F11",
-  light: "#F7F3EA",
+  dark: "#000000",
+  light: "#F9FBFC",
 };
 
 export function isTheme(value: unknown): value is Theme {

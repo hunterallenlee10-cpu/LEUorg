@@ -362,7 +362,7 @@ function NewSite({
   const total = storeProduct.price + storeProduct.shipping;
 
   return (
-    <div className="relative h-full overflow-hidden bg-[#0f1013] text-white light:bg-[#fff]">
+    <div className="relative h-full overflow-hidden bg-[#050b18] text-white light:bg-[#fff]">
       <div
         aria-hidden="true"
         className={clsx("pointer-events-none absolute -top-1/3 -right-1/4 h-full w-3/4 rounded-full bg-gradient-to-b to-transparent blur-3xl", accent.glow)}

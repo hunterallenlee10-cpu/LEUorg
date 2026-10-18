@@ -14,7 +14,7 @@ export function HomeClosingBanner() {
           <div className="ds-band ds-cut ds-cut--lg relative isolate overflow-hidden px-6 py-16 text-center md:px-12 md:py-20">
             <div
               aria-hidden="true"
-              className="absolute inset-x-0 bottom-0 -z-10 h-full bg-[radial-gradient(60%_80%_at_50%_110%,rgb(201_162_75/0.22),transparent)]"
+              className="absolute inset-x-0 bottom-0 -z-10 h-full bg-[radial-gradient(60%_80%_at_50%_110%,rgb(157_187_240/0.22),transparent)]"
             />
             <h2 id="home-closing-title" className="ds-h2 mx-auto max-w-4xl">
               Every missed lead is <span className="ds-accent">lost money.</span>

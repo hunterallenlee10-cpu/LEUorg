@@ -267,7 +267,7 @@ function SearchResults({ after, highlightCall }: { after: boolean; highlightCall
               className={clsx(
                 "absolute inset-x-0 flex h-[50px] items-center gap-2.5 rounded-lg border px-2.5 transition-[top,opacity,border-color] duration-700 ease-out motion-reduce:transition-none",
                 us && after
-                  ? "z-10 border-brass-400/60 bg-[#17181b] light:bg-[#fff]"
+                  ? "z-10 border-brass-400/60 bg-[#0f2346] light:bg-[#fff]"
                   : "border-white/10 bg-white/[0.02]",
                 index === 3 && "opacity-50"
               )}

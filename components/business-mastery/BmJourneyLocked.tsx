@@ -45,7 +45,7 @@ export function BmJourneyLocked() {
         <div className="ds-band ds-cut ds-cut--lg relative isolate overflow-hidden px-6 py-16 text-center md:px-12 md:py-24" data-reveal>
           <div
             aria-hidden="true"
-            className="absolute left-1/2 top-0 -z-10 h-80 w-[48rem] max-w-[120%] -translate-x-1/2 bg-[radial-gradient(closest-side,rgb(201_162_75/0.16),transparent)]"
+            className="absolute left-1/2 top-0 -z-10 h-80 w-[48rem] max-w-[120%] -translate-x-1/2 bg-[radial-gradient(closest-side,rgb(157_187_240/0.16),transparent)]"
           />
           <p className="ds-eyebrow ds-eyebrow--center">A Life in Full</p>
           <h2 id="journey-title" className="ds-h1 mt-5">
