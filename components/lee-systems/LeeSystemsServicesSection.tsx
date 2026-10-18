@@ -30,7 +30,7 @@ export function LeeSystemsServicesSection() {
     >
       <div className="section-container">
         <div className="mx-auto mb-12 max-w-3xl text-center md:mb-16">
-          <p className="mb-3 text-sm font-semibold text-brass-300">What we do</p>
+          <p className="ds-eyebrow ds-eyebrow--center mb-4">What we do</p>
           <h2 id="ls-services-title" className="heading-lg text-white">
             Everything that brings customers in{" "}
             <span className="text-brass-300">and takes work off your plate</span>
@@ -49,7 +49,7 @@ export function LeeSystemsServicesSection() {
               <li key={slug} id={anchor} className="flex scroll-mt-24">
                 <Link
                   href={servicePath(slug)}
-                  className="group grid w-full grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] items-center gap-4 rounded-xl border border-white/10 bg-[#17181b] p-3.5 transition-colors duration-300 hover:border-brass-400/50 motion-reduce:transition-none sm:p-5 md:flex md:flex-col md:items-stretch md:gap-0 light:bg-[#fff] light:shadow-[0_20px_50px_-24px_rgb(15_26_46/0.18)]"
+                  className="group grid w-full grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] items-center gap-4 rounded-xl border border-white/10 bg-[#17181b] p-3.5 transition-colors duration-300 hover:border-brass-400/50 motion-reduce:transition-none sm:p-5 md:flex md:flex-col md:items-stretch md:gap-0 light:bg-[#fff] light:shadow-[0_20px_50px_-24px_rgb(26_24_20/0.18)]"
                 >
                   <MiniPreview slug={slug} />
                   <span className="flex min-w-0 flex-col md:flex-1">
@@ -85,7 +85,7 @@ export function LeeSystemsServicesSection() {
           </Link>
         </div>
 
-        <div className="mx-auto mt-10 flex max-w-6xl flex-col gap-3 rounded-xl border border-brass-400/25 bg-[#17181b] px-6 py-5 sm:flex-row sm:items-center sm:gap-5 light:bg-[#fff] light:shadow-[0_20px_50px_-24px_rgb(15_26_46/0.18)]">
+        <div className="mx-auto mt-10 flex max-w-6xl flex-col gap-3 rounded-xl border border-brass-400/25 bg-[#17181b] px-6 py-5 sm:flex-row sm:items-center sm:gap-5 light:bg-[#fff] light:shadow-[0_20px_50px_-24px_rgb(26_24_20/0.18)]">
           <span className="flex items-center gap-3">
             <ShieldCheck
               aria-hidden="true"

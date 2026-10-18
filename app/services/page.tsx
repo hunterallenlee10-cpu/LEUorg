@@ -56,7 +56,7 @@ const structuredData = {
 
 export default function ServicesPage() {
   return (
-    <div className="min-h-screen bg-neutral-950">
+    <div className="ds-page min-h-screen bg-neutral-950">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}

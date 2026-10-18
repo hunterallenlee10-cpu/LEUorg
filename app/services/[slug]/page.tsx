@@ -130,7 +130,7 @@ export default async function ServicePage({
   const group = groupFor((await params).slug);
 
   return (
-    <div className="min-h-screen bg-neutral-950">
+    <div className="ds-page min-h-screen bg-neutral-950">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData(group)) }}

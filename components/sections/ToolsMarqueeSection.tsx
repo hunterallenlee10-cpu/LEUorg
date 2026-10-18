@@ -23,15 +23,17 @@ export function ToolsMarqueeSection() {
   return (
     <section
       aria-labelledby="tools-title"
-      className="relative isolate overflow-hidden bg-neutral-950 py-16 md:py-20"
+      className="ds-section relative isolate overflow-hidden"
     >
-      <h2
-        id="tools-title"
-        className="section-container tools-title mb-10 text-center"
-      >
-        Built to work with{" "}
-        <span className="tools-title-accent">the tools you already use.</span>
-      </h2>
+      {/* Restyled in the black-and-gold design system (2026-10-18): the
+          section heading pattern, square pills; every tool is kept. */}
+      <div className="ds-container mb-12 flex flex-col items-center gap-4 text-center" data-reveal>
+        <p className="ds-eyebrow ds-eyebrow--center">Integrations</p>
+        <h2 id="tools-title" className="ds-h2 max-w-4xl text-[clamp(2rem,4.4vw,3.5rem)]">
+          Built to work with{" "}
+          <span className="ds-accent">the tools you already use.</span>
+        </h2>
+      </div>
 
       <div className="space-y-4">
         {rows.map((row, i) => (

@@ -25,7 +25,7 @@
 
 /* Light: the same pool of light from the top, in daylight greys. */
 :root[data-theme="light"] .hero-split {
-  background: radial-gradient(120% 90% at 50% 0%, #ffffff 0%, #f6f7f9 60%, #eef1f6 100%);
+  background: radial-gradient(120% 90% at 50% 0%, #ffffff 0%, #f7f3ea 60%, #efe8d8 100%);
 }
 
 /* The headline block: a screen tall from 640px up (short of that on very
@@ -169,39 +169,8 @@
 }
 
 /* The hero's button: brass, lit from above. `BookCallLink variant="hero"`. */
-.btn-hero {
-  min-height: 3.5rem;
-  padding: 1rem 2.75rem;
-  border-radius: 0.75rem;
-  background: linear-gradient(180deg, #ffffff 0%, #e7e5e4 55%, #c9c6c2 100%);
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.6),
-    0 12px 32px -12px rgb(231 229 228 / 0.25);
-  color: var(--color-neutral-950);
-  font-size: clamp(1rem, 1.3vw, 1.25rem);
-  font-weight: 600;
-  transition: filter 0.2s ease;
-}
-
-.btn-hero:hover {
-  filter: brightness(1.08);
-}
-
-:root[data-theme="light"] .btn-hero {
-  background: linear-gradient(180deg, #2f56c9 0%, #1e40af 55%, #1a3794 100%);
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.25),
-    0 12px 32px -12px rgb(30 64 175 / 0.45);
-}
-
-:root[data-theme="light"] .btn-hero:hover {
-  filter: brightness(1.12);
-}
-
-.btn-hero:focus-visible {
-  outline: 2px solid var(--color-brass-300);
-  outline-offset: 3px;
-}
+/* `.btn-hero` is defined with the other buttons ("Buttons", in the
+   components layer below). */
 
 /* ---- the LEU offer (the owner's ask, 2026-10-06) ----
 
@@ -383,17 +352,22 @@
    result in a lit panel up top with a line per part, then a switch for each
    part (missed calls, website leads, busywork, 2026-10-09) and brass
    sliders for the parts that are on. */
+/* Restyled for the black-and-gold redesign (2026-10-18): a cut-corner card
+   in the surface colour, square controls, the total in the display face. */
 .calc {
+  --cut: 1.5rem;
   border: 1px solid rgb(var(--ink) / 0.1);
-  border-radius: 1.5rem;
-  background: linear-gradient(180deg, rgb(28 29 32 / 0.92), rgb(19 20 23 / 0.92));
-  box-shadow: 0 30px 80px -40px rgba(0, 0, 0, 0.9);
+  border-radius: 0;
+  background: var(--ds-surface);
   padding: clamp(1.25rem, 3.5vw, 2.25rem);
-}
-
-:root[data-theme="light"] .calc {
-  background: linear-gradient(180deg, #ffffff, #fbfcfd);
-  box-shadow: 0 30px 80px -40px rgb(15 26 46 / 0.3);
+  clip-path: polygon(
+    var(--cut) 0,
+    100% 0,
+    100% calc(100% - var(--cut)),
+    calc(100% - var(--cut)) 100%,
+    0 100%,
+    0 var(--cut)
+  );
 }
 
 .calc-title {
@@ -414,10 +388,10 @@
   overflow: hidden;
   margin-top: 1.5rem;
   padding: 1.375rem 1.5rem;
-  border: 1px solid rgb(var(--ink) / 0.08);
-  border-radius: 1rem;
+  border: 1px solid rgb(var(--gold) / 0.35);
+  border-radius: 0;
   background:
-    radial-gradient(90% 120% at 0% 0%, rgb(var(--gold) / 0.2) 0%, transparent 60%),
+    radial-gradient(90% 120% at 0% 0%, rgb(var(--gold) / 0.16) 0%, transparent 60%),
     rgb(var(--ground) / 0.6);
 }
 
@@ -432,11 +406,12 @@
   display: flex;
   align-items: baseline;
   gap: 0.25rem;
-  color: var(--color-white);
-  font-size: clamp(2.5rem, 6vw, 3.5rem);
-  font-weight: 700;
+  color: var(--ds-gold-text);
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 7vw, 4.5rem);
+  font-weight: 900;
   line-height: 1;
-  letter-spacing: -0.03em;
+  letter-spacing: 0;
   font-variant-numeric: tabular-nums;
 }
 
@@ -519,7 +494,7 @@
   min-height: 3.5rem;
   padding: 0.625rem 1rem;
   border: 1px solid rgb(var(--ink) / 0.12);
-  border-radius: 0.875rem;
+  border-radius: 0;
   background: rgb(var(--ink) / 0.02);
   text-align: left;
   cursor: pointer;
@@ -695,11 +670,11 @@
 }
 
 .calc-range:focus-visible::-webkit-slider-thumb {
-  box-shadow: 0 0 0 4px rgb(231 229 228 / 0.45);
+  box-shadow: 0 0 0 4px rgb(201 162 75 / 0.45);
 }
 
 .calc-range:focus-visible::-moz-range-thumb {
-  box-shadow: 0 0 0 4px rgb(231 229 228 / 0.45);
+  box-shadow: 0 0 0 4px rgb(201 162 75 / 0.45);
 }
 
 /* Light: a white thumb in a navy ring. Each pseudo-element needs its own
@@ -867,7 +842,7 @@
   border: 1px solid rgb(var(--amber) / 0.35);
   border-radius: 9999px;
   background: rgb(var(--amber) / 0.08);
-  color: #f5f5f4;
+  color: #e2c275;
 }
 
 /* On the light page a capsule reads as a white chip resting on it, and the
@@ -877,7 +852,7 @@
 }
 
 :root[data-theme="light"] .bm-pill-icon {
-  color: #1e40af;
+  color: #7f611b;
 }
 
 .bm-pill-badge {
@@ -886,14 +861,14 @@
   gap: 0.375rem;
   padding: 0.3125rem 0.75rem;
   border-radius: 9999px;
-  background: #e7e5e4;
+  background: #c9a24b;
   color: var(--color-neutral-950);
   font-size: 0.8125rem;
   font-weight: 700;
 }
 
 :root[data-theme="light"] .bm-pill-badge {
-  background: #1e40af;
+  background: #8a6a1f;
 }
 
 /* The framed "screens" the rows show: a hairline, a lit top edge and a faint
@@ -917,19 +892,19 @@
 :root[data-theme="light"] .bm-shift-panel {
   border-color: #e1e6ee;
   background:
-    radial-gradient(120% 80% at 100% 0%, rgb(30 64 175 / 0.06), transparent 55%),
+    radial-gradient(120% 80% at 100% 0%, rgb(138 106 31 / 0.06), transparent 55%),
     #ffffff;
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 0.9),
-    0 30px 60px -32px rgb(15 26 46 / 0.22),
-    0 2px 6px -2px rgb(15 26 46 / 0.06);
+    0 30px 60px -32px rgb(26 24 20 / 0.22),
+    0 2px 6px -2px rgb(26 24 20 / 0.06);
 }
 
 .bm-live-dot {
   width: 0.4375rem;
   height: 0.4375rem;
   border-radius: 9999px;
-  background: #e7e5e4;
+  background: #c9a24b;
   box-shadow: 0 0 0 0 rgb(var(--amber) / 0.6);
   animation: bmLivePulse 1.8s ease-out infinite;
 }
@@ -950,13 +925,13 @@
   height: 1.05em;
   margin-left: 2px;
   vertical-align: text-bottom;
-  background: #e7e5e4;
+  background: #c9a24b;
   animation: bmCaret 0.9s steps(1) infinite;
 }
 
 :root[data-theme="light"] .bm-live-dot,
 :root[data-theme="light"] .bm-caret {
-  background: #1e40af;
+  background: #8a6a1f;
 }
 
 /* The year clock's (BmYearClock) arc gradient and its sweeping seconds tick.
@@ -971,20 +946,20 @@
 
 .bm-clock-tick {
   stroke: #ffffff;
-  filter: drop-shadow(0 0 4px rgb(231 229 228 / 0.6));
+  filter: drop-shadow(0 0 4px rgb(201 162 75 / 0.6));
 }
 
 :root[data-theme="light"] .bm-clock-stop-a {
-  stop-color: #2f56c9;
+  stop-color: #b8913a;
 }
 
 :root[data-theme="light"] .bm-clock-stop-b {
-  stop-color: #1e3a8a;
+  stop-color: #5e4610;
 }
 
 :root[data-theme="light"] .bm-clock-tick {
-  stroke: #1d4ed8;
-  filter: drop-shadow(0 0 3px rgb(30 64 175 / 0.45));
+  stroke: #7a5c16;
+  filter: drop-shadow(0 0 3px rgb(138 106 31 / 0.45));
 }
 
 @keyframes bmCaret {
@@ -1051,14 +1026,14 @@
   border: 1px solid rgb(var(--amber) / 0.35);
   border-radius: 9999px;
   background: #121316;
-  color: #f5f5f4;
+  color: #e2c275;
   animation: bmNodeGlow 4.8s ease-out infinite;
 }
 
 /* The stop is a disc cut out of the panel, so on the white sheet it is white. */
 :root[data-theme="light"] .bm-path-node {
   background: #ffffff;
-  color: #1e40af;
+  color: #7f611b;
 }
 
 @keyframes bmNodeGlow {
@@ -1096,7 +1071,7 @@
 }
 
 :root[data-theme="light"] .bm-path-light {
-  background: linear-gradient(180deg, transparent, #2f56c9);
+  background: linear-gradient(180deg, transparent, #b8913a);
 }
 
 @keyframes bmPathLight {
@@ -1206,7 +1181,7 @@
 }
 
 :root[data-theme="light"] .bm-tab-progress {
-  background: linear-gradient(90deg, #1e3a8a, #2f56c9);
+  background: linear-gradient(90deg, #5e4610, #b8913a);
 }
 
 .bm-tab-progress--full {
@@ -1279,7 +1254,7 @@
 /* Navy thinned by alpha turns lavender on a pale page, so in light the fade
    starts from solid navy and the resting opacity is higher. */
 :root[data-theme="light"] .bm-tenet-num {
-  background-image: linear-gradient(180deg, #1e40af 0%, rgb(30 64 175 / 0.12) 95%);
+  background-image: linear-gradient(180deg, #8a6a1f 0%, rgb(138 106 31 / 0.12) 95%);
   opacity: 0.9;
 }
 
@@ -1350,10 +1325,10 @@
   width: var(--bm-badge);
   height: var(--bm-badge);
   border-radius: 0.75rem;
-  background: linear-gradient(180deg, #ffffff 0%, #e7e5e4 55%, #c9c6c2 100%);
+  background: linear-gradient(180deg, #f0d894 0%, #c9a24b 55%, #a88534 100%);
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 0.6),
-    0 12px 32px -12px rgb(231 229 228 / 0.25);
+    0 12px 32px -12px rgb(201 162 75 / 0.25);
   color: var(--color-neutral-950);
   font-size: 0.9375rem;
   font-weight: 800;
@@ -1362,10 +1337,10 @@
 
 /* The gold squares become the navy of the page's buttons. */
 :root[data-theme="light"] .bm-step-badge {
-  background: linear-gradient(180deg, #2f56c9 0%, #1e40af 55%, #1a3794 100%);
+  background: linear-gradient(180deg, #b8913a 0%, #8a6a1f 55%, #6e5317 100%);
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 0.25),
-    0 12px 32px -12px rgb(30 64 175 / 0.45);
+    0 12px 32px -12px rgb(138 106 31 / 0.45);
 }
 
 /* The line: across the whole strip from md up, fading out past the first and
@@ -1468,7 +1443,7 @@
 }
 
 :root[data-theme="light"] .tools-title-accent {
-  background-image: linear-gradient(100deg, #1e3a8a 0%, #1e40af 55%, #2f56c9 100%);
+  background-image: linear-gradient(100deg, #5e4610 0%, #8a6a1f 55%, #b8913a 100%);
 }
 
 .tools-row {
@@ -1506,10 +1481,10 @@
   align-items: center;
   gap: 0.7rem;
   padding: 0.975rem 1.5rem;
-  border: 1px solid rgb(var(--ink) / 0.08);
-  border-radius: 1.1rem;
-  background: rgb(var(--ink) / 0.03);
-  color: var(--color-neutral-400);
+  border: 1px solid rgb(var(--ink) / 0.1);
+  border-radius: 0;
+  background: var(--ds-surface);
+  color: var(--color-neutral-300);
   font-size: 1.03rem;
   font-weight: 600;
   white-space: nowrap;
@@ -1577,6 +1552,9 @@
 }
 
 @theme inline {
+  /* `font-mono` is Geist Mono (lib/fonts.ts), for eyebrows and labels. */
+  --font-mono: var(--font-mono-ds), ui-monospace, SFMono-Regular, Menlo, monospace;
+
   /* Live overrides of Tailwind's default radii (md 8px, lg 10px, xl 14px, 2xl
      18px, where the defaults are 6, 8, 12 and 16), so every `rounded-md` to
      `rounded-2xl` on the site, and the `.glass-card` and `.btn-*` rules below,
@@ -1590,42 +1568,47 @@
 /* ---------------------------------------------------------------------------
    Light and dark themes
 
-   Two themes, picked by the owner on 2026-10-17:
-   - Dark, the default: "Graphite & Platinum". Soft graphite greys, white
-     text, and platinum (a warm silver) where the site was built in brass
-     gold. The gold logo is the one colour left on the page.
-   - Light: "Daylight & Navy", turned on by `data-theme="light"` on <html>,
+   The black-and-gold redesign (2026-10-18, after university.com's structure):
+   - Dark, the default: near-black (#0E0F11) with gold (#C9A24B) as the one
+     accent, the LEU gold logo's colour.
+   - Light: ivory and deep gold, turned on by `data-theme="light"` on <html>,
      set by the theme switch (components/ui/ThemeToggle.tsx) and, before the
      first paint, by the inline script in app/layout.tsx.
 
    It works by re-pointing colour variables rather than restyling components:
    - Tailwind's own colour variables, so `text-white`, `bg-neutral-950`,
      `text-amber-400`, `bg-brass-400` and the rest follow the theme. Amber
-     and brass are the accent's names from when it was gold: platinum in
-     dark, navy in light. In light the neutral scale is mirrored (950, the
-     page, becomes the lightest) and white becomes navy ink.
+     and brass are both names for the gold accent. In light the neutral scale
+     is mirrored (950, the page, becomes the lightest) and white becomes ink.
    - Four colours as bare RGB channels for this stylesheet, written
      `rgb(var(--ink) / 0.1)`: --ink (text, hairlines, white washes), --gold
-     and --amber (the accent, as above) and --ground (the page).
-   Anything a variable can't express (a gradient, a canvas drawing) gets a
-   `:root[data-theme="light"]` rule next to its dark one.
+     and --amber (the accent) and --ground (the page).
+   - The `--ds-*` variables, read by the design-system rules ("LEU design
+     system" near the end of this file).
+
+   Contrast (WCAG): gold #C9A24B on #0E0F11 is 8.0:1 and #0E0F11 on gold is
+   the same, so gold text and gold buttons pass AA at any size. In light the
+   accent text is #7F611B on ivory #F7F3EA (5.2:1); gold buttons keep the
+   bright gold fill with near-black text (8.0:1) in both themes.
    --------------------------------------------------------------------------- */
 :root {
   /* The native UI (scrollbars, <select> popups, autofill) follows the theme.
      A root `color-scheme` in CSS outranks the viewport meta in
      app/layout.tsx, so this is the one that decides. */
   color-scheme: dark;
-  --radius: 0.625rem;
+  /* Near-square: the redesign's buttons and cards have sharp corners, like
+     the LEU logo. Tailwind's rounded-md to rounded-2xl are sized from this
+     (the @theme inline block above); pills (rounded-full) are unaffected. */
+  --radius: 0.1875rem;
 
-  --ink: 255 255 255;
-  --gold: 231 229 228;
-  --amber: 231 229 228;
+  --ink: 245 243 238;
+  --gold: 201 162 75;
+  --amber: 201 162 75;
   --ground: 14 15 17;
   --fg-dim: #8a8a93;
 
-  /* Graphite: a cool, slightly blue-grey scale in place of Tailwind's flat
-     neutral, so the page reads as graphite rather than black. */
-  --color-white: #f4f4f5;
+  /* Near-black, a hair cool, so raised surfaces read as layers. */
+  --color-white: #f5f3ee;
   --color-neutral-50: #fafafa;
   --color-neutral-100: #f4f4f5;
   --color-neutral-200: #e4e4e7;
@@ -1634,56 +1617,71 @@
   --color-neutral-500: #71717a;
   --color-neutral-600: #52525b;
   --color-neutral-700: #36393e;
-  --color-neutral-800: #26282c;
-  --color-neutral-900: #17181b;
+  --color-neutral-800: #24272c;
+  --color-neutral-900: #16181b;
   --color-neutral-950: #0e0f11;
 
-  /* Platinum where the gold was. 200 was the brightest gold, so it is
-     white. */
-  --color-amber-200: #ffffff;
-  --color-amber-300: #f5f5f4;
-  --color-amber-400: #e7e5e4;
-  --color-amber-500: #c9c6c2;
-  --color-brass-200: #ffffff;
-  --color-brass-300: #f5f5f4;
-  --color-brass-400: #e7e5e4;
+  /* Gold. 400 is the accent; 200 the brightest highlight. */
+  --color-amber-200: #f0d894;
+  --color-amber-300: #e2c275;
+  --color-amber-400: #c9a24b;
+  --color-amber-500: #a88534;
+  --color-brass-200: #f0d894;
+  --color-brass-300: #e2c275;
+  --color-brass-400: #c9a24b;
+
+  /* Design-system values (see "LEU design system"). */
+  --ds-bg: #0e0f11;
+  --ds-surface: #16181b;
+  --ds-raised: #1d2024;
+  --ds-line: rgb(245 243 238 / 0.1);
+  --ds-text: #f5f3ee;
+  --ds-muted: #a1a1aa;
+  --ds-gold: #c9a24b;
+  --ds-gold-hi: #e2c275;
+  --ds-gold-text: #c9a24b;
+  --ds-on-gold: #0e0f11;
+  --ds-band: #16181b;
+  --ds-alt: #16181b;
+  --ds-focus: #e2c275;
 }
 
 :root[data-theme="light"] {
   color-scheme: light;
 
-  --ink: 15 26 46;
-  --gold: 30 64 175;
-  --amber: 30 64 175;
-  --ground: 246 247 249;
-  --fg-dim: #6b7487;
+  --ink: 26 24 20;
+  --gold: 127 97 27;
+  --amber: 127 97 27;
+  --ground: 247 243 234;
+  --fg-dim: #6b6355;
 
-  /* Navy ink for everything that was white. */
-  --color-white: #0f1a2e;
+  /* Warm ink for everything that was white. */
+  --color-white: #1a1814;
 
-  /* The neutral scale, mirrored: text greys darken, surfaces lighten. */
-  --color-neutral-50: #0b1424;
-  --color-neutral-100: #0f1a2e;
-  --color-neutral-200: #1e293b;
-  --color-neutral-300: #334155;
-  --color-neutral-400: #475266;
-  --color-neutral-500: #5b6578;
-  --color-neutral-600: #7d8799;
-  --color-neutral-700: #c3cad6;
-  --color-neutral-800: #e1e6ee;
+  /* The neutral scale, mirrored and warmed: text greys darken, surfaces
+     lighten to ivory and white. */
+  --color-neutral-50: #12110e;
+  --color-neutral-100: #1a1814;
+  --color-neutral-200: #2a2722;
+  --color-neutral-300: #3f3a32;
+  --color-neutral-400: #554e43;
+  --color-neutral-500: #645c4f;
+  --color-neutral-600: #857c6c;
+  --color-neutral-700: #d6ccb8;
+  --color-neutral-800: #e9e2d3;
   --color-neutral-900: #ffffff;
-  --color-neutral-950: #f6f7f9;
+  --color-neutral-950: #f7f3ea;
 
-  /* Gold becomes navy. 200 was the brightest gold, so it is the deepest navy. */
-  --color-amber-200: #1e3a8a;
-  --color-amber-300: #1d4ed8;
-  --color-amber-400: #1e40af;
-  --color-amber-500: #1e3a8a;
-  --color-brass-200: #1e3a8a;
-  --color-brass-300: #1d4ed8;
-  --color-brass-400: #1e40af;
+  /* Deep gold, dark enough to read as text on ivory. */
+  --color-amber-200: #5e4610;
+  --color-amber-300: #6e5317;
+  --color-amber-400: #7f611b;
+  --color-amber-500: #6e5317;
+  --color-brass-200: #5e4610;
+  --color-brass-300: #6e5317;
+  --color-brass-400: #7f611b;
 
-  /* Status colours, darkened to read on white. */
+  /* Status colours, darkened to read on ivory. */
   --color-red-200: #991b1b;
   --color-red-300: #b91c1c;
   --color-red-400: #dc2626;
@@ -1692,6 +1690,20 @@
   --color-emerald-400: #047857;
   --color-yellow-400: #a16207;
   --color-cyan-400: #0e7490;
+
+  --ds-bg: #f7f3ea;
+  --ds-surface: #ffffff;
+  --ds-raised: #fbf8f1;
+  --ds-line: rgb(26 24 20 / 0.12);
+  --ds-text: #1a1814;
+  --ds-muted: #554e43;
+  --ds-gold: #c9a24b;
+  --ds-gold-hi: #b8913a;
+  --ds-gold-text: #7f611b;
+  --ds-on-gold: #0e0f11;
+  --ds-band: #0e0f11;
+  --ds-alt: #efe8d8;
+  --ds-focus: #7f611b;
 }
 
 @layer base {
@@ -1748,49 +1760,125 @@
     background-color: #ffffff;
   }
 
-  /* Button base styles */
-  .btn-primary {
-    @apply px-6 py-3 bg-amber-400 text-neutral-950 font-semibold rounded-lg hover:bg-amber-300 transition-all duration-200 hover:scale-105 active:scale-95;
+  /* Buttons (the black-and-gold redesign, 2026-10-18). One shape, after
+     university.com's: square corners and a double border, drawn as a 2px
+     gold border with a 2px ring of the page colour inside it, around a
+     solid gold fill. Hover empties the fill, leaving the gold outline.
+     `--ds-*` come from the theme blocks above; padding and size here are
+     defaults, so utilities passed on a button (the header's compact one)
+     still win. */
+  .btn-primary,
+  .btn-ls-primary,
+  .btn-ls-glow,
+  .btn-hero,
+  .btn-ds {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    min-height: 3rem;
+    padding: 0.75rem 1.75rem;
+    border: 2px solid var(--ds-gold);
+    border-radius: 0;
+    background: var(--ds-gold);
+    box-shadow: inset 0 0 0 2px var(--ds-bg);
+    color: var(--ds-on-gold);
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    line-height: 1.2;
+    text-align: center;
+    transition:
+      background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+      color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  .btn-secondary {
-    @apply px-6 py-3 border-2 border-amber-400 text-amber-400 font-semibold rounded-lg hover:bg-amber-400/10 transition-all duration-200;
+  .btn-primary:hover,
+  .btn-ls-primary:hover,
+  .btn-ls-glow:hover,
+  .btn-hero:hover,
+  .btn-ds:hover {
+    background: transparent;
+    color: var(--ds-gold-text);
   }
 
-  /* LEU buttons: the same shapes as the two above in brass, and
-     without the scale-on-hover, which is louder than the brand's calm tone. */
-  .btn-ls-primary {
-    @apply px-6 py-3 bg-brass-400 text-neutral-950 font-semibold rounded-lg hover:bg-brass-300 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brass-300;
+  /* The hero's, and any standalone call: bigger. */
+  .btn-hero {
+    min-height: 3.75rem;
+    padding: 1rem 1.25rem;
+    font-size: 1.0625rem;
   }
 
-  .btn-ls-secondary {
-    @apply px-6 py-3 border-2 border-brass-400 text-brass-300 font-semibold rounded-lg hover:bg-brass-400/10 transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brass-300;
+  @media (min-width: 640px) {
+    .btn-hero {
+      padding: 1rem 2.5rem;
+      font-size: 1.125rem;
+    }
   }
 
-  /* The pair in the How It Works page's "Two paths" and "The choice is yours"
-     sections, after The Real World's (the owner's reference, 2026-09-29): a
-     dim grey button on the path of doing nothing, and a lit gold one for the
-     call (BookCallLink's "glow"). */
+  /* Secondary: the same shape, outlined, gold text. Hover fills it. */
+  .btn-secondary,
+  .btn-ls-secondary,
+  .btn-ds-outline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    min-height: 3rem;
+    padding: 0.75rem 1.75rem;
+    border: 2px solid var(--ds-gold);
+    border-radius: 0;
+    background: transparent;
+    color: var(--ds-gold-text);
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    line-height: 1.2;
+    text-align: center;
+    transition:
+      background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+      color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .btn-secondary:hover,
+  .btn-ls-secondary:hover,
+  .btn-ds-outline:hover {
+    background: var(--ds-gold);
+    color: var(--ds-on-gold);
+  }
+
+  /* The "doing nothing" button in the two-paths comparisons: the same
+     shape in grey. */
   .btn-ls-muted {
-    @apply inline-flex min-h-11 items-center justify-center rounded-xl border border-white/10 bg-gradient-to-b from-neutral-700/50 to-neutral-800/50 px-5 py-3 text-center font-semibold text-neutral-300 shadow-[inset_0_1px_0_rgb(var(--ink)/0.08)] transition-colors duration-200 hover:border-white/20 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neutral-300;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3rem;
+    padding: 0.75rem 1.75rem;
+    border: 2px solid rgb(var(--ink) / 0.25);
+    border-radius: 0;
+    background: rgb(var(--ink) / 0.08);
+    box-shadow: inset 0 0 0 2px var(--ds-bg);
+    color: var(--color-neutral-300);
+    font-weight: 700;
+    text-align: center;
+    transition: color 0.3s ease, border-color 0.3s ease;
   }
 
-  .btn-ls-glow {
-    @apply rounded-xl px-5 py-3 font-bold text-neutral-950 transition-[filter] duration-200 hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brass-300;
-    background: linear-gradient(180deg, #ffffff 0%, #e7e5e4 50%, #c9c6c2 100%);
-    box-shadow:
-      inset 0 1px 0 rgb(var(--ink) / 0.5),
-      0 0 0 1px rgb(var(--gold) / 0.6),
-      0 12px 36px -10px rgb(231 229 228 / 0.3);
+  .btn-ls-muted:hover {
+    border-color: rgb(var(--ink) / 0.45);
+    color: var(--color-white);
   }
 
-  /* Light: the same lit button in navy. */
-  :root[data-theme="light"] .btn-ls-glow {
-    background: linear-gradient(180deg, #3a63d6 0%, #2447b8 50%, #1a3794 100%);
-    box-shadow:
-      inset 0 1px 0 rgb(255 255 255 / 0.3),
-      0 0 0 1px rgb(30 64 175 / 0.6),
-      0 12px 36px -10px rgb(30 64 175 / 0.5);
+  .btn-primary:focus-visible,
+  .btn-secondary:focus-visible,
+  .btn-ls-primary:focus-visible,
+  .btn-ls-secondary:focus-visible,
+  .btn-ls-glow:focus-visible,
+  .btn-ls-muted:focus-visible,
+  .btn-hero:focus-visible,
+  .btn-ds:focus-visible,
+  .btn-ds-outline:focus-visible {
+    outline: 3px solid var(--ds-focus);
+    outline-offset: 3px;
   }
 
   /* Section utilities */
@@ -2221,10 +2309,10 @@
   /* The frame's accent: the bright, rim and deep stops of what lights up, and
      the calls panel's tint. Platinum here; the light theme keeps the video in
      its original brass (below). */
-  --paths-hi: #ffffff;
-  --paths-edge: #f5f5f4;
-  --paths-lo: #c9c6c2;
-  --paths-warm: 231 229 228;
+  --paths-hi: #f0d894;
+  --paths-edge: #e2c275;
+  --paths-lo: #a88534;
+  --paths-warm: 201 162 75;
   background: #0a0a0a;
   box-shadow:
     0 40px 90px -40px rgb(0 0 0 / 0.9),
@@ -2239,8 +2327,8 @@
 :root[data-theme="light"] .ls-paths-frame {
   color-scheme: dark;
   --ink: 255 255 255;
-  --gold: 231 229 228;
-  --amber: 231 229 228;
+  --gold: 201 162 75;
+  --amber: 201 162 75;
   --ground: 14 15 17;
   --color-white: #f4f4f5;
   --color-neutral-50: #fafafa;
@@ -2254,17 +2342,17 @@
   --color-neutral-800: #26282c;
   --color-neutral-900: #17181b;
   --color-neutral-950: #0e0f11;
-  --color-brass-200: #ffffff;
-  --color-brass-300: #f5f5f4;
-  --color-brass-400: #e7e5e4;
-  --paths-hi: #ffffff;
-  --paths-edge: #f5f5f4;
-  --paths-lo: #c9c6c2;
-  --paths-warm: 231 229 228;
-  border-color: rgb(15 26 46 / 0.12);
+  --color-brass-200: #f0d894;
+  --color-brass-300: #e2c275;
+  --color-brass-400: #c9a24b;
+  --paths-hi: #f0d894;
+  --paths-edge: #e2c275;
+  --paths-lo: #a88534;
+  --paths-warm: 201 162 75;
+  border-color: rgb(26 24 20 / 0.12);
   box-shadow:
-    0 40px 80px -36px rgb(15 26 46 / 0.45),
-    0 18px 36px -24px rgb(15 26 46 / 0.3);
+    0 40px 80px -36px rgb(26 24 20 / 0.45),
+    0 18px 36px -24px rgb(26 24 20 / 0.3);
 }
 
 @media (min-width: 640px) {
@@ -3004,7 +3092,7 @@
 
 /* The accent of a price: "$0" here, and "+$10,000s" on the "Take action" card. */
 .ls-price {
-  background: linear-gradient(180deg, #ffffff 0%, #e7e5e4 55%, #c9c6c2 100%);
+  background: linear-gradient(180deg, #f0d894 0%, #c9a24b 55%, #a88534 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -3013,7 +3101,7 @@
 /* Gold text doesn't hold up on white, so in the light theme the price falls
    through the navy of the buttons instead. */
 :root[data-theme="light"] .ls-price {
-  background-image: linear-gradient(180deg, #2f56c9 0%, #1e40af 55%, #1a3794 100%);
+  background-image: linear-gradient(180deg, #b8913a 0%, #8a6a1f 55%, #6e5317 100%);
 }
 
 /* Its opposite: the red of money lost, "Lose money" on the by-hand path of "Two
@@ -3089,7 +3177,7 @@
        than gold on graphite, so it carries about two thirds of the alpha. */
     radial-gradient(
       90% 70% at 50% 12%,
-      rgb(231 229 228 / 0.085) 0%,
+      rgb(201 162 75 / 0.085) 0%,
       rgb(168 165 160 / 0.03) 45%,
       transparent 75%
     ),
@@ -3099,10 +3187,10 @@
   /* The canvas palette, as bare channels. BmHeroBackground reads these at
      draw time and again when the theme changes, so the field follows the
      theme like everything else on the page. */
-  --bmc-gold: 231, 229, 228;
-  --bmc-gold-lit: 245, 245, 244;
+  --bmc-gold: 201, 162, 75;
+  --bmc-gold-lit: 226, 194, 117;
   --bmc-gold-hot: 255, 255, 255;
-  --bmc-glow: 201, 198, 194;
+  --bmc-glow: 168, 133, 52;
   --bmc-canopy: 14, 15, 17;
   --bmc-links: 1;
 }
@@ -3115,16 +3203,16 @@
   background:
     radial-gradient(
       90% 70% at 50% 12%,
-      rgb(30 64 175 / 0.09) 0%,
-      rgb(30 64 175 / 0.03) 45%,
+      rgb(138 106 31 / 0.09) 0%,
+      rgb(138 106 31 / 0.03) 45%,
       transparent 75%
     ),
-    radial-gradient(115% 95% at 50% 8%, #ffffff 0%, #f3f5f9 58%, #e8edf5 100%);
+    radial-gradient(115% 95% at 50% 8%, #ffffff 0%, #f5f0e4 58%, #ece4d2 100%);
 
-  --bmc-gold: 30, 64, 175;
-  --bmc-gold-lit: 23, 37, 84;
+  --bmc-gold: 138, 106, 31;
+  --bmc-gold-lit: 94, 70, 16;
   --bmc-gold-hot: 200, 150, 46;
-  --bmc-glow: 47, 86, 201;
+  --bmc-glow: 184, 145, 58;
   --bmc-canopy: 246, 247, 249;
   --bmc-links: 1.5;
 }
@@ -3525,4 +3613,554 @@
     #000 82%,
     transparent 100%
   );
+}
+
+/* ===========================================================================
+   LEU design system (the black-and-gold redesign, 2026-10-18)
+
+   After university.com's structure, in LEU's own colours and type: big
+   all-caps condensed headlines, widely tracked mono eyebrows, one gold
+   button shape, hand-drawn gold accents, cut ("chamfered") corners echoing
+   the LEU logo's L, stat tiles, and one fade-up entrance.
+
+   Colours come from the `--ds-*` variables in the theme blocks above, so
+   every rule here works in both themes. Pages opt in with `.ds-page` on
+   their outer wrapper (headings on those pages take the display face).
+   =========================================================================== */
+
+/* Pages in the new system: every h1/h2 in the page takes the display face,
+   so sections built before the redesign match without markup changes. Sizes
+   stay with each heading's own classes. `.ds-keep` opts a heading out
+   (headings inside a demo's mock screen). */
+.ds-page main :is(h1, h2):not(.ds-keep, .ds-keep *) {
+  font-family: var(--font-display);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.005em;
+  line-height: 0.95;
+}
+
+@layer components {
+/* ---- layout ---- */
+.ds-container {
+  width: 100%;
+  max-width: 72.5rem; /* 1160px */
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .ds-container {
+    padding-inline: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .ds-container {
+    padding-inline: 2rem;
+  }
+}
+
+.ds-section {
+  position: relative;
+  padding-block: clamp(4rem, 8vw, 7.5rem);
+}
+
+.ds-section--tight {
+  padding-block: clamp(3rem, 5vw, 4.5rem);
+}
+
+/* ---- type ---- */
+.ds-display,
+.ds-h1,
+.ds-h2,
+.ds-h3 {
+  font-family: var(--font-display);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.005em;
+  line-height: 0.92;
+  color: var(--ds-text);
+  text-wrap: balance;
+}
+
+.ds-h1 {
+  font-size: clamp(3.4rem, 10.5vw, 8.5rem);
+}
+
+.ds-h2 {
+  font-size: clamp(2.6rem, 6.2vw, 5rem);
+}
+
+/* For a headline in a narrow column (beside a form, calculator or list). */
+.ds-h2--sm {
+  font-size: clamp(2.3rem, 4.4vw, 3.9rem);
+}
+
+.ds-h3 {
+  font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+  line-height: 1;
+}
+
+.ds-eyebrow {
+  display: block;
+  font-family: var(--font-mono-ds), ui-monospace, monospace;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--ds-gold-text);
+}
+
+@media (min-width: 768px) {
+  .ds-eyebrow {
+    font-size: 0.875rem;
+  }
+}
+
+/* Letter-spacing hangs off the last letter, so a centred eyebrow is indented
+   by the same amount to sit on true centre. */
+.ds-eyebrow--center,
+.text-center > .ds-eyebrow {
+  text-align: center;
+  text-indent: 0.42em;
+}
+
+/* The section headings built before the redesign, scaled for the condensed
+   display face on redesigned pages. A size utility on the heading still
+   wins (utilities outrank this layer). */
+.ds-page .heading-lg {
+  font-size: clamp(2.3rem, 4.6vw, 3.9rem);
+}
+
+.ds-page .heading-xl {
+  font-size: clamp(3rem, 7vw, 6rem);
+}
+
+.ds-sub {
+  color: var(--ds-muted);
+  font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
+  line-height: 1.55;
+}
+
+.ds-accent {
+  color: var(--ds-gold-text);
+}
+
+/* A section's header: eyebrow, headline, one line under it. */
+.ds-head {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 48rem;
+}
+
+.ds-head--center {
+  align-items: center;
+  margin-inline: auto;
+  text-align: center;
+}
+
+/* ---- the hand-drawn underline ----
+   An inline SVG stroke under one word (components/ui/Scribble.tsx). It draws
+   itself in when the word scrolls into view, where the browser supports
+   scroll-driven animation; otherwise, and under reduced motion, it is simply
+   there. */
+.ds-underline {
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.ds-underline > svg {
+  position: absolute;
+  left: -3%;
+  bottom: -0.16em;
+  width: 106%;
+  height: 0.3em;
+  overflow: visible;
+  pointer-events: none;
+  color: var(--ds-gold);
+}
+
+.ds-underline path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+
+.ds-arrow {
+  color: var(--ds-gold);
+  flex-shrink: 0;
+}
+
+/* ---- cut corners ----
+   The LEU logo's L ends in a 45° cut; cards, tiles and banners cut their
+   top-left and bottom-right corners the same way. `--cut` sets the size. */
+.ds-cut {
+  --cut: 1.25rem;
+  clip-path: polygon(
+    var(--cut) 0,
+    100% 0,
+    100% calc(100% - var(--cut)),
+    calc(100% - var(--cut)) 100%,
+    0 100%,
+    0 var(--cut)
+  );
+}
+
+.ds-cut--lg {
+  --cut: 2.5rem;
+}
+
+@media (max-width: 639px) {
+  .ds-cut--lg {
+    --cut: 1.5rem;
+  }
+}
+
+/* A cut-corner card with a hairline edge: the outer box is the edge colour,
+   the inner the surface, both cut, 1px apart. */
+.ds-card {
+  --cut: 1.25rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 1px;
+  background: var(--ds-line);
+  transition: background-color 0.3s ease;
+}
+
+.ds-card,
+.ds-card > .ds-card-body {
+  clip-path: polygon(
+    var(--cut) 0,
+    100% 0,
+    100% calc(100% - var(--cut)),
+    calc(100% - var(--cut)) 100%,
+    0 100%,
+    0 var(--cut)
+  );
+}
+
+.ds-card > .ds-card-body {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  background: var(--ds-surface);
+}
+
+/* Linked cards light their edge gold on hover and keyboard focus. */
+a.ds-card:hover,
+a.ds-card:focus-visible,
+.ds-card:has(a:hover) {
+  background: var(--ds-gold);
+}
+
+a.ds-card:focus-visible {
+  outline: 3px solid var(--ds-focus);
+  outline-offset: 4px;
+}
+
+/* ---- stat tiles ---- */
+.ds-stats {
+  display: grid;
+  gap: 1px;
+  background: var(--ds-line);
+  border: 1px solid var(--ds-line);
+}
+
+@media (min-width: 768px) {
+  .ds-stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.ds-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 2rem 1.25rem;
+  background: var(--ds-surface);
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .ds-stat {
+    padding: 2.75rem 1.5rem;
+  }
+}
+
+.ds-stat-value {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(3.25rem, 6vw, 5rem);
+  line-height: 0.9;
+  color: var(--ds-gold-text);
+  font-variant-numeric: tabular-nums;
+}
+
+.ds-stat-label {
+  font-family: var(--font-mono-ds), ui-monospace, monospace;
+  font-size: 0.8125rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ds-muted);
+}
+
+/* ---- check list ---- */
+.ds-checks {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.ds-checks li {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  color: var(--ds-text);
+  line-height: 1.5;
+}
+
+.ds-checks svg {
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-top: 0.15rem;
+  color: var(--ds-gold-text);
+}
+
+/* ---- the full-bleed dark band (alternating rows, closing banner) ----
+   Stays near-black in the light theme too, like university.com's black
+   feature bands on its light page. */
+.ds-band {
+  background: var(--ds-band);
+  color: #f5f3ee;
+}
+
+:root[data-theme="light"] .ds-band {
+  color-scheme: dark;
+  --ds-text: #f5f3ee;
+  --ds-muted: #a1a1aa;
+  --ds-gold-text: #c9a24b;
+  --ds-surface: #16181b;
+  --ds-line: rgb(245 243 238 / 0.12);
+  --ds-bg: #0e0f11;
+  --ds-focus: #e2c275;
+  --ink: 245 243 238;
+  --ground: 14 15 17;
+  --color-white: #f5f3ee;
+  --color-neutral-50: #fafafa;
+  --color-neutral-100: #f4f4f5;
+  --color-neutral-200: #e4e4e7;
+  --color-neutral-300: #d4d4d8;
+  --color-neutral-400: #a1a1aa;
+  --color-neutral-500: #71717a;
+  --color-neutral-600: #52525b;
+  --color-neutral-700: #36393e;
+  --color-neutral-800: #24272c;
+  --color-neutral-900: #16181b;
+  --color-neutral-950: #0e0f11;
+  --color-amber-200: #f0d894;
+  --color-amber-300: #e2c275;
+  --color-amber-400: #c9a24b;
+  --color-amber-500: #a88534;
+  --color-brass-200: #f0d894;
+  --color-brass-300: #e2c275;
+  --color-brass-400: #c9a24b;
+  --gold: 201 162 75;
+}
+
+/* An alternate row: a step off the page colour in both themes, for rows
+   whose content has its own light-theme styling (device illustrations). */
+.ds-alt {
+  background: var(--ds-alt);
+}
+
+/* ---- VS badge ---- */
+.ds-vs {
+  display: grid;
+  place-items: center;
+  width: 4.5rem;
+  height: 4.5rem;
+  border: 2px solid var(--ds-gold);
+  border-radius: 9999px;
+  background: var(--ds-bg);
+  box-shadow: 0 0 0 6px var(--ds-bg);
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 1.75rem;
+  font-style: italic;
+  color: var(--ds-gold-text);
+}
+
+/* ---- FAQ ---- */
+.ds-faq {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.ds-faq details {
+  background: var(--ds-surface);
+  border: 1px solid var(--ds-line);
+}
+
+.ds-faq summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  padding: 1.25rem 1.5rem;
+  cursor: pointer;
+  list-style: none;
+  font-weight: 700;
+  font-size: 1.0625rem;
+  line-height: 1.35;
+  color: var(--ds-text);
+}
+
+.ds-faq summary::-webkit-details-marker {
+  display: none;
+}
+
+.ds-faq summary:focus-visible {
+  outline: 3px solid var(--ds-focus);
+  outline-offset: -3px;
+}
+
+.ds-faq summary .ds-faq-icon {
+  position: relative;
+  flex-shrink: 0;
+  width: 1.125rem;
+  height: 1.125rem;
+  color: var(--ds-gold-text);
+}
+
+.ds-faq summary .ds-faq-icon::before,
+.ds-faq summary .ds-faq-icon::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  margin-top: -1px;
+  background: currentColor;
+  transition: transform 0.3s ease;
+}
+
+.ds-faq summary .ds-faq-icon::after {
+  transform: rotate(90deg);
+}
+
+.ds-faq details[open] summary .ds-faq-icon::after {
+  transform: rotate(0deg);
+}
+
+.ds-faq details[open] {
+  border-color: rgb(var(--gold) / 0.45);
+}
+
+.ds-faq-answer {
+  padding: 0 1.5rem 1.5rem;
+  color: var(--ds-muted);
+  line-height: 1.65;
+}
+
+/* An answer the owner still has to write. Visible on purpose. */
+.ds-todo {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  border: 1px dashed var(--ds-gold-text);
+  color: var(--ds-gold-text);
+  font-family: var(--font-mono-ds), ui-monospace, monospace;
+  font-size: 0.8125rem;
+}
+
+/* ---- device mockups ---- */
+.ds-laptop {
+  position: relative;
+  width: 100%;
+}
+
+.ds-laptop-screen {
+  border: 1px solid rgb(245 243 238 / 0.14);
+  border-radius: 0.75rem 0.75rem 0 0;
+  background: #0b0c0e;
+  padding: 2.2%;
+}
+
+.ds-laptop-base {
+  position: relative;
+  height: 0.85rem;
+  margin-inline: -6%;
+  border-radius: 0 0 0.9rem 0.9rem;
+  background: linear-gradient(180deg, #3a3d42, #1d1f23);
+}
+
+.ds-laptop-base::before {
+  content: "";
+  position: absolute;
+  left: 42%;
+  right: 42%;
+  top: 0;
+  height: 0.3rem;
+  border-radius: 0 0 0.4rem 0.4rem;
+  background: #121316;
+}
+
+.ds-phone {
+  position: relative;
+  border: 1px solid rgb(245 243 238 / 0.2);
+  border-radius: 1.6rem;
+  background: #0b0c0e;
+  padding: 0.45rem;
+  box-shadow: 0 30px 60px -25px rgb(0 0 0 / 0.8);
+}
+
+.ds-phone-screen {
+  overflow: hidden;
+  border-radius: 1.2rem;
+  background: #111214;
+}
+
+/* ---- entrance: fade up on scroll ----
+   CSS-only, with scroll-driven animation where the browser has it; content
+   is fully visible everywhere else, and under reduced motion. */
+@keyframes dsReveal {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes dsDraw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    [data-reveal] {
+      animation: dsReveal linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 45%;
+    }
+
+    .ds-underline path {
+      animation: dsDraw linear both;
+      animation-timeline: view();
+      animation-range: entry 40% cover 40%;
+    }
+  }
+}
 }

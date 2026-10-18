@@ -35,7 +35,7 @@ export const metadata: Metadata = {
  */
 export default function ContactPage() {
   return (
-    <div className="min-h-screen bg-neutral-950">
+    <div className="ds-page min-h-screen bg-neutral-950">
       <MainHeader />
 
       <main className="relative isolate overflow-hidden pb-20 pt-32 md:pb-28 md:pt-40">

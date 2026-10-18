@@ -145,7 +145,14 @@ const initialValues = Object.fromEntries(
 // what fits before any number shows.
 const initialOn: Record<Part, boolean> = { calls: false, website: false, busywork: false };
 
-export function MissedRevenueCalculator() {
+export function MissedRevenueCalculator({
+  headless = false,
+}: {
+  /** The section around it already shows "See what you're missing" as its
+   * heading: the card's own title and line are then read to screen readers
+   * only, and still name the group. */
+  headless?: boolean;
+} = {}) {
   const id = useId();
   const [on, setOn] = useState(initialOn);
   const [values, setValues] = useState(initialValues);
@@ -194,10 +201,10 @@ export function MissedRevenueCalculator() {
 
   return (
     <div className="calc" role="group" aria-labelledby={`${id}-title`}>
-      <h3 id={`${id}-title`} className="calc-title">
+      <h3 id={`${id}-title`} className={headless ? "sr-only" : "calc-title"}>
         See what you&apos;re missing
       </h3>
-      <p className="calc-sub">
+      <p className={headless ? "sr-only" : "calc-sub"}>
         Switch on what fits your business, then slide in your numbers. It&apos;s quick math,
         not a quote.
       </p>

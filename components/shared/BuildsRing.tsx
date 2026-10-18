@@ -387,7 +387,7 @@ export function BuildsRing({ items, label }: { items: ReactNode[]; label: string
                   !isFront && "cursor-pointer",
                 )}
               >
-                <div inert={!isFront} className="flex w-full rounded-xl bg-[#16171a] light:bg-[#fff] light:shadow-[0_18px_40px_-24px_rgb(15_26_46/0.35)]">
+                <div inert={!isFront} className="flex w-full rounded-xl bg-[#16171a] light:bg-[#fff] light:shadow-[0_18px_40px_-24px_rgb(26_24_20/0.35)]">
                   {item}
                 </div>
                 {/* Darkens the builds round the back of the ring (fades them

@@ -18,7 +18,7 @@ export function LeeSystemsFAQSection() {
         />
 
         <div className="mx-auto mb-12 max-w-3xl text-center">
-          <p className="mb-3 text-sm font-semibold text-brass-300">FAQs</p>
+          <p className="ds-eyebrow ds-eyebrow--center mb-4">FAQs</p>
           <h2 className="heading-lg text-white">Frequently Asked Questions</h2>
         </div>
 

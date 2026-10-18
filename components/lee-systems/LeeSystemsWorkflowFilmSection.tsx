@@ -253,11 +253,11 @@ const DESCRIPTION =
  * nothing else on the site can collide with it.
  */
 const styles = `
-.lwf-wrap { container: lwf / inline-size; --b200: var(--color-brass-200, #ffffff); --b300: var(--color-brass-300, #f5f5f4); --b400: var(--color-brass-400, #e7e5e4); --wash: rgba(231,229,228,.09); --edge: rgba(231,229,228,.28); --line: rgba(255,255,255,.1); --raised: #1f2023; --muted: #a1a1aa; --text: #f4f4f5; --lwf-w: 255 255 255; --lwf-g: 231 229 228; --lwf-g2: 245 245 244; --stage: #17181b; --chrome: #121316; --canvas: #0e0f11; --node: #17181b; --port: #2a2c30; --toast: #1f2023; --ink2: #d4d4d8; --on-b: #0e0f11; --vignette: rgba(8,8,10,.75); --clockbg: rgba(14,15,17,.85); --shadow: none; }
+.lwf-wrap { container: lwf / inline-size; --b200: var(--color-brass-200, #f0d894); --b300: var(--color-brass-300, #e2c275); --b400: var(--color-brass-400, #c9a24b); --wash: rgba(201, 162, 75,.09); --edge: rgba(201, 162, 75,.28); --line: rgba(255,255,255,.1); --raised: #1f2023; --muted: #a1a1aa; --text: #f4f4f5; --lwf-w: 255 255 255; --lwf-g: 201 162 75; --lwf-g2: 226 194 117; --stage: #17181b; --chrome: #121316; --canvas: #0e0f11; --node: #17181b; --port: #2a2c30; --toast: #1f2023; --ink2: #d4d4d8; --on-b: #0e0f11; --vignette: rgba(8,8,10,.75); --clockbg: rgba(14,15,17,.85); --shadow: none; }
 /* In the light theme it is the same editor in its daylight skin, the way n8n's
    own light mode looks: white chrome and nodes on a pale grey canvas, navy for
    what runs (the --b colours follow the theme's brass, which turns navy). */
-:root[data-theme="light"] .lwf-wrap { --wash: rgba(30,64,175,.07); --edge: rgba(30,64,175,.32); --line: rgba(15,26,46,.1); --raised: #f6f7f9; --muted: #5b6578; --text: #0f1a2e; --lwf-w: 15 26 46; --lwf-g: 30 64 175; --lwf-g2: 29 78 216; --stage: #ffffff; --chrome: #ffffff; --canvas: #eef1f6; --node: #ffffff; --port: #ffffff; --toast: #ffffff; --ink2: #334155; --on-b: #f6f7f9; --vignette: rgba(15,26,46,.05); --clockbg: rgba(255,255,255,.92); --shadow: 0 20px 50px -24px rgb(15 26 46 / .18); }
+:root[data-theme="light"] .lwf-wrap { --wash: rgba(138,106,31,.07); --edge: rgba(138,106,31,.32); --line: rgba(26,24,20,.1); --raised: #f6f7f9; --muted: #5b6578; --text: #0f1a2e; --lwf-w: 15 26 46; --lwf-g: 30 64 175; --lwf-g2: 29 78 216; --stage: #ffffff; --chrome: #ffffff; --canvas: #eef1f6; --node: #ffffff; --port: #ffffff; --toast: #ffffff; --ink2: #334155; --on-b: #f6f7f9; --vignette: rgba(26,24,20,.05); --clockbg: rgba(255,255,255,.92); --shadow: 0 20px 50px -24px rgb(15 26 46 / .18); }
 .lwf-stage { position: relative; display: grid; grid-template-columns: minmax(0,1fr) minmax(0,35%); grid-template-rows: auto minmax(0,1fr) auto; aspect-ratio: 16 / 9.4; min-height: 560px; border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: var(--stage); box-shadow: var(--shadow); color: var(--text); font-size: 14px; line-height: 1.4; }
 .lwf-paused * { animation-play-state: paused !important; }
 .lwf-hide { display: none !important; }
@@ -485,7 +485,7 @@ export function LeeSystemsWorkflowFilmSection() {
 
       <div className="section-container">
         <div className="mx-auto mb-10 max-w-3xl text-center md:mb-14">
-          <p className="mb-3 text-sm font-semibold text-brass-300">How it runs</p>
+          <p className="ds-eyebrow ds-eyebrow--center mb-4">How it runs</p>
           <h2 className="heading-lg text-white">Watch one system run your week</h2>
           <p className="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-neutral-300">
             A late-night call, a new lead, a finished job and your morning report, each handled

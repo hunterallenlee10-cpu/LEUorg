@@ -4,25 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 import { OnboardingDevices } from "@/components/lee-systems/OnboardingDevices";
 import { BookCallLink } from "@/components/ui/BookCallLink";
-import { leeSystemsAnchors } from "@/data/lee-systems";
+import { leeSystemsAnchors, onboardingSteps } from "@/data/lee-systems";
 
-const steps = [
-  {
-    title: "Audit",
-    body: "We start by auditing how your business runs today: how calls, leads, intake, follow-ups and admin are handled, and where things slip. On a free consultation call we find where a system or a better website would help most, and you get a flat quote up front.",
-    tags: ["Free consultation call", "Flat quote up front"],
-  },
-  {
-    title: "Build",
-    body: "We build the system, the website, or both, custom to your business and around the tools you already use. Everything is tested, and nothing customer-facing goes live until you approve it.",
-    tags: ["Built for your business", "You approve before launch"],
-  },
-  {
-    title: "Take off",
-    body: "We hand it over and show you how it works. From there it runs every day: leads get answered, follow-ups go out, and your time goes back into the work that makes you money.",
-    tags: ["Handed over to you", "Runs every day"],
-  },
-];
+const steps = onboardingSteps;
 
 /**
  * "Onboarding process": the three steps down one side, with a laptop and an
@@ -85,7 +69,7 @@ export function LeeSystemsOnboardingSection() {
     <section className="relative isolate py-20 md:py-28">
       <div className="section-container">
         <div className="mx-auto mb-14 max-w-3xl text-center lg:mb-8">
-          <p className="mb-3 text-sm font-semibold text-brass-300">Onboarding process</p>
+          <p className="ds-eyebrow ds-eyebrow--center mb-4">Onboarding process</p>
           <h2 className="heading-lg mb-4 text-white">Audit. Build. Take off.</h2>
           <p className="text-lg leading-relaxed text-neutral-400">
             Three steps from the first call to a business that answers every

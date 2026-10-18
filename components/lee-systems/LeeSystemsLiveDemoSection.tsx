@@ -399,7 +399,7 @@ function Glows() {
  */
 function Browser() {
   return (
-    <div className="@container relative mt-3 overflow-hidden rounded-lg border border-white/10 bg-neutral-900/90 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.9),inset_0_1px_0_rgba(255,255,255,0.06)] light:shadow-[0_30px_70px_-34px_rgb(15_26_46/0.28)]">
+    <div className="@container relative mt-3 overflow-hidden rounded-lg border border-white/10 bg-neutral-900/90 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.9),inset_0_1px_0_rgba(255,255,255,0.06)] light:shadow-[0_30px_70px_-34px_rgb(26_24_20/0.28)]">
       <div className="relative flex items-center gap-2.5 border-b border-white/10 bg-neutral-950/70 px-3 py-2">
         <span className="flex shrink-0 gap-1.5">
           <span className="h-2 w-2 rounded-full bg-[#ff5f57]/70" />
@@ -829,7 +829,7 @@ function Port({ side, className }: { side: "top" | "bottom" | "left"; className?
 function LeadChip() {
   return (
     <span className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border border-brass-400/60 bg-[#17181b] px-2 py-0.5 text-[11px] font-semibold leading-tight text-brass-200 shadow-[0_0_14px_-2px_rgb(var(--gold)/0.5)] light:bg-[#e8eefb]">
-      <span className="h-1.5 w-1.5 rounded-full bg-brass-300 shadow-[0_0_6px_rgb(231_229_228/0.6)] light:shadow-[0_0_6px_rgb(29_78_216/0.6)]" />
+      <span className="h-1.5 w-1.5 rounded-full bg-brass-300 shadow-[0_0_6px_rgb(201_162_75/0.6)] light:shadow-[0_0_6px_rgb(29_78_216/0.6)]" />
       {LEAD}
     </span>
   );
@@ -883,7 +883,7 @@ function Travellers() {
       </span>
       <span
         data-lsd="trail"
-        className="absolute left-0 top-0 h-16 w-[3px] origin-bottom rounded-full bg-gradient-to-b from-transparent via-brass-300/60 to-[#ffffff] opacity-0 shadow-[0_0_10px_1px_rgb(231_229_228/0.35)] light:to-[#2f56c9] light:shadow-[0_0_10px_1px_rgb(29_78_216/0.4)] will-change-transform"
+        className="absolute left-0 top-0 h-16 w-[3px] origin-bottom rounded-full bg-gradient-to-b from-transparent via-brass-300/60 to-[#ffffff] opacity-0 shadow-[0_0_10px_1px_rgb(201_162_75/0.35)] light:to-[#b8913a] light:shadow-[0_0_10px_1px_rgb(29_78_216/0.4)] will-change-transform"
       />
       <span data-lsd="chip" className="absolute left-0 top-0 opacity-0 will-change-transform">
         <LeadChip />

@@ -74,7 +74,7 @@ export function LeeSystemsOfferingsSection() {
     <section className="relative isolate overflow-hidden pt-20 pb-20 md:pt-28 md:pb-28">
       <div className="section-container">
         <div className="mx-auto mb-12 max-w-3xl text-center md:mb-16">
-          <p className="mb-3 text-sm font-semibold text-brass-300">What we do</p>
+          <p className="ds-eyebrow ds-eyebrow--center mb-4">What we do</p>
           <h2 className="heading-lg text-white">Two ways we take work off your plate</h2>
         </div>
 
@@ -90,7 +90,7 @@ export function LeeSystemsOfferingsSection() {
 
 function OfferingCard({ offering }: { offering: Offering }) {
   return (
-    <article className="group flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#17181b] transition-colors duration-300 hover:border-brass-400/55 light:bg-[#fff] light:shadow-[0_20px_50px_-24px_rgb(15_26_46/0.18)]">
+    <article className="group flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#17181b] transition-colors duration-300 hover:border-brass-400/55 light:bg-[#fff] light:shadow-[0_20px_50px_-24px_rgb(26_24_20/0.18)]">
       <div className="relative aspect-[16/9] overflow-hidden bg-[#121316] light:bg-[#eef1f6]">
         {offering.media}
         {/* Fades the picture into the card so the copy can ride up over it. */}
@@ -151,7 +151,7 @@ function WebsiteMedia() {
   );
 
   return (
-    <div className="absolute inset-0 bg-[radial-gradient(70%_80%_at_50%_100%,rgba(231,229,228,0.18),transparent_70%)] light:bg-[radial-gradient(70%_80%_at_50%_100%,rgba(30,64,175,0.16),transparent_70%)]">
+    <div className="absolute inset-0 bg-[radial-gradient(70%_80%_at_50%_100%,rgba(201,162,75,0.18),transparent_70%)] light:bg-[radial-gradient(70%_80%_at_50%_100%,rgba(138,106,31,0.16),transparent_70%)]">
       <WebsiteDeck shots={shots} />
     </div>
   );

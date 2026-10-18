@@ -56,7 +56,7 @@ export function LeeSystemsIndustriesSection() {
     <section id="industries" className="relative isolate py-20 md:py-28">
       <div className="section-container">
         <div className="mx-auto mb-14 max-w-3xl text-center">
-          <p className="mb-3 text-sm font-semibold text-brass-300">
+          <p className="ds-eyebrow ds-eyebrow--center mb-4">
             Who we help
           </p>
           <h2 className="heading-lg text-white">
@@ -71,10 +71,10 @@ export function LeeSystemsIndustriesSection() {
               <div
                 key={id}
                 id={id}
-                className="group/card overflow-hidden rounded-xl border border-white/10 bg-[#17181b] transition-colors duration-300 hover:border-brass-400/40 light:bg-[#fff] light:shadow-[0_20px_50px_-24px_rgb(15_26_46/0.18)]"
+                className="group/card overflow-hidden rounded-xl border border-white/10 bg-[#17181b] transition-colors duration-300 hover:border-brass-400/40 light:bg-[#fff] light:shadow-[0_20px_50px_-24px_rgb(26_24_20/0.18)]"
               >
                 <div
-                  className="relative aspect-[2/1] overflow-hidden md:aspect-video [--ind-glow:rgb(231_229_228/0.13)] light:bg-[#172554] light:[--ind-glow:rgb(212_168_87/0.2)]"
+                  className="relative aspect-[2/1] overflow-hidden md:aspect-video [--ind-glow:rgb(201_162_75/0.13)] light:bg-[#172554] light:[--ind-glow:rgb(212_168_87/0.2)]"
                   style={{
                     backgroundImage: `radial-gradient(60% 85% at ${22 + i * 11}% 30%, var(--ind-glow), transparent 70%)`,
                   }}
@@ -138,7 +138,7 @@ export function LeeSystemsIndustriesSection() {
           })}
         </div>
 
-        <div className="relative mx-auto mt-12 max-w-4xl overflow-hidden rounded-2xl border border-brass-400/25 bg-[#17181b] light:bg-[#fff] light:shadow-[0_24px_60px_-28px_rgb(15_26_46/0.22)] px-6 py-10 text-center md:px-14 md:py-14">
+        <div className="relative mx-auto mt-12 max-w-4xl overflow-hidden rounded-2xl border border-brass-400/25 bg-[#17181b] light:bg-[#fff] light:shadow-[0_24px_60px_-28px_rgb(26_24_20/0.22)] px-6 py-10 text-center md:px-14 md:py-14">
           <div
             aria-hidden="true"
             className="pointer-events-none absolute inset-0 bg-[radial-gradient(70%_90%_at_50%_0%,rgb(var(--gold)/0.16),transparent_70%)] light:opacity-50"
