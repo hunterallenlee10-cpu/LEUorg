@@ -41,7 +41,7 @@ export function MainFooter({
               <Image
                 src={companyInfo.mark}
                 alt={companyInfo.logoAlt}
-                width={204}
+                width={164}
                 height={160}
                 sizes="56px"
                 className="h-11 w-auto"
