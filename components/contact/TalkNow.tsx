@@ -28,7 +28,7 @@ export function TalkNow({
 
   return (
     <div className={className}>
-      <Heading className="text-base font-semibold text-white">
+      <Heading className="ds-keep text-base font-semibold text-white">
         Rather talk now? Connect with us.
       </Heading>
 

@@ -43,7 +43,7 @@ export function ServicesShowcase() {
                 <Link
                   href={servicePath(group.slug)}
                   className={clsx(
-                    "group flex w-full flex-col gap-5 rounded-xl border border-white/10 bg-[#17181b] p-4 transition-colors duration-300 hover:border-brass-400/50 motion-reduce:transition-none sm:p-5 light:bg-[#fff] light:shadow-[0_20px_50px_-24px_rgb(15_26_46/0.18)]",
+                    "group flex w-full flex-col gap-5 rounded-xl border border-white/10 bg-[#17181b] p-4 transition-colors duration-300 hover:border-brass-400/50 motion-reduce:transition-none sm:p-5 light:bg-[#fff] light:shadow-[0_20px_50px_-24px_rgb(26_24_20/0.18)]",
                     large && "md:grid md:grid-cols-[1.25fr_1fr] md:items-center"
                   )}
                 >

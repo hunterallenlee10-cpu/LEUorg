@@ -33,7 +33,7 @@ export function LeeSystemsContactSection({
     >
       <div className="section-container">
         <div className="mx-auto mb-12 max-w-3xl text-center">
-          <p className="mb-3 text-sm font-semibold text-brass-300">
+          <p className="ds-eyebrow ds-eyebrow--center mb-4">
             Free consultation
           </p>
           <h2 className="heading-lg mb-6 text-white">

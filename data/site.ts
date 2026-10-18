@@ -69,6 +69,20 @@ export const site = {
    * instead, which is what the site fix plan asked for originally.
    */
   showPlaceholders: true,
+  /**
+   * The owner's video sales letter, in a slot right under the homepage hero.
+   * Off until `show` is true and `src` is set. The site's CSP allows media
+   * from this domain only (no YouTube or Vimeo embeds), so the video is a
+   * file in public/, e.g. "/vsl/leu-vsl.mp4", with an optional poster image.
+   * It never autoplays: the visitor presses play.
+   */
+  vsl: {
+    show: false,
+    src: "",
+    poster: "",
+    /** What the video is, read to screen readers and shown under it. */
+    title: "",
+  },
   founder: {
     name: "Hunter Lee",
     /** e.g. "/images/hunter-lee.jpg". */

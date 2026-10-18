@@ -20,17 +20,15 @@ export default function NotFound() {
       {/* pt-32 clears the fixed header; min-h keeps the footer from riding up
           under the short message, as on /partners. */}
       <section className="section-container flex min-h-[calc(100vh-5rem)] flex-col items-center justify-center pt-32 pb-24 text-center">
-        <p className="text-sm font-semibold text-amber-400">
-          404
-        </p>
+        <p className="ds-eyebrow ds-eyebrow--center">404</p>
 
-        <h1 className="heading-lg mt-4 text-white">Page not found</h1>
+        <h1 className="ds-h1 mt-5">Page not found</h1>
 
         <p className="mx-auto mt-4 max-w-md text-base leading-relaxed text-neutral-400">
           The page you&apos;re looking for doesn&apos;t exist or has moved.
         </p>
 
-        <Link href="/" className="btn-primary mt-8 inline-block">
+        <Link href="/" className="btn-primary mt-10">
           Back to the homepage
         </Link>
       </section>

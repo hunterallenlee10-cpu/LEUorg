@@ -2,30 +2,21 @@ import { Check, Clock, ShieldCheck, X, Zap } from "lucide-react";
 import { BookCallLink } from "@/components/ui/BookCallLink";
 import { CallOrEmailLine } from "@/components/lee-systems/CallOrEmailLine";
 import { DoItYourWayButton } from "@/components/lee-systems/DoItYourWayButton";
-import { leeSystemsAnchors, pricingPromise } from "@/data/lee-systems";
+import {
+  choiceByHand,
+  choiceWithSystems,
+  leeSystemsAnchors,
+  pricingPromise,
+} from "@/data/lee-systems";
 
 /**
  * The same six jobs done by hand and done by the systems: row n of one card
  * is row n of the other. The right-hand list only states what the site
  * already says the systems do.
  */
-const byHand = [
-  "Calls go to voicemail after hours",
-  "New leads wait until someone is free",
-  "Booking takes rounds of phone tag",
-  "Follow-up depends on memory",
-  "Details get retyped by hand",
-  "Reviews and unpaid invoices get chased by hand",
-];
+const byHand = choiceByHand;
 
-const withSystems = [
-  "AI answers your calls 24/7",
-  "Every new lead gets a reply in under a minute",
-  "Appointments booked, with reminders sent",
-  "Follow-up until the customer gives an answer",
-  "Leads land in your CRM, with no retyping",
-  "Reviews requested and invoices chased for you",
-];
+const withSystems = choiceWithSystems;
 
 const TAKE_ACTION_ID = "ls-take-action";
 
@@ -119,7 +110,7 @@ export function LeeSystemsChoiceSection() {
 
           <div
             id={TAKE_ACTION_ID}
-            className="flex flex-col rounded-2xl border border-brass-400/40 bg-[radial-gradient(120%_70%_at_50%_0%,rgb(var(--gold)/0.09),transparent_65%)] p-6 text-center shadow-[0_0_80px_-30px_rgb(var(--gold)/0.3)] light:bg-[#fff] light:bg-[radial-gradient(120%_70%_at_50%_0%,rgb(var(--gold)/0.07),transparent_65%)] light:shadow-[0_24px_60px_-28px_rgb(30_64_175/0.3)] sm:row-span-5 sm:grid sm:grid-rows-subgrid sm:gap-y-0 sm:p-8"
+            className="flex flex-col rounded-2xl border border-brass-400/40 bg-[radial-gradient(120%_70%_at_50%_0%,rgb(var(--gold)/0.09),transparent_65%)] p-6 text-center shadow-[0_0_80px_-30px_rgb(var(--gold)/0.3)] light:bg-[#fff] light:bg-[radial-gradient(120%_70%_at_50%_0%,rgb(var(--gold)/0.07),transparent_65%)] light:shadow-[0_24px_60px_-28px_rgb(138_106_31/0.3)] sm:row-span-5 sm:grid sm:grid-rows-subgrid sm:gap-y-0 sm:p-8"
           >
             <div>
               <Zap

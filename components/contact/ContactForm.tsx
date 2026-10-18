@@ -26,18 +26,17 @@ const emptyForm = {
   message: "",
 };
 
-/** In the LEU brass, after the homepage calculator's card. */
+/** Square fields with a gold focus edge (the black-and-gold redesign). */
 const labelClass = "mb-2 block text-sm font-medium text-neutral-300";
 const fieldClass =
-  "w-full rounded-lg border bg-neutral-950/70 px-4 py-3 text-white placeholder-neutral-500 transition-colors focus:border-brass-400/70 focus:outline-none focus:ring-2 focus:ring-brass-400/25";
+  "w-full rounded-none border bg-neutral-950/70 px-4 py-3 text-white placeholder-neutral-500 transition-colors focus:border-brass-400 focus:outline-none focus:ring-2 focus:ring-brass-400/40";
 const borderFor = (error?: string) =>
   error ? "border-red-500/60" : "border-white/10 hover:border-white/20";
 
-/** The calculator's card (.calc in globals.css), as utilities. In light it is
- *  a plain white card: the dark gradient has no light counterpart worth
- *  keeping, and a black shadow reads as dirt on a pale page. */
+/** A cut-corner card in the design system's surface colour (graphite in
+ *  dark, white in light; "LEU design system" in globals.css). */
 const cardClass =
-  "relative rounded-3xl border border-white/10 bg-gradient-to-b from-[#1c1d20]/90 to-[#131417]/90 p-6 shadow-[0_30px_80px_-40px_rgba(0,0,0,0.9)] light:bg-none light:bg-neutral-900 light:shadow-[0_24px_60px_-28px_rgb(15_26_46/0.22)] md:p-9";
+  "ds-cut relative border border-white/10 bg-[var(--ds-surface)] p-6 md:p-9";
 
 /** The order errors are checked in, which is the order focus goes to them. */
 const fieldOrder: Field[] = ["name", "email", "phone", "message"];
@@ -239,7 +238,7 @@ export function ContactForm({
     >
       <FormHeading
         id="contact-form-title"
-        className="text-[1.375rem] font-bold tracking-[-0.015em] text-white md:text-2xl"
+        className="ds-h3"
       >
         Send a message
       </FormHeading>

@@ -1,13 +1,11 @@
-import { Geist } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { SITE_URL } from '@/data/company'
+import { bodyFont, displayFont, monoFont } from '@/lib/fonts'
 import { SmoothScroll } from '@/components/layout/SmoothScroll'
 import { ThemeSync } from '@/components/ui/ThemeToggle'
 import { THEME_COLORS, themeInitScript } from '@/lib/theme'
 import './globals.css'
-
-const geistSans = Geist({ subsets: ['latin'] })
 
 /**
  * The defaults every page starts from. Pages set their own title,
@@ -71,7 +69,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className="bg-neutral-950"
+      className={`${displayFont.variable} ${bodyFont.variable} ${monoFont.variable} bg-neutral-950`}
       data-scroll-behavior="smooth"
       data-theme="dark"
       suppressHydrationWarning
@@ -80,7 +78,7 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body
-        className={`${geistSans.className} antialiased bg-neutral-950 text-white`}
+        className={`${bodyFont.className} antialiased bg-neutral-950 text-white`}
       >
         <ThemeSync />
         <SmoothScroll />

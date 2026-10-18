@@ -4,18 +4,13 @@ import { SITE_URL, companyInfo, footerContent } from "@/data/company";
 import { footerPages } from "@/data/navigation";
 import { site, telHref } from "@/data/site";
 
-/**
- * A 96px copy of the full logo for the 48px mark below, so a page does not
- * download a bigger copy just for the footer.
- */
-const footerLogo = "/logos/leu-logo-96.webp";
-
 /** 44px tall, so every row is a comfortable tap target on a phone. */
 const footerLinkClass =
   "inline-flex min-h-11 items-center text-sm text-neutral-400 transition-colors hover:text-amber-400";
 
 /** Headings are h2s so the outline stays in order under any page's sections. */
-const footerHeadingClass = "mb-1 text-sm font-semibold text-white";
+const footerHeadingClass =
+  "mb-2 font-mono text-xs font-medium uppercase tracking-[0.3em] text-brass-400";
 
 /**
  * `variant="business-mastery"` is the footer of Business Mastery's own site
@@ -34,7 +29,7 @@ export function MainFooter({
 
   return (
     <footer className="border-t border-neutral-800 bg-neutral-950">
-      <div className="mx-auto max-w-7xl px-4 py-12 md:py-16">
+      <div className="ds-container py-14 md:py-20">
         <div
           className={`mb-12 grid grid-cols-1 gap-10 sm:grid-cols-2 md:gap-8 ${
             isBm ? "md:grid-cols-3" : "md:grid-cols-4"
@@ -43,16 +38,15 @@ export function MainFooter({
           {/* Brand */}
           <div>
             <div className="mb-4 flex items-center gap-3">
-              <div className="relative h-12 w-12">
-                <Image
-                  src={footerLogo}
-                  alt={companyInfo.logoAlt}
-                  fill
-                  sizes="48px"
-                  className="object-contain"
-                />
-              </div>
-              <p className="text-sm font-semibold text-amber-400">
+              <Image
+                src={companyInfo.mark}
+                alt={companyInfo.logoAlt}
+                width={204}
+                height={160}
+                sizes="56px"
+                className="h-11 w-auto"
+              />
+              <p className="font-mono text-xs font-medium uppercase tracking-[0.22em] text-amber-400">
                 {isBm ? "Business Mastery" : site.name}
               </p>
             </div>

@@ -251,7 +251,7 @@ export function BmApplicationForm() {
       noValidate
       aria-labelledby="bm-form-title"
       aria-describedby="bm-form-description"
-      className="mx-auto max-w-3xl overflow-hidden rounded-xl border border-white/10 bg-white/[0.04] light:border-neutral-800 light:bg-[#fff] light:shadow-[0_20px_50px_-24px_rgb(15_26_46/0.18)]"
+      className="mx-auto max-w-3xl overflow-hidden rounded-xl border border-white/10 bg-white/[0.04] light:border-neutral-800 light:bg-[#fff] light:shadow-[0_20px_50px_-24px_rgb(26_24_20/0.18)]"
     >
       {/* Progress: a segment per question, lit as each one is answered. */}
       <div className="flex gap-1.5 px-6 pt-6 md:px-10 md:pt-8" aria-hidden="true">

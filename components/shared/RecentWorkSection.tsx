@@ -2,27 +2,29 @@ import Image from "next/image";
 import { ArrowUpRight, Globe } from "lucide-react";
 import { isExternalHref, site, type Project } from "@/data/site";
 import { ComingSoonSlot } from "@/components/shared/ComingSoonSlot";
-import { BuildsRing } from "@/components/shared/BuildsRing";
+import { ShowMoreGrid } from "@/components/ui/ShowMoreGrid";
+import { SectionHead } from "@/components/ui/ds";
 
 /** Fewer real builds than this and the section doesn't show them alone. */
 const MIN_PROJECTS = 1;
 
-/** While placeholders show, "coming soon" boxes fill the row out to this. */
+/** While placeholders show, "coming soon" boxes fill the grid out to this. */
 const MIN_BOXES = 3;
 
+/** Builds shown before "Show more". */
+const INITIAL = 6;
+
 /**
- * "Recent Builds", on the homepage and /how-it-works: a row of boxes, one per
- * website in `site.projects`, each showing the site's first screen in a
- * browser frame. The whole box links to the live site. The owner asked for
- * boxes in place of the 360° ring on 2026-10-05, then for a sideways row in
- * place of the grid on 2026-10-06 so the section can take any number of
- * builds without growing taller, and that afternoon for a 360° ring that
- * turns on its own and shows the builds round the back (BuildsRing).
+ * "Recent Builds", on the homepage and /how-it-works: the proof. One
+ * cut-corner card per website in `site.projects`, each showing the site's
+ * first screen and linking to the live site. Six show; "Show more" reveals
+ * the rest (the black-and-gold redesign, 2026-10-18, after university.com's
+ * wins grid; it replaced the 360° ring, BuildsRing, which is kept).
  *
- * While `site.showPlaceholders` is true, "coming soon" boxes fill the row out
- * to three, and each real build takes the place of one. With placeholders
- * off, the section shows only real builds and hides with none. Nothing here
- * ever stands in a made-up project.
+ * While `site.showPlaceholders` is true, "coming soon" boxes fill the grid
+ * out to three, and each real build takes the place of one. With
+ * placeholders off, the section shows only real builds and hides with none.
+ * Nothing here ever stands in a made-up project.
  */
 export function RecentWorkSection({ id }: { id?: string }) {
   const { projects } = site;
@@ -36,20 +38,25 @@ export function RecentWorkSection({ id }: { id?: string }) {
     <section
       id={id}
       aria-labelledby="recent-work-title"
-      className="relative isolate py-20 md:py-28"
+      className="ds-section"
     >
-      <div className="section-container">
-        <div className="mx-auto mb-12 max-w-3xl text-center">
-          <h2 id="recent-work-title" className="heading-lg text-white">
-            Recent Builds
-          </h2>
-          <p className="mt-4 text-lg text-neutral-300">
-            Some of our favorite most recent work.
-          </p>
-        </div>
+      <div className="ds-container">
+        <SectionHead
+          center
+          id="recent-work-title"
+          eyebrow="The proof"
+          title={
+            <>
+              Recent <span className="ds-accent">builds</span>
+            </>
+          }
+          sub="Some of our favorite most recent work. Every one is live: open it and look around."
+        />
 
-        <BuildsRing
-          label="Recent Builds"
+        <ShowMoreGrid
+          label="builds"
+          initial={INITIAL}
+          className="mt-12 grid gap-4 sm:grid-cols-2 lg:mt-16 lg:grid-cols-3"
           items={[
             ...projects.map((project) => (
               <BuildBox key={project.href} project={project} />
@@ -82,66 +89,69 @@ export function BuildBox({ project }: { project: Project }) {
     <a
       href={project.href}
       {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-      className="group flex w-full flex-col overflow-hidden rounded-xl border border-white/10 bg-white/[0.04] transition-colors hover:border-brass-300/60 focus-visible:border-brass-300/60 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brass-300"
+      className="ds-card group w-full"
+      data-reveal
     >
-      {project.image && (
-        <div className="border-b border-white/10">
-          <div
-            className="flex h-8 items-center gap-1.5 bg-white/[0.04] px-3"
-            aria-hidden="true"
-          >
-            <span className="h-2 w-2 rounded-full bg-white/20" />
-            <span className="h-2 w-2 rounded-full bg-white/20" />
-            <span className="h-2 w-2 rounded-full bg-white/20" />
-            {domain && (
-              <span className="ml-2 truncate text-xs text-neutral-400">
-                {domain}
-              </span>
-            )}
+      <div className="ds-card-body">
+        {project.image && (
+          <div className="border-b border-white/10">
+            <div
+              className="flex h-8 items-center gap-1.5 bg-white/[0.04] px-4"
+              aria-hidden="true"
+            >
+              <span className="h-2 w-2 rounded-full bg-white/20" />
+              <span className="h-2 w-2 rounded-full bg-white/20" />
+              <span className="h-2 w-2 rounded-full bg-white/20" />
+              {domain && (
+                <span className="ml-2 truncate font-mono text-[0.6875rem] text-neutral-400">
+                  {domain}
+                </span>
+              )}
+            </div>
+            <div className="relative aspect-[16/10] overflow-hidden bg-neutral-900">
+              <Image
+                src={project.image}
+                alt={`${project.name} website, first screen`}
+                fill
+                sizes="(min-width: 1024px) 23rem, (min-width: 640px) 45vw, 90vw"
+                className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+              />
+            </div>
           </div>
-          <div className="relative aspect-[16/10] overflow-hidden">
-            <Image
-              src={project.image}
-              alt={`${project.name} website, first screen`}
-              fill
-              sizes="(min-width: 1024px) 24rem, (min-width: 640px) 45vw, 85vw"
-              className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.02] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
-            />
-          </div>
+        )}
+        <div className="flex flex-1 flex-col p-6">
+          <p className="font-mono text-[0.6875rem] uppercase tracking-[0.22em] text-brass-400">
+            {project.category}
+          </p>
+          <h3 className="mt-3 text-xl font-bold leading-tight text-white">{project.name}</h3>
+          {project.upgradedFrom && (
+            <p className="mt-1 text-sm text-neutral-400">
+              Upgraded from {hostname(project.upgradedFrom)}
+            </p>
+          )}
+          {project.summary && (
+            <p className="mt-2 leading-relaxed text-neutral-400">
+              {project.summary}
+            </p>
+          )}
+          {project.built.length > 0 && (
+            <ul className="mt-4 flex flex-wrap gap-2" aria-label="What we built">
+              {project.built.map((item) => (
+                <li
+                  key={item}
+                  className="border border-white/10 px-2.5 py-1 text-xs text-neutral-300"
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
+          )}
+          <span className="mt-auto inline-flex items-center gap-1.5 pt-6 text-sm font-bold text-brass-400">
+            Visit live site
+            <ArrowUpRight className="h-4 w-4 transition-transform duration-200 motion-safe:group-hover:-translate-y-0.5 motion-safe:group-hover:translate-x-0.5" aria-hidden="true" />
+            {external && <span className="sr-only">(opens in a new tab)</span>}
+          </span>
         </div>
-      )}
-      <div className="flex flex-1 flex-col p-6">
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brass-300">
-          {project.category}
-        </p>
-        <h3 className="mt-2 text-lg font-bold text-white">{project.name}</h3>
-        {project.upgradedFrom && (
-          <p className="mt-1 text-sm text-neutral-400">
-            Upgraded from {hostname(project.upgradedFrom)}
-          </p>
-        )}
-        {project.summary && (
-          <p className="mt-2 leading-relaxed text-neutral-400">
-            {project.summary}
-          </p>
-        )}
-        {project.built.length > 0 && (
-          <ul className="mt-4 flex flex-wrap gap-2" aria-label="What we built">
-            {project.built.map((item) => (
-              <li
-                key={item}
-                className="rounded-md border border-white/10 px-2.5 py-1 text-xs text-neutral-300"
-              >
-                {item}
-              </li>
-            ))}
-          </ul>
-        )}
-        <span className="mt-auto inline-flex items-center gap-1 pt-5 font-semibold text-brass-300 group-hover:underline group-hover:underline-offset-4">
-          Visit site
-          <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
-          {external && <span className="sr-only">(opens in a new tab)</span>}
-        </span>
       </div>
     </a>
   );

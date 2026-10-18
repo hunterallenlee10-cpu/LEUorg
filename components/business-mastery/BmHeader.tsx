@@ -59,7 +59,7 @@ export function BmHeader() {
           <Image
             src={companyInfo.mark}
             alt={companyInfo.logoAlt}
-            width={205}
+            width={204}
             height={160}
             sizes="51px"
             preload

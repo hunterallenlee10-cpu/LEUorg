@@ -332,3 +332,48 @@ export const homeSetupItems = [
     body: "Built to bring in leads, and you own it.",
   },
 ] as const;
+
+/**
+ * The three onboarding steps (Audit, Build, Take off): /how-it-works'
+ * onboarding section and the homepage's "How it works" rows.
+ */
+export const onboardingSteps = [
+  {
+    title: "Audit",
+    body: "We start by auditing how your business runs today: how calls, leads, intake, follow-ups and admin are handled, and where things slip. On a free consultation call we find where a system or a better website would help most, and you get a flat quote up front.",
+    tags: ["Free consultation call", "Flat quote up front"],
+  },
+  {
+    title: "Build",
+    body: "We build the system, the website, or both, custom to your business and around the tools you already use. Everything is tested, and nothing customer-facing goes live until you approve it.",
+    tags: ["Built for your business", "You approve before launch"],
+  },
+  {
+    title: "Take off",
+    body: "We hand it over and show you how it works. From there it runs every day: leads get answered, follow-ups go out, and your time goes back into the work that makes you money.",
+    tags: ["Handed over to you", "Runs every day"],
+  },
+];
+
+/**
+ * The two columns of "The choice is yours" on /how-it-works, also the
+ * homepage's "Two paths": the work done by hand, and the same work with
+ * LEU's systems.
+ */
+export const choiceByHand = [
+  "Calls go to voicemail after hours",
+  "New leads wait until someone is free",
+  "Booking takes rounds of phone tag",
+  "Follow-up depends on memory",
+  "Details get retyped by hand",
+  "Reviews and unpaid invoices get chased by hand",
+];
+
+export const choiceWithSystems = [
+  "AI answers your calls 24/7",
+  "Every new lead gets a reply in under a minute",
+  "Appointments booked, with reminders sent",
+  "Follow-up until the customer gives an answer",
+  "Leads land in your CRM, with no retyping",
+  "Reviews requested and invoices chased for you",
+];

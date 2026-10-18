@@ -29,7 +29,7 @@ import { getDemoAssets } from "@/lib/demo-assets";
  * group's entry in data/services.ts.
  */
 
-const eyebrow = "text-xs font-semibold tracking-[0.2em] text-brass-300 uppercase";
+const eyebrow = "ds-eyebrow";
 const section = "border-t border-white/[0.06] py-16 md:py-24";
 export const serviceDemoAnchor = "demo";
 
@@ -146,7 +146,7 @@ export function IncludedSection({ group }: { group: ServiceGroup }) {
           {group.items.map((item) => (
             <li
               key={item.name}
-              className="rounded-xl border border-white/10 bg-[#17181b] p-6 light:bg-[#fff] light:shadow-[0_20px_50px_-24px_rgb(15_26_46/0.18)]"
+              className="rounded-xl border border-white/10 bg-[#17181b] p-6 light:bg-[#fff] light:shadow-[0_20px_50px_-24px_rgb(26_24_20/0.18)]"
             >
               <CircleCheck aria-hidden="true" strokeWidth={1.5} className="h-6 w-6 text-brass-400" />
               <h3 className="mt-4 text-lg leading-snug font-bold text-white">{item.name}</h3>
@@ -175,7 +175,7 @@ export function AudienceSection({ group }: { group: ServiceGroup }) {
             return (
               <li
                 key={industry}
-                className="overflow-hidden rounded-xl border border-white/10 bg-[#17181b] light:bg-[#fff] light:shadow-[0_20px_50px_-24px_rgb(15_26_46/0.18)]"
+                className="overflow-hidden rounded-xl border border-white/10 bg-[#17181b] light:bg-[#fff] light:shadow-[0_20px_50px_-24px_rgb(26_24_20/0.18)]"
               >
                 <div className="relative aspect-[16/9] overflow-hidden border-b border-white/10">
                   {image ? (

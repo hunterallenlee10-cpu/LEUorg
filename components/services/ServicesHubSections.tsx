@@ -22,7 +22,7 @@ import { getDemoAssets } from "@/lib/demo-assets";
  */
 
 const formAnchor = `#${servicesAnchors.form}`;
-const eyebrow = "text-xs font-semibold tracking-[0.2em] text-brass-300 uppercase";
+const eyebrow = "ds-eyebrow";
 
 export function ServicesHero() {
   return (
@@ -214,7 +214,7 @@ export function CarePlanSection() {
           </p>
         </div>
 
-        <div className="rounded-xl border border-white/10 bg-[#17181b] p-6 sm:p-8 light:bg-[#fff] light:shadow-[0_20px_50px_-24px_rgb(15_26_46/0.18)]">
+        <div className="rounded-xl border border-white/10 bg-[#17181b] p-6 sm:p-8 light:bg-[#fff] light:shadow-[0_20px_50px_-24px_rgb(26_24_20/0.18)]">
           <div className="flex items-center justify-between gap-4">
             <p className="font-semibold text-white">Website health</p>
             <span className="rounded border border-brass-400/40 px-2 py-0.5 text-[11px] font-semibold tracking-[0.16em] text-brass-300 uppercase">

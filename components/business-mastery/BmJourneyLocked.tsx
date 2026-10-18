@@ -34,30 +34,31 @@ import { BmComingSoon } from "@/components/business-mastery/BmComingSoon";
  * intro slide once the timeline opens).
  */
 export function BmJourneyLocked() {
+  // Restyled in the black-and-gold design system (2026-10-18): the same
+  // eyebrow, title, description, tease and Coming Soon marker, on a cut-corner
+  // dark band. The space between "The" and "Journey" is real text now, so the
+  // heading reads "The Journey" (it read "TheJourney" to screen readers and
+  // search engines when the two words were only separate blocks).
   return (
-    <section className="relative isolate overflow-hidden py-20 md:py-28">
-      <div className="absolute inset-0 section-fade" aria-hidden="true">
-        <div className="absolute right-10 top-1/3 h-96 w-96 rounded-full bg-amber-400/5 blur-3xl" />
-      </div>
-
-      <div className="section-container relative flex flex-col items-center text-center">
-        <p className="mb-5 text-xs font-semibold uppercase tracking-[0.4em] text-amber-400 sm:text-sm">
-          A Life in Full
-        </p>
-        <h2 className="text-[52px] font-bold uppercase leading-[0.95] tracking-tight sm:text-[72px] lg:text-[clamp(76px,7vw,112px)]">
-          <span className="block text-white">The</span>
-          <span className="block text-amber-400">Journey</span>
-        </h2>
-        <p className="mt-7 text-lg uppercase tracking-[0.2em] text-neutral-300 sm:text-xl">
-          {bmJourney.description}
-        </p>
-
-        <p className="mt-6 text-xs font-semibold uppercase tracking-[0.35em] text-neutral-500 sm:text-sm">
-          {bmJourney.lockedTease}
-        </p>
-
-        <div className="mt-10">
-          <BmComingSoon note={bmJourney.lockedNote} />
+    <section aria-labelledby="journey-title" className="ds-section">
+      <div className="ds-container">
+        <div className="ds-band ds-cut ds-cut--lg relative isolate overflow-hidden px-6 py-16 text-center md:px-12 md:py-24" data-reveal>
+          <div
+            aria-hidden="true"
+            className="absolute left-1/2 top-0 -z-10 h-80 w-[48rem] max-w-[120%] -translate-x-1/2 bg-[radial-gradient(closest-side,rgb(201_162_75/0.16),transparent)]"
+          />
+          <p className="ds-eyebrow ds-eyebrow--center">A Life in Full</p>
+          <h2 id="journey-title" className="ds-h1 mt-5">
+            <span className="block">The</span>{" "}
+            <span className="block ds-accent">Journey</span>
+          </h2>
+          <p className="mx-auto mt-7 max-w-2xl font-mono text-sm uppercase tracking-[0.25em] text-neutral-300 md:text-base">
+            {bmJourney.description}
+          </p>
+          <p className="mx-auto mt-5 max-w-2xl text-sm text-neutral-400">{bmJourney.lockedTease}</p>
+          <div className="mt-10">
+            <BmComingSoon note={bmJourney.lockedNote} />
+          </div>
         </div>
       </div>
     </section>

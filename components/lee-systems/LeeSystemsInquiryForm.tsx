@@ -211,7 +211,7 @@ export function LeeSystemsInquiryForm({
       onSubmit={handleSubmit}
       noValidate
       aria-describedby="inquiry-form-description"
-      className="mx-auto max-w-3xl rounded-xl border border-white/10 bg-white/[0.04] p-6 md:p-10 light:bg-[#fff] light:shadow-[0_20px_50px_-24px_rgb(15_26_46/0.18)]"
+      className="mx-auto max-w-3xl rounded-xl border border-white/10 bg-white/[0.04] p-6 md:p-10 light:bg-[#fff] light:shadow-[0_20px_50px_-24px_rgb(26_24_20/0.18)]"
     >
       <div className="mb-2">
         <h3 className="text-2xl font-bold text-white">
