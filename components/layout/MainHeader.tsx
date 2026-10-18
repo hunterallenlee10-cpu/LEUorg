@@ -269,7 +269,7 @@ export function MainHeader() {
             <Image
               src={companyInfo.mark}
               alt={companyInfo.logoAlt}
-              width={204}
+              width={164}
               height={160}
               sizes="51px"
               preload
