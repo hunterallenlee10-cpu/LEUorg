@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import type Stripe from "stripe";
 
-import { DEFAULT_TO_EMAIL, FROM_EMAIL, getResend } from "@/lib/email";
+import { DEFAULT_TO_EMAIL, sendEmail } from "@/lib/email";
 import { getStripe } from "@/lib/stripe";
 import { formatAmount } from "@/lib/money";
 
@@ -49,8 +49,7 @@ async function notify(subject: string, lines: string[]): Promise<void> {
     // in the result rather than by throwing, and logs nothing itself in
     // production, so the result has to be checked here. Logged field by field
     // because the error object prints as "[object Object]" on Vercel.
-    const { error } = await getResend().emails.send({
-      from: FROM_EMAIL,
+    const { error } = await sendEmail({
       to: DEFAULT_TO_EMAIL,
       subject,
       text: lines.join("\n"),

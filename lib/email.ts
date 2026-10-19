@@ -8,7 +8,9 @@ import { companyInfo } from "@/data/company";
  * that doesn't expose RESEND_API_KEY at build time.
  */
 export function getResend(): Resend {
-  return new Resend(process.env.RESEND_API_KEY);
+  // Trimmed: a key pasted into Vercel with a trailing space or newline is
+  // otherwise refused by Resend as invalid.
+  return new Resend(process.env.RESEND_API_KEY?.trim());
 }
 
 /**
@@ -19,9 +21,42 @@ export function getResend(): Resend {
  * ceo@leeenterprisesunlimited.com. Once leeenterprisesunlimited.com is
  * verified in Resend, set CONTACT_FROM_EMAIL to an address on it.
  */
-export const FROM_EMAIL =
-  process.env.CONTACT_FROM_EMAIL ||
+export const FALLBACK_FROM_EMAIL =
   "Lee Enterprises Unlimited <onboarding@resend.dev>";
+
+export const FROM_EMAIL =
+  process.env.CONTACT_FROM_EMAIL?.trim() || FALLBACK_FROM_EMAIL;
+
+interface OutgoingEmail {
+  to: string;
+  replyTo?: string;
+  subject: string;
+  text: string;
+}
+
+/**
+ * Sends one email through Resend. If CONTACT_FROM_EMAIL names a sender Resend
+ * refuses (most often an address on a domain not yet verified there), it
+ * tries once more from onboarding@resend.dev, so a stale sender setting can't
+ * stop every lead from arriving. `from` is the sender that was used last.
+ */
+export async function sendEmail(email: OutgoingEmail) {
+  const resend = getResend();
+  let from = FROM_EMAIL;
+  let response = await resend.emails.send({ from, ...email });
+
+  if (response.error && from !== FALLBACK_FROM_EMAIL) {
+    console.error(
+      `Resend refused the sender ${from}; retrying from ${FALLBACK_FROM_EMAIL}.`,
+      `name=${response.error.name}`,
+      `message=${response.error.message}`
+    );
+    from = FALLBACK_FROM_EMAIL;
+    response = await resend.emails.send({ from, ...email });
+  }
+
+  return { ...response, from };
+}
 
 /**
  * Where every form submission and payment notification lands:
@@ -85,13 +120,7 @@ export async function sendLeadEmail({
     );
   }
 
-  const response = await getResend().emails.send({
-    from: FROM_EMAIL,
-    to,
-    replyTo,
-    subject,
-    text,
-  });
+  const response = await sendEmail({ to, replyTo, subject, text });
 
   if (response.error) {
     // Logged field by field: Resend's error object stringifies to "[object
@@ -100,11 +129,18 @@ export async function sendLeadEmail({
       `[${tag}] Resend rejected the ${form} email.`,
       `name=${response.error.name}`,
       `message=${response.error.message}`,
-      `from=${FROM_EMAIL}`,
+      `from=${response.from}`,
       `to=${to}`
     );
+    // `reason` is Resend's error name (e.g. "validation_error",
+    // "invalid_api_key"): enough to tell the causes apart from the browser,
+    // without the message, which can name the Resend account's address.
     return NextResponse.json(
-      { error: "Failed to send email", code: "email_rejected" },
+      {
+        error: "Failed to send email",
+        code: "email_rejected",
+        reason: response.error.name,
+      },
       { status: 500 }
     );
   }
