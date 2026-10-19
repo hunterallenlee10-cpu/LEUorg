@@ -302,11 +302,12 @@ The offer changed on 2026-09-28 at the owner's request: the free
 The Lee Systems form replaced the automation consultation form
 (`/api/automation-audit`) and the website quote form (`/api/website-inquiry`)
 on 2026-09-29, and delivers each request exactly as the old form for that
-kind of request did, so the inbox and its filters see no change. It sends
-through Resend to `LEE_SYSTEMS_TO_EMAIL`, then `LMM_TO_EMAIL`, then
-`CONTACT_TO_EMAIL` (website requests check `WEBSITE_TO_EMAIL` first). With
-none set, it goes to ceo@leeenterprisesunlimited.com. The contact form goes
-to `CONTACT_TO_EMAIL`.
+kind of request did, so the inbox and its filters see no change. Since
+2026-10-19 it, the contact form and the Business Mastery form all send
+through Resend to ceo@leeenterprisesunlimited.com, fixed in code
+(`DEFAULT_TO_EMAIL` in `lib/email.ts`, from `site.email`). The old recipient
+variables (`LEE_SYSTEMS_TO_EMAIL`, `LMM_TO_EMAIL`, `WEBSITE_TO_EMAIL`,
+`CONTACT_TO_EMAIL`, `BM_TO_EMAIL`) are no longer read.
 
 The form sits in `#contact-form` and keeps the two old forms' anchor ids,
 `audit` and `website-quote`, on wrappers around it, so links made for either

@@ -22,8 +22,8 @@ interface ContactFormRequest {
 
 /**
  * The shared contact form (components/contact/ContactForm.tsx): name, email,
- * phone and an optional message. Delivered through Resend to the same inbox
- * as before, with a tag at the front of the subject: "[LEU] New
+ * phone and an optional message. Delivered through Resend to the site-wide
+ * address (DEFAULT_TO_EMAIL), with a tag at the front of the subject: "[LEU] New
  * inquiry from Jane Smith" when the visitor came from a "Book a free call"
  * link (?interest=free-call), "[General]" otherwise.
  */

@@ -16,11 +16,14 @@ export const FROM_EMAIL =
   process.env.CONTACT_FROM_EMAIL || "noreply@leeenterprisesunlimited.com";
 
 /**
- * Where site email lands. A route with its own variable (LEE_SYSTEMS_TO_EMAIL,
- * BM_TO_EMAIL and so on) checks that first and falls back to this.
+ * Where every form submission and payment notification lands:
+ * ceo@leeenterprisesunlimited.com (site.email in data/site.ts). Fixed in code
+ * at the owner's request (2026-10-19) rather than read from an environment
+ * variable, so no setting in Vercel can quietly send leads somewhere else.
+ * The old overrides (CONTACT_TO_EMAIL, LEE_SYSTEMS_TO_EMAIL, LMM_TO_EMAIL,
+ * WEBSITE_TO_EMAIL, BM_TO_EMAIL) are no longer read.
  */
-export const DEFAULT_TO_EMAIL =
-  process.env.CONTACT_TO_EMAIL || companyInfo.contactEmail;
+export const DEFAULT_TO_EMAIL = companyInfo.contactEmail;
 
 interface LeadEmail {
   /** The route's log prefix, e.g. "contact" for "[contact] ...". */
