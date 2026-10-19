@@ -11,16 +11,27 @@ export function getResend(): Resend {
   return new Resend(process.env.RESEND_API_KEY);
 }
 
-/** The sender on every email the site sends. */
+/**
+ * The sender on every email the site sends. Defaults to Resend's shared
+ * onboarding@resend.dev, which the owner's Resend account already sends the
+ * .com site's form emails from (2026-10-19). It works without a verified
+ * domain, but only delivers to the Resend account's own address, which is
+ * ceo@leeenterprisesunlimited.com. Once leeenterprisesunlimited.com is
+ * verified in Resend, set CONTACT_FROM_EMAIL to an address on it.
+ */
 export const FROM_EMAIL =
-  process.env.CONTACT_FROM_EMAIL || "noreply@leeenterprisesunlimited.com";
+  process.env.CONTACT_FROM_EMAIL ||
+  "Lee Enterprises Unlimited <onboarding@resend.dev>";
 
 /**
- * Where site email lands. A route with its own variable (LEE_SYSTEMS_TO_EMAIL,
- * BM_TO_EMAIL and so on) checks that first and falls back to this.
+ * Where every form submission and payment notification lands:
+ * ceo@leeenterprisesunlimited.com (site.email in data/site.ts). Fixed in code
+ * at the owner's request (2026-10-19) rather than read from an environment
+ * variable, so no setting in Vercel can quietly send leads somewhere else.
+ * The old overrides (CONTACT_TO_EMAIL, LEE_SYSTEMS_TO_EMAIL, LMM_TO_EMAIL,
+ * WEBSITE_TO_EMAIL, BM_TO_EMAIL) are no longer read.
  */
-export const DEFAULT_TO_EMAIL =
-  process.env.CONTACT_TO_EMAIL || companyInfo.contactEmail;
+export const DEFAULT_TO_EMAIL = companyInfo.contactEmail;
 
 interface LeadEmail {
   /** The route's log prefix, e.g. "contact" for "[contact] ...". */

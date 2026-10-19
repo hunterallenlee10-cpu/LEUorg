@@ -16,9 +16,8 @@
 > website half `#websites` lands on (the websites text came off the same
 > day); the
 > quote form is gone, and a website request made through the one form on
-> `/lee-systems` (`/api/lee-systems-inquiry`) still resolves
-> `WEBSITE_TO_EMAIL` → `LEE_SYSTEMS_TO_EMAIL` → `LMM_TO_EMAIL` →
-> `CONTACT_TO_EMAIL` and keeps the "New Website Request" subject (§4); there
+> `/lee-systems` (`/api/lee-systems-inquiry`) goes to
+> ceo@leeenterprisesunlimited.com (fixed in code since 2026-10-19) and keeps the "New Website Request" subject (§4); there
 > are no sibling links (§5) and no page of its own, so no share image of its
 > own (§7); and no section carries `scroll-mt-24`, because html's
 > `scroll-padding-top` offsets every anchor (§2).
@@ -291,7 +290,7 @@ What `websitePortfolio` actually is, and what the copy must keep saying:
   how the section is titled.
 - **The Lee Enterprises Unlimited entry does not route its contact form.**
   `app/api/contact/route.ts` sends every submission to a single
-  `CONTACT_TO_EMAIL` recipient and varies only the subject line by the venture
+  recipient and varies only the subject line by the venture
   the visitor selected. The claim is that the enquiry arrives already labeled -
   that is labeling, not routing. The old "Routed contact form" chip is now
   "Venture-labeled enquiries". Do not restore the routing wording unless the
@@ -413,14 +412,9 @@ from an automation lead in the inbox, and that only works if it is set here.
 That subject line is also half of what §3.2 permits the page to claim about
 measurement, so it is load-bearing copy, not a formatting detail.
 
-Recipient resolution, first match wins:
-
-```
-WEBSITE_TO_EMAIL → LMM_TO_EMAIL → CONTACT_TO_EMAIL → ceo@leeenterprisesunlimited.com
-```
-
-No new required environment variable. `WEBSITE_TO_EMAIL` is optional and only
-needed if website leads should route somewhere other than the shared inbox.
+Recipient: ceo@leeenterprisesunlimited.com, fixed in code since 2026-10-19
+(`DEFAULT_TO_EMAIL` in `lib/email.ts`). The old `WEBSITE_TO_EMAIL`,
+`LMM_TO_EMAIL` and `CONTACT_TO_EMAIL` overrides are no longer read.
 
 `WebsitesInquiryForm` holds all form state, validation and fetch logic;
 `WebsitesInquiryCTA` around it is a server component and only supplies the

@@ -155,7 +155,7 @@ subscribed to:
 `invoice.paid`, `invoice.payment_failed`, `payment_intent.payment_failed`
 
 Every event is signature-verified against the raw request body before anything
-else runs. `invoice.*` events email `CONTACT_TO_EMAIL` through the Resend
+else runs. `invoice.*` events email ceo@leeenterprisesunlimited.com through the Resend
 account the site's forms already use; a failed payment intent is logged.
 
 **The hostname must be canonical.** Stripe does not follow redirects. Register
