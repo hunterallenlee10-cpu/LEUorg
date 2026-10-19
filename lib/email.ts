@@ -11,9 +11,17 @@ export function getResend(): Resend {
   return new Resend(process.env.RESEND_API_KEY);
 }
 
-/** The sender on every email the site sends. */
+/**
+ * The sender on every email the site sends. Defaults to Resend's shared
+ * onboarding@resend.dev, which the owner's Resend account already sends the
+ * .com site's form emails from (2026-10-19). It works without a verified
+ * domain, but only delivers to the Resend account's own address, which is
+ * ceo@leeenterprisesunlimited.com. Once leeenterprisesunlimited.com is
+ * verified in Resend, set CONTACT_FROM_EMAIL to an address on it.
+ */
 export const FROM_EMAIL =
-  process.env.CONTACT_FROM_EMAIL || "noreply@leeenterprisesunlimited.com";
+  process.env.CONTACT_FROM_EMAIL ||
+  "Lee Enterprises Unlimited <onboarding@resend.dev>";
 
 /**
  * Where every form submission and payment notification lands:
