@@ -12,7 +12,7 @@ import { join } from "node:path";
  */
 export const ogSize = { width: 1200, height: 630 };
 export const ogContentType = "image/png";
-export const ogDomain = "leeenterprisesunlimited.net";
+export const ogDomain = "leeenterprisesunlimited.org";
 
 /** The full LEU logo, read once per build from public/ (512x512). */
 const leuLogo = readFile(join(process.cwd(), "public/logos/leu-logo.png"), "base64").then(

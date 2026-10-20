@@ -1,5 +1,5 @@
 /**
- * Business facts for leeenterprisesunlimited.net. Every component reads them
+ * Business facts for leeenterprisesunlimited.org. Every component reads them
  * from here, so each fact changes in one place.
  *
  * An empty string or empty list means the fact isn't confirmed yet. Whatever
@@ -48,7 +48,7 @@ export const site = {
   name: "Lee Enterprises Unlimited",
   shortName: "LEU",
   /** The canonical origin. The bare domain redirects here. */
-  url: "https://www.leeenterprisesunlimited.net",
+  url: "https://www.leeenterprisesunlimited.org",
   email: "ceo@leeenterprisesunlimited.com",
   /** Shown as a tap-to-call link wherever it appears. "" hides it. */
   phone: "(240) 925-2609",

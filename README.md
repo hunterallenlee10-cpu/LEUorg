@@ -1,10 +1,11 @@
 # leu
 
-The Lee Enterprises Unlimited website, .net edition
-(www.leeenterprisesunlimited.net): the homepage (`/`), the services hub
+The Lee Enterprises Unlimited website, .org edition
+(www.leeenterprisesunlimited.org): the homepage (`/`), the services hub
 (`/services`, with a page per service at `/services/[slug]`), How It Works
 (`/how-it-works`, formerly `/lee-systems`), Business Mastery (its own copy,
-separate from the .com's, at mastery.leeenterprisesunlimited.net; see
+separate from the .com's and .net's, at /business-mastery until
+mastery.leeenterprisesunlimited.org is attached; see
 [docs/BUSINESS-MASTERY.md](docs/BUSINESS-MASTERY.md)), `/contact` and `/legal`, plus `/book`, a short address that forwards to wherever "Book a free
 call" goes. Next.js 16 (App Router), React 19, Tailwind CSS v4 and TypeScript,
 hosted on Vercel.

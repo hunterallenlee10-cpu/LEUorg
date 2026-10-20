@@ -3,6 +3,16 @@
 Execution plan and settled decisions for `/business-mastery`, the Business
 Mastery program page, plus its homepage presence.
 
+> **2026-10-20 the .org site — read this first.** This repo is now the .org
+> site (www.leeenterprisesunlimited.org, Vercel project `leu.org`), a copy of
+> the .net site. `site.url`, `MAIN_SITE_URL` in `next.config.mjs` and the
+> share-card domain all name the .org, so link previews and canonical
+> addresses point here instead of at the .net. Its subdomain would be
+> **mastery.leeenterprisesunlimited.org**, which is not attached in Vercel
+> yet, so `BUSINESS_MASTERY_SITE_LIVE` is **off** and links use
+> www.leeenterprisesunlimited.org/business-mastery. Where the notes below
+> name the .net or .com hosts, read the .org ones for this repo.
+
 > **2026-10-18 the .net site — read this first.** This repo is the .net
 > site (www.leeenterprisesunlimited.net), a separate copy of the .com site.
 > It now has its own Business Mastery at **mastery.leeenterprisesunlimited.net**
