@@ -1,8 +1,9 @@
-import { ChevronDown, ShieldCheck } from "lucide-react";
+import { ShieldCheck } from "lucide-react";
 import { BM_OFFER_ID, bmOffer } from "@/data/business-mastery";
 import { BmApplicationForm } from "@/components/business-mastery/BmApplicationForm";
 import { companyInfo } from "@/data/company";
 import { site } from "@/data/site";
+import { SectionHead } from "@/components/ui/ds";
 
 /** The titles only name what each line already says. */
 const afterApplySteps = [
@@ -27,42 +28,37 @@ const afterApplySteps = [
  * tabIndex={-1} on the section: every CTA is an anchor to this id, and the
  * homepage's smoothScrollToElement pattern focuses its target for keyboard
  * users — a focusable landing target keeps hash navigation equivalent.
+ *
+ * In the site's design system since 2026-10-22: the shared section head, the
+ * guarantee as one of the site's FAQ bars, the steps in the display face with
+ * badges shaped like the site's buttons, and the form as a cut-corner card
+ * like the contact form.
  */
 export function BmFoundingOfferSection() {
   return (
     <section
       id={BM_OFFER_ID}
       tabIndex={-1}
-      className="relative isolate overflow-hidden py-20 outline-none md:py-28"
+      aria-labelledby="bm-offer-title"
+      className="ds-section outline-none"
     >
-      <div className="absolute inset-0 section-fade" aria-hidden="true">
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(70% 55% at 50% 40%, rgb(var(--amber) / 0.08) 0%, transparent 70%)",
-          }}
+      <div className="ds-container">
+        {/* The line under the heading is how membership is paid for, and the
+            price once one is set in data/site.ts. Stated up front so nobody
+            applies thinking it is free. */}
+        <SectionHead
+          center
+          id="bm-offer-title"
+          eyebrow={bmOffer.eyebrow}
+          title={bmOffer.heading}
+          sub={
+            site.businessMastery.format || site.businessMastery.price
+              ? `${[site.businessMastery.format, site.businessMastery.price]
+                  .filter(Boolean)
+                  .join(": ")}.`
+              : undefined
+          }
         />
-      </div>
-
-      <div className="section-container relative">
-        <div className="mx-auto max-w-3xl text-center">
-          <p className="bm-eyebrow">
-            {bmOffer.eyebrow}
-          </p>
-          <h2 className="heading-lg text-white">{bmOffer.heading}</h2>
-          {/* How membership is paid for, and the price once one is set in
-              data/site.ts. Stated up front so nobody applies thinking it is
-              free. */}
-          {(site.businessMastery.format || site.businessMastery.price) && (
-            <p className="mt-4 text-lg text-neutral-300">
-              {[site.businessMastery.format, site.businessMastery.price]
-                .filter(Boolean)
-                .join(": ")}
-              .
-            </p>
-          )}
-        </div>
 
         {/* Scarcity, only when the owner states it in data/site.ts. The
             "Limited Spots" box that sat here came off on 2026-09-28 at the
@@ -70,7 +66,7 @@ export function BmFoundingOfferSection() {
             wording set there must be literally true, and shows exactly once,
             here. */}
         {site.businessMastery.scarcity && (
-          <p className="mt-8 text-center text-base font-semibold text-white">
+          <p className="mt-8 text-center font-mono text-sm uppercase tracking-[0.2em] text-brass-400">
             {site.businessMastery.scarcity}
           </p>
         )}
@@ -79,37 +75,32 @@ export function BmFoundingOfferSection() {
             full legal terms are a Phase C gate — see docs/BUSINESS-MASTERY.md
             §6 — so the body carries the summary and points people to email
             for the details. */}
-        <details className="group mx-auto mt-8 max-w-2xl rounded-xl border border-neutral-800 bg-neutral-900/40 light:bg-[#fff]">
-          <summary className="flex cursor-pointer list-none items-center justify-between gap-4 p-5 [&::-webkit-details-marker]:hidden">
-            <span className="flex items-center gap-3">
-              <ShieldCheck
-                className="h-6 w-6 shrink-0 text-amber-400"
-                aria-hidden="true"
-              />
-              <span className="text-base font-bold text-white sm:text-lg">
+        <div className="ds-faq mx-auto mt-10 max-w-2xl" data-reveal>
+          <details>
+            <summary>
+              <span className="flex items-center gap-3">
+                <ShieldCheck
+                  className="h-6 w-6 shrink-0 text-brass-400"
+                  aria-hidden="true"
+                />
                 {bmOffer.guaranteeHeading}
               </span>
-            </span>
-            <ChevronDown
-              className="h-5 w-5 shrink-0 text-neutral-400 transition-transform duration-200 group-open:rotate-180"
-              aria-hidden="true"
-            />
-          </summary>
-          <div className="border-t border-neutral-800 p-5 text-left">
-            <p className="leading-relaxed text-neutral-300">
-              {bmOffer.guaranteeSummary}
-            </p>
-            <p className="mt-4 text-sm leading-relaxed text-neutral-400">
-              {bmOffer.guaranteeTermsNote}{" "}
-              <a
-                href={`mailto:${companyInfo.contactEmail}`}
-                className="font-medium text-amber-400 underline-offset-4 hover:underline"
-              >
-                {companyInfo.contactEmail}
-              </a>
-            </p>
-          </div>
-        </details>
+              <span className="ds-faq-icon" aria-hidden="true" />
+            </summary>
+            <div className="ds-faq-answer">
+              <p className="text-neutral-300">{bmOffer.guaranteeSummary}</p>
+              <p className="mt-4 text-sm">
+                {bmOffer.guaranteeTermsNote}{" "}
+                <a
+                  href={`mailto:${companyInfo.contactEmail}`}
+                  className="font-medium text-brass-400 underline underline-offset-4 hover:text-white"
+                >
+                  {companyInfo.contactEmail}
+                </a>
+              </p>
+            </div>
+          </details>
+        </div>
 
         {/* What happens after you apply, while joining is by application
             (`joinMode` "apply" in data/site.ts). The third step is the owner's
@@ -117,9 +108,9 @@ export function BmFoundingOfferSection() {
             `platform` is set. */}
         {site.businessMastery.joinMode === "apply" && (
           <div className="bm-steps mx-auto mt-20 max-w-5xl md:mt-24">
-            <div className="text-center">
-              <p className="bm-kicker">Next steps</p>
-              <h3 className="mt-4 text-2xl font-bold tracking-tight text-white md:text-3xl">
+            <div className="text-center" data-reveal>
+              <p className="ds-eyebrow ds-eyebrow--center">Next steps</p>
+              <h3 className="ds-h2 ds-h2--sm mt-4">
                 What happens after you apply
               </h3>
             </div>
@@ -146,10 +137,8 @@ export function BmFoundingOfferSection() {
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <div className="pt-2 md:pt-0">
-                      <h4 className="text-lg font-bold text-white md:mt-6 md:text-xl">
-                        {title}
-                      </h4>
-                      <p className="mt-2 text-pretty leading-relaxed text-neutral-400 md:mx-auto md:max-w-[17rem]">
+                      <h4 className="ds-h3 md:mt-6">{title}</h4>
+                      <p className="mt-2 text-pretty leading-relaxed text-neutral-300 md:mx-auto md:max-w-[17rem]">
                         {body}
                       </p>
                     </div>

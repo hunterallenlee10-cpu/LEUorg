@@ -109,8 +109,8 @@ export function BmAiWindow() {
         <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
         <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
         <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
-        <span className="ml-3 text-xs font-semibold text-neutral-400">AI assistant</span>
-        <span className="ml-auto flex items-center gap-2 text-xs text-neutral-500">
+        <span className="ml-3 font-mono text-xs uppercase tracking-[0.2em] text-neutral-400">AI assistant</span>
+        <span className="ml-auto flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-neutral-400">
           <span className="bm-live-dot" />
           Working
         </span>
@@ -126,7 +126,7 @@ export function BmAiWindow() {
         {/* The reply */}
         {promptDone && (
           <div className="flex items-start gap-3">
-            <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-amber-400/40 bg-amber-400/10 text-amber-300">
+            <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center border border-brass-400/40 bg-brass-400/10 text-brass-400">
               <Bot className="h-4 w-4" />
             </span>
             {phase === "thinking" ? (
@@ -139,9 +139,7 @@ export function BmAiWindow() {
               <ul className="space-y-2.5 pt-1">
                 {current.results.slice(0, shown).map((result) => (
                   <li key={result} className="bm-result flex items-center gap-2.5 text-sm text-neutral-200 md:text-base">
-                    <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-amber-400 text-neutral-950">
-                      <Check className="h-3 w-3" strokeWidth={3} />
-                    </span>
+                    <Check className="h-5 w-5 shrink-0 text-brass-400" strokeWidth={2.5} />
                     {result}
                   </li>
                 ))}
@@ -152,9 +150,9 @@ export function BmAiWindow() {
       </div>
 
       {/* The input bar */}
-      <div className="mx-5 mb-5 flex items-center gap-3 rounded-xl border border-white/10 bg-black/30 px-4 light:bg-neutral-950 py-3 md:mx-6">
-        <span className="flex-1 text-sm text-neutral-600">Ask for anything…</span>
-        <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-amber-400 text-neutral-950">
+      <div className="mx-5 mb-5 flex items-center gap-3 border border-white/10 bg-neutral-950/70 px-4 py-3 md:mx-6">
+        <span className="flex-1 text-sm text-neutral-500">Ask for anything…</span>
+        <span className="flex h-7 w-7 items-center justify-center bg-[var(--ds-gold)] text-[var(--ds-on-gold)]">
           <ArrowUp className="h-4 w-4" />
         </span>
       </div>

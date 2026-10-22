@@ -7,6 +7,7 @@ import {
 } from "@/data/business-mastery";
 import { site } from "@/data/site";
 import { BmHeroBackground } from "@/components/business-mastery/BmHeroBackground";
+import { ScribbleArrow } from "@/components/ui/ds";
 
 /**
  * The page's own section grammar, used once more at the top (the owner's
@@ -34,6 +35,13 @@ import { BmHeroBackground } from "@/components/business-mastery/BmHeroBackground
  * names are the program's and the company's, set here. The uppercase on the
  * button is `text-transform`, not retyped copy. The trust line is
  * `bmHeroTrust`, which documents the fact each item restates.
+ *
+ * Since 2026-10-22 it is set in the site's design system, like every other
+ * page's hero: the tag is square and mono, the headline is the display face
+ * with its second line in the accent (where it used to be dim then bright),
+ * and the button is the site's `.btn-hero` between the homepage hero's
+ * hand-drawn arrows, in its own case rather than uppercase. The words are
+ * unchanged.
  *
  * The sizes, the rhythm and the veil behind the copy are argued in
  * app/globals.css, which owns this block's typography.
@@ -63,8 +71,8 @@ export function BmHeroSection() {
           The extra 5rem on top is the header's own height, and it is what
           returns the block to the centre of the space a visitor can actually
           see. */}
-      <div className="section-container relative z-[2] w-full pb-16 pt-[calc(5rem+4rem)] text-center [@media(max-height:820px)]:pb-8 [@media(max-height:820px)]:pt-[calc(5rem+2rem)]">
-        <div className="bmh mx-auto flex max-w-[1000px] flex-col items-center">
+      <div className="ds-container relative z-[2] w-full pb-16 pt-[calc(5rem+4rem)] text-center [@media(max-height:820px)]:pb-8 [@media(max-height:820px)]:pt-[calc(5rem+2rem)]">
+        <div className="bmh mx-auto flex max-w-[1100px] flex-col items-center">
           {/* The same pill BmShiftSection opens with, with the names the other
               way round: here the badge carries the program, since this is its
               page, and the quiet half carries the company. */}
@@ -76,24 +84,22 @@ export function BmHeroSection() {
             <span className="pr-1">Lee Enterprises Unlimited</span>
           </p>
 
-          {/* Each line is its own block, so the dim one and the bright one
+          {/* Each line is its own block, so the white one and the accent one
               break on their own. The space between the two spans is real
               text, so the sentence reads as one sentence to search engines
               and screen readers, not as two headings. */}
-          <h1 className="bmh-headline bmh-rise font-bold text-white text-balance [animation-delay:150ms]">
+          <h1 className="ds-h1 bmh-headline bmh-rise [animation-delay:150ms]">
             {bmHeroCopyIsConsistent ? (
               <>
-                <span className="block text-neutral-500">
-                  {bmHero.manifestoLines[0]}
-                </span>{" "}
-                <span className="block">{bmHero.manifestoLines[1]}</span>
+                <span className="block">{bmHero.manifestoLines[0]}</span>{" "}
+                <span className="block ds-accent">{bmHero.manifestoLines[1]}</span>
               </>
             ) : (
               bmHero.manifesto
             )}
           </h1>
 
-          <p className="bmh-promise bmh-rise max-w-[30em] text-neutral-400 text-balance [animation-delay:260ms]">
+          <p className="bmh-promise bmh-rise max-w-[30em] text-neutral-300 text-balance [animation-delay:260ms]">
             {bmHeroCopyIsConsistent
               ? bmHero.subtitleRuns.map((run, i) =>
                   "strong" in run && run.strong ? (
@@ -117,15 +123,16 @@ export function BmHeroSection() {
             {bmHero.description}
           </p>
 
-          {/* The program section's button, so the page's two biggest buttons
-              are a matched pair: uppercase, tracked, bold, with the resting
-              bloom. Sizes and the bloom live in `.bmh-cta`. */}
-          <a
-            href={bmPageAction.href}
-            className="bmh-cta bmh-rise inline-flex items-center justify-center rounded-lg bg-amber-400 font-bold uppercase tracking-[0.12em] text-neutral-950 transition-[color,background-color,box-shadow] duration-[260ms] hover:bg-amber-300 focus-visible:outline-2 focus-visible:outline-offset-[3px] focus-visible:outline-amber-400/85 max-sm:w-full [animation-delay:480ms]"
-          >
-            {bmPageAction.label}
-          </a>
+          {/* The site's hero button with the homepage's hand-drawn arrows
+              pointing in at it, and the twin of the one at the foot of the
+              program section. */}
+          <div className="bmh-cta bmh-rise flex w-full items-center justify-center gap-3 sm:w-auto sm:gap-5 [animation-delay:480ms]">
+            <ScribbleArrow side="left" className="hidden sm:block" />
+            <a href={bmPageAction.href} className="btn-hero w-full sm:w-auto">
+              {bmPageAction.label}
+            </a>
+            <ScribbleArrow side="right" className="hidden sm:block" />
+          </div>
 
           {/* A list, so a screen reader gets the three facts as three items
               rather than one run-on line. The check marks are decoration. */}
@@ -133,7 +140,7 @@ export function BmHeroSection() {
             {bmHeroTrust.map((item) => (
               <li key={item}>
                 <Check
-                  className="h-3.5 w-3.5 shrink-0 text-amber-400"
+                  className="h-3.5 w-3.5 shrink-0 text-brass-400"
                   strokeWidth={2.5}
                   aria-hidden="true"
                 />

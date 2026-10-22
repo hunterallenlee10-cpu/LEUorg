@@ -13,7 +13,8 @@ import { ThemeToggle } from "@/components/ui/ThemeToggle";
  * program's name on the left, which goes back to the top, and the page's
  * one action on the right, with the light/dark switch beside it as in
  * MainHeader. The same height and the same see-through bar turning solid on
- * scroll as MainHeader, so the hero's top padding still fits.
+ * scroll as MainHeader, so the hero's top padding still fits, and the same
+ * square double-border button as MainHeader's "Book a free call".
  */
 export function BmHeader() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -75,7 +76,7 @@ export function BmHeader() {
         <div className="flex items-center gap-2 sm:gap-3">
           <a
             href={bmPageAction.href}
-            className="inline-flex min-h-11 items-center justify-center whitespace-nowrap rounded-lg bg-amber-400 px-4 py-2 text-sm font-semibold text-neutral-950 transition-colors duration-200 hover:bg-amber-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-400 sm:px-5 sm:text-base"
+            className="btn-ls-primary inline-flex min-h-11 items-center justify-center whitespace-nowrap px-4 py-2 text-sm sm:px-5 sm:text-base"
           >
             {bmPageAction.label}
           </a>

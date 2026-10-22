@@ -52,7 +52,7 @@ export function BmYearClock() {
 
   return (
     <div className="bm-shift-panel flex min-h-[24rem] flex-col md:min-h-[27rem]" aria-hidden="true">
-      <div className="flex items-center justify-between px-6 pt-5 text-xs font-semibold uppercase tracking-[0.18em] text-neutral-500">
+      <div className="flex items-center justify-between px-6 pt-5 font-mono text-xs uppercase tracking-[0.2em] text-neutral-400">
         <span>{year ?? "This year"}</span>
         <span className="flex items-center gap-2">
           <span className="bm-live-dot" />
@@ -108,7 +108,7 @@ export function BmYearClock() {
         </svg>
 
         <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center text-center">
-          <span className="text-2xl font-bold tabular-nums tracking-tight text-white md:text-3xl">
+          <span className="font-[family-name:var(--font-display)] text-4xl font-black tabular-nums text-white md:text-5xl">
             {percent === null ? "…" : `${percent.toFixed(6)}%`}
           </span>
           <span className="mt-1 text-sm text-neutral-400">
@@ -117,9 +117,9 @@ export function BmYearClock() {
         </div>
       </div>
 
-      <div className="flex items-center justify-between border-t border-white/10 px-6 py-4 text-sm">
-        <span className="text-neutral-500">Time left this year</span>
-        <span className="font-semibold tabular-nums text-amber-300">
+      <div className="flex items-center justify-between border-t border-white/10 px-6 py-4 font-mono text-xs uppercase tracking-[0.18em]">
+        <span className="text-neutral-400">Time left this year</span>
+        <span className="tabular-nums text-brass-400">
           {daysLeft === null ? "…" : `${daysLeft} days`}
         </span>
       </div>

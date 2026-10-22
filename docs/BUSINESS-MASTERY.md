@@ -3,6 +3,23 @@
 Execution plan and settled decisions for `/business-mastery`, the Business
 Mastery program page, plus its homepage presence.
 
+> **2026-10-22 design system — read this first.** The page was the one part
+> of the site the 2026-10-18 redesign skipped, so it still had the older look
+> (rounded glass panels, pill labels, sentence-case bold headlines, glowing
+> rounded buttons). At the owner's request it now matches every other page,
+> with **no change to any wording**: `.ds-page` on the wrapper, the shared
+> `SectionHead` (mono eyebrow, display headline, line under it), square mono
+> tags in place of the pills, display-face headings whose second line takes
+> the accent (they were dim then bright), the "why now" rows laid out like the
+> homepage's "How it works" (middle row on a cut-corner band), cut-corner
+> panels in the surface colour, the figures as the homepage's stat tiles, the
+> guarantee as an FAQ bar, step badges shaped like the buttons, the form
+> dressed like the contact form, and the site's square double-border buttons
+> (`.btn-hero` with the hand-drawn arrows in the hero, `.btn-ls-primary` in
+> the header). The glow layers that alternated between sections are gone, as
+> on the rest of the site. The constellation behind the hero is unchanged.
+> docs/DESIGN-SYSTEM.md has the system.
+
 > **2026-10-20 the .org site — read this first.** This repo is now the .org
 > site (www.leeenterprisesunlimited.org, Vercel project `leu.org`), a copy of
 > the .net site. `site.url`, `MAIN_SITE_URL` in `next.config.mjs` and the

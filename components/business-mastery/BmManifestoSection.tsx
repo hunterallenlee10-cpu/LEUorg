@@ -1,4 +1,5 @@
 import { bmTenets, bmTenetsIntro } from "@/data/business-mastery";
+import { SectionHead } from "@/components/ui/ds";
 
 /**
  * Section 5 — our core tenets: Speed, Money In, For Free.
@@ -19,53 +20,49 @@ import { bmTenets, bmTenetsIntro } from "@/data/business-mastery";
  *    Philosophy block, `bmCoreBelief.philosophyTitle` and `.philosophy` (off
  *    2026-09-07). Both sat in the manifesto, so both come back with it.
  *
- * The tenets are numbered rows rather than cards (2026-09-29): a large gold
+ * The tenets are numbered rows rather than cards (2026-09-29): a large
  * numeral beside each, hairlines between, each row rising in as it scrolls
- * into view (`.bm-reveal`, scroll-driven, still under reduced motion).
- *
- * No glow layer: the page alternates one (2, 4 and 6 have it; 3 and 5
- * don't), and this is a plain slot.
+ * into view (`data-reveal`, scroll-driven, still under reduced motion). Since
+ * 2026-10-22 the heading is the shared section head and the numerals and
+ * titles are the site's display face, the numerals in the accent like the
+ * stat tiles' figures.
  *
  * Server component, no client boundary. The only motion is CSS.
  */
 export function BmManifestoSection() {
   return (
-    <section className="relative isolate py-20 md:py-28">
-      <div className="section-container">
-        <div className="mx-auto max-w-5xl">
-          <div className="mx-auto mb-10 max-w-3xl text-center md:mb-12">
-            <h2 className="heading-lg text-white text-balance">
-              {bmTenetsIntro.heading}
-            </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-lg text-neutral-400 text-pretty">
-              {bmTenetsIntro.description}
-            </p>
-          </div>
+    <section aria-labelledby="bm-tenets-title" className="ds-section">
+      <div className="ds-container">
+        <SectionHead
+          center
+          id="bm-tenets-title"
+          title={bmTenetsIntro.heading}
+          sub={bmTenetsIntro.description}
+          className="mb-10 md:mb-14"
+        />
 
-          <ol className="mx-auto max-w-4xl">
-            {bmTenets.map((tenet) => (
-              <li
-                key={tenet.id}
-                className="bm-reveal group grid grid-cols-[4.5rem_1fr] items-center gap-x-6 border-t border-white/10 py-8 last:border-b sm:grid-cols-[7rem_1fr] md:grid-cols-[9rem_1fr] md:gap-x-10 md:py-10"
+        <ol className="mx-auto max-w-4xl">
+          {bmTenets.map((tenet) => (
+            <li
+              key={tenet.id}
+              className="grid grid-cols-[4.5rem_1fr] items-center gap-x-6 border-t border-white/10 py-8 last:border-b sm:grid-cols-[7rem_1fr] md:grid-cols-[9rem_1fr] md:gap-x-10 md:py-10"
+              data-reveal
+            >
+              <span
+                className="bm-tenet-num text-6xl sm:text-8xl md:text-[7.5rem]"
+                aria-hidden="true"
               >
-                <span
-                  className="bm-tenet-num text-5xl font-bold tabular-nums leading-none sm:text-7xl md:text-8xl"
-                  aria-hidden="true"
-                >
-                  {String(tenet.number).padStart(2, "0")}
-                </span>
-                <div>
-                  <h3 className="text-2xl font-bold tracking-tight text-white md:text-3xl">
-                    {tenet.title}
-                  </h3>
-                  <p className="mt-2 text-lg leading-relaxed text-neutral-400 text-pretty">
-                    {tenet.description}
-                  </p>
-                </div>
-              </li>
-            ))}
-          </ol>
-        </div>
+                {String(tenet.number).padStart(2, "0")}
+              </span>
+              <div>
+                <h3 className="ds-h3">{tenet.title}</h3>
+                <p className="mt-3 text-lg leading-relaxed text-neutral-300 text-pretty">
+                  {tenet.description}
+                </p>
+              </div>
+            </li>
+          ))}
+        </ol>
       </div>
     </section>
   );

@@ -50,8 +50,14 @@ function checkField(id: StepId, form: FormState): string | undefined {
   }
 }
 
+/** Square fields with an accent focus edge, as on the contact form. */
 const inputClass =
-  "w-full border-0 border-b-2 bg-transparent px-0 py-3 text-xl text-white placeholder-neutral-600 transition-colors focus:outline-none md:text-2xl";
+  "w-full rounded-none border bg-neutral-950/70 px-4 py-3 text-lg text-white placeholder-neutral-500 transition-colors focus:border-brass-400 focus:outline-none focus:ring-2 focus:ring-brass-400/40 md:text-xl";
+
+/** A cut-corner card in the design system's surface colour, like the
+ *  contact form's ("LEU design system" in globals.css). */
+const cardClass =
+  "ds-cut relative mx-auto max-w-3xl border border-white/10 bg-[var(--ds-surface)]";
 
 /**
  * The founding-member application, asked one question at a time: name, email,
@@ -64,6 +70,9 @@ const inputClass =
  * in lib/validation.ts checked here and again in
  * app/api/business-mastery-application/route.ts, which also sets the
  * recipient. No payment is taken here; the owner follows up personally.
+ *
+ * Dressed like the contact form since 2026-10-22: a cut-corner card, square
+ * fields and progress segments, mono labels and a display-face question.
  */
 export function BmApplicationForm() {
   const [formData, setFormData] = useState<FormState>(emptyForm);
@@ -191,13 +200,13 @@ export function BmApplicationForm() {
         ref={successRef}
         tabIndex={-1}
         role="status"
-        className="mx-auto max-w-2xl rounded-xl border border-amber-400/30 bg-amber-400/5 p-10 text-center focus:outline-none md:p-12"
+        className={`${cardClass} p-10 text-center focus:outline-none md:p-12`}
       >
         <CheckCircle2
-          className="mx-auto mb-5 h-12 w-12 text-amber-400"
+          className="mx-auto mb-5 h-12 w-12 text-brass-400"
           aria-hidden="true"
         />
-        <h3 className="mb-3 text-2xl font-bold text-white">
+        <h3 className="ds-h3 mb-3">
           Application received
         </h3>
         <p className="mb-6 text-neutral-300">
@@ -208,7 +217,7 @@ export function BmApplicationForm() {
         <button
           type="button"
           onClick={() => setSubmitted(false)}
-          className="inline-flex min-h-11 items-center text-sm font-semibold text-amber-400 underline-offset-4 hover:underline"
+          className="mt-2 inline-flex min-h-11 items-center text-sm font-semibold text-brass-300 underline-offset-4 hover:underline"
         >
           Submit another application
         </button>
@@ -241,7 +250,7 @@ export function BmApplicationForm() {
     "aria-invalid": error ? ("true" as const) : undefined,
     "aria-describedby": describedBy,
     className: `${inputClass} ${
-      error ? "border-red-500/70" : "border-neutral-700 focus:border-amber-400"
+      error ? "border-red-500/60" : "border-white/10 hover:border-white/20"
     }`,
   };
 
@@ -251,25 +260,25 @@ export function BmApplicationForm() {
       noValidate
       aria-labelledby="bm-form-title"
       aria-describedby="bm-form-description"
-      className="mx-auto max-w-3xl overflow-hidden rounded-xl border border-white/10 bg-white/[0.04] light:border-neutral-800 light:bg-[#fff] light:shadow-[0_20px_50px_-24px_rgb(15_35_70/0.18)]"
+      className={cardClass}
     >
       {/* Progress: a segment per question, lit as each one is answered. */}
       <div className="flex gap-1.5 px-6 pt-6 md:px-10 md:pt-8" aria-hidden="true">
         {steps.map((id, i) => (
           <span
             key={id}
-            className={`h-1 flex-1 rounded-full transition-colors duration-300 ${
-              i <= step ? "bg-amber-400" : "bg-white/10"
+            className={`h-1 flex-1 transition-colors duration-300 ${
+              i <= step ? "bg-brass-400" : "bg-white/10"
             }`}
           />
         ))}
       </div>
 
       <div className="flex items-baseline justify-between gap-4 px-6 pt-4 md:px-10">
-        <h3 id="bm-form-title" className="text-sm font-semibold text-amber-400">
+        <h3 id="bm-form-title" className="font-mono text-xs uppercase tracking-[0.25em] text-brass-400">
           Apply to join
         </h3>
-        <p className="text-sm tabular-nums text-neutral-500" aria-live="polite">
+        <p className="font-mono text-xs uppercase tracking-[0.15em] tabular-nums text-neutral-400" aria-live="polite">
           Question {step + 1} of {steps.length}
         </p>
       </div>
@@ -293,13 +302,13 @@ export function BmApplicationForm() {
       >
         <label
           htmlFor={fieldId}
-          className="block text-2xl font-bold leading-snug text-white md:text-3xl"
+          className="ds-h3 block"
         >
           {question}
         </label>
 
         {current === "story" && (
-          <p id="bm-story-hint" className="mt-3 text-sm leading-relaxed text-neutral-400">
+          <p id="bm-story-hint" className="mt-4 text-sm leading-relaxed text-neutral-400">
             Where you are right now, what you&apos;re building or want to build,
             what&apos;s holding you back, and what you&apos;re hoping to get
             out of membership. An idea, a business you already run, or &ldquo;I
@@ -369,7 +378,7 @@ export function BmApplicationForm() {
       {errors.form && (
         <p
           role="alert"
-          className="mx-6 mt-4 rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-400 md:mx-10"
+          className="mx-6 mt-4 border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-400 md:mx-10"
         >
           {errors.form}
         </p>
@@ -390,7 +399,7 @@ export function BmApplicationForm() {
         )}
 
         <div className="flex items-center gap-4">
-          <span className="hidden items-center gap-1.5 text-xs text-neutral-500 md:inline-flex">
+          <span className="hidden items-center gap-1.5 font-mono text-xs text-neutral-400 md:inline-flex">
             {isLast ? (
               "Ctrl or ⌘ + Enter to send"
             ) : (
@@ -403,17 +412,22 @@ export function BmApplicationForm() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="btn-primary inline-flex min-h-11 items-center justify-center gap-2 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:scale-100"
+            className="btn-ds group inline-flex min-h-11 items-center justify-center gap-2 disabled:cursor-not-allowed disabled:opacity-60"
           >
             {isLast ? (isSubmitting ? "Sending..." : "Send my application") : "Continue"}
-            {!isLast && <ArrowRight className="h-4 w-4" aria-hidden="true" />}
+            {!isLast && (
+              <ArrowRight
+                className="h-4 w-4 transition-transform duration-200 motion-safe:group-hover:translate-x-1"
+                aria-hidden="true"
+              />
+            )}
           </button>
         </div>
       </div>
 
       <p
         id="bm-form-description"
-        className="border-t border-white/10 px-6 py-4 text-center text-xs text-neutral-500 md:px-10"
+        className="border-t border-white/10 px-6 py-4 text-center text-xs text-neutral-400 md:px-10"
       >
         Four quick questions. No payment is taken here. We review every
         application and follow up personally.
