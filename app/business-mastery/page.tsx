@@ -48,13 +48,17 @@ export const metadata: Metadata = {
  * Section order is the settled page flow from docs/BUSINESS-MASTERY.md §3 —
  * change it there first. It was last reordered on 2026-09-29, when "The
  * world is about to change" took slot 2 and absorbed "Who this is for".
- * Every section shares the body's neutral-950, so what alternates is a glow
- * layer: 2, 4 and 6 carry one, 3 and 5 don't. Keep that alternation if the
- * order changes again.
+ *
+ * Since 2026-10-22 the page is in the site's design system, like every other
+ * page (`.ds-page`, docs/DESIGN-SYSTEM.md): display-face headlines, mono
+ * eyebrows, the square double-border buttons, cut-corner panels and stat
+ * tiles. The glow layers that used to alternate between sections are gone,
+ * as on the rest of the site; the "why now" rows carry the alternation now,
+ * with their middle row on a band a step off the page colour.
  */
 export default function BusinessMasteryPage() {
   return (
-    <div className="min-h-screen w-full bg-neutral-950">
+    <div className="ds-page min-h-screen w-full bg-neutral-950">
       {/* Its own header and footer rather than the main site's: the page is
           Business Mastery's own site, on its own subdomain
           (docs/BUSINESS-MASTERY.md). */}

@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import { Bot, Hourglass, Lightbulb, Rocket, Route, Sparkles, TrendingUp } from "lucide-react";
 import { BmAiWindow } from "@/components/business-mastery/BmAiWindow";
 import { BmYearClock } from "@/components/business-mastery/BmYearClock";
@@ -32,62 +33,56 @@ const stageIcons: Record<string, typeof Lightbulb> = {
  *
  * The panels are the motion: a year clock and an AI window (client
  * components, both decorative) and the path, whose light runs on CSS. Rows
- * rise in as they scroll into view (`.bm-reveal`, a scroll-driven animation,
- * so nothing is ever hidden waiting on JS). Everything holds still under
- * reduced motion.
+ * rise in as they scroll into view (`data-reveal`, the site's scroll-driven
+ * fade-up, so nothing is ever hidden waiting on JS). Everything holds still
+ * under reduced motion.
  *
- * Carries the page's slot-2 glow (docs/BUSINESS-MASTERY.md §3).
+ * Set like the homepage's "How it works" since 2026-10-22: the display-face
+ * headings with their second line in the accent (they were dim then bright),
+ * full-width rows with the middle one on a cut-corner band a step off the
+ * page colour, and the panels as cut-corner surfaces.
  */
 export function BmShiftSection() {
   return (
-    <section className="relative isolate overflow-hidden py-20 md:py-28">
-      <div className="absolute inset-0 z-0 section-fade" aria-hidden="true">
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(60% 40% at 50% 8%, rgb(var(--amber) / 0.08) 0%, transparent 70%)",
-          }}
-        />
-      </div>
-
-      <div className="section-container relative z-[1]">
-        <div className="mx-auto mb-16 max-w-3xl text-center md:mb-24">
-          <p className="bm-pill mx-auto mb-5">
+    <section aria-labelledby="bm-shift-title" className="ds-section pb-0">
+      <div className="ds-container">
+        <div className="ds-head ds-head--center" data-reveal>
+          <p className="bm-pill">
             <span className="bm-pill-badge">
               <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
               {bmShift.eyebrow}
             </span>
-            <span className="pr-1">Business Mastery</span>
+            <span>Business Mastery</span>
           </p>
-          <h2 className="heading-lg text-white text-balance">{bmShift.heading}</h2>
+          <h2 id="bm-shift-title" className="ds-h2">
+            {bmShift.heading}
+          </h2>
         </div>
+      </div>
 
-        <div className="space-y-20 md:space-y-28">
-          {bmShift.rows.map((row, index) => {
-            const Icon = rowIcons[row.id];
-            const flip = index % 2 === 1;
-            return (
-              <article
-                key={row.id}
-                aria-labelledby={`bm-shift-${row.id}`}
-                className="bm-reveal grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16"
-              >
-                <div className={flip ? "lg:order-2" : undefined}>
-                  <p className="bm-pill mb-6">
+      <div className="mt-12 lg:mt-16">
+        {bmShift.rows.map((row, index) => {
+          const Icon = rowIcons[row.id];
+          const flip = index % 2 === 1;
+          return (
+            <article
+              key={row.id}
+              aria-labelledby={`bm-shift-${row.id}`}
+              className={clsx("py-14 md:py-20", flip && "ds-alt ds-cut ds-cut--lg")}
+            >
+              <div className="ds-container grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
+                <div className={flip ? "lg:order-2" : undefined} data-reveal>
+                  <p className="bm-pill">
                     <span className="bm-pill-icon">
                       <Icon className="h-4 w-4" aria-hidden="true" />
                     </span>
-                    <span className="pr-1">{row.label}</span>
+                    <span>{row.label}</span>
                   </p>
-                  <h3
-                    id={`bm-shift-${row.id}`}
-                    className="text-4xl font-bold leading-[1.05] tracking-tight md:text-5xl"
-                  >
-                    <span className="block text-neutral-500">{row.dim}</span>
-                    <span className="block text-white">{row.bright}</span>
+                  <h3 id={`bm-shift-${row.id}`} className="ds-h2 ds-h2--sm mt-5">
+                    <span className="block">{row.dim}</span>{" "}
+                    <span className="block ds-accent">{row.bright}</span>
                   </h3>
-                  <p className="mt-6 max-w-xl text-lg leading-relaxed text-neutral-400">
+                  <p className="mt-6 max-w-xl text-lg leading-relaxed text-neutral-300">
                     {row.body.map((run, i) =>
                       "strong" in run && run.strong ? (
                         <strong key={i} className="font-semibold text-white">
@@ -100,15 +95,15 @@ export function BmShiftSection() {
                   </p>
                 </div>
 
-                <div className={flip ? "lg:order-1" : undefined}>
+                <div className={flip ? "lg:order-1" : undefined} data-reveal>
                   {row.id === "time" && <BmYearClock />}
                   {row.id === "ai" && <BmAiWindow />}
                   {row.id === "way-out" && <BmPathPanel />}
                 </div>
-              </article>
-            );
-          })}
-        </div>
+              </div>
+            </article>
+          );
+        })}
       </div>
     </section>
   );
@@ -122,7 +117,7 @@ export function BmShiftSection() {
 function BmPathPanel() {
   return (
     <div className="bm-shift-panel px-6 py-7 md:px-8 md:py-8">
-      <h4 className="text-xl font-bold text-white md:text-2xl">{bmAudienceHeading}</h4>
+      <h4 className="ds-h3">{bmAudienceHeading}</h4>
 
       <ol className="mt-7 space-y-7">
         {bmAudiences.map((stage, i) => {
@@ -149,7 +144,7 @@ function BmPathPanel() {
         })}
       </ol>
 
-      <p className="mt-8 border-t border-white/10 pt-5 text-sm italic text-neutral-500">
+      <p className="mt-8 border-t border-white/10 pt-5 font-mono text-xs uppercase leading-relaxed tracking-[0.18em] text-neutral-400">
         {bmAudienceSubheading}
       </p>
     </div>

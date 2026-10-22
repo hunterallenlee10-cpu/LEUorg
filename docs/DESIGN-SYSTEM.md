@@ -1,7 +1,9 @@
 # Design system (university.com colours, 2026-10-18)
 
 The site follows university.com's structure and, since 2026-10-18, its
-colours, in LEU's own type and copy. The study behind it (screenshots and
+colours, in LEU's own type and copy. Every page is in it, Business Mastery
+included since 2026-10-22 (it keeps its constellation hero background and
+its own header and footer, in the same parts). The study behind it (screenshots and
 computed styles) is in `design-ref/DESIGN-NOTES.md`.
 
 ## Tokens
