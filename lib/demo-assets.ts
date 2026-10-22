@@ -7,7 +7,7 @@ import type { DemoAssets } from "@/components/services/demo/sizes";
  * The optional media the demos use when the owner adds it to /public, found
  * at build time (the service pages are static, so this runs once per
  * deploy). Anything missing is left out and its demo falls back: the call
- * transcript without audio, a "[SAMPLE REEL]" frame instead of video.
+ * transcript without audio, a reel cut from stock photos instead of video.
  *
  * - public/demos/calls/<scenario>.mp3: one recording per AI call scenario
  *   (ac-repair, law, gym, restaurant), played only on a visitor's tap.

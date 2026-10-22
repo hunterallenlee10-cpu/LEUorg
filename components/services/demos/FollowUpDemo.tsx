@@ -6,7 +6,7 @@ import clsx from "clsx";
 import { ArrowRight, Check, Clock, MessageCircle, Send, Sun } from "lucide-react";
 import { DemoFrame } from "@/components/services/demo/DemoFrame";
 import { useDemo, type Demo } from "@/components/services/demo/useDemo";
-import { CountUp, ExampleTag, Panel } from "@/components/services/demo/ui";
+import { CountUp, ExampleTag, Panel, Photo } from "@/components/services/demo/ui";
 import { demoSizes, demoTitles, type DemoProps } from "@/components/services/demo/sizes";
 import { leeSystemsLinks } from "@/data/lee-systems";
 import { filterInput } from "@/lib/validation";
@@ -16,6 +16,7 @@ import {
   dailySummary,
   defaultLeadName,
   followUpBusiness,
+  followUpPhotos,
   followUpTexts,
   leadServices,
   otherCards,
@@ -101,9 +102,12 @@ export default function FollowUpDemo({ formPath }: DemoProps) {
       <div className="grid h-full grid-cols-1 content-start gap-4 p-4 sm:grid-cols-[260px_1fr] sm:p-5 lg:grid-cols-[260px_1fr_260px]">
         {/* The lead's phone */}
         <div className="mx-auto flex h-[460px] w-full max-w-[260px] flex-col overflow-hidden rounded-[2rem] border-[6px] border-neutral-800 bg-[#050b18] shadow-2xl sm:row-span-2 lg:row-span-1 light:bg-[#fff]">
-          <div className="border-b border-white/10 px-4 pt-6 pb-2.5 text-center">
-            <p className="text-[11px] tracking-wider text-neutral-400 uppercase">Your phone</p>
-            <p className="text-sm font-semibold text-white">{followUpBusiness}</p>
+          <div className="flex items-center justify-center gap-2.5 border-b border-white/10 px-4 pt-6 pb-2.5">
+            <Photo src={followUpPhotos.contact} className="h-8 w-8 shrink-0 rounded-full object-cover ring-1 ring-white/15" />
+            <span className="min-w-0">
+              <span className="block text-[10px] tracking-wider text-neutral-400 uppercase">Your phone</span>
+              <span className="block truncate text-sm font-semibold text-white">{followUpBusiness}</span>
+            </span>
           </div>
 
           {showForm ? (
@@ -234,10 +238,20 @@ export default function FollowUpDemo({ formPath }: DemoProps) {
           <Panel title="Post comment → DM">
             {demo.reached(S.dm) ? (
               <div className="svc-enter space-y-2 text-[12px] leading-snug">
-                <p className="text-neutral-300">
-                  <span className="font-semibold text-white">{commentToDm.handle}</span> commented{" "}
-                  <span className="rounded bg-white/10 px-1.5 py-px font-bold text-white">{commentToDm.comment}</span>
-                </p>
+                {/* The notification as a social app shows it: who, what, and
+                    the post it was on. */}
+                <div className="flex items-center gap-2.5">
+                  <span aria-hidden="true" className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-tr from-amber-400 via-pink-500 to-purple-600 p-[2px]">
+                    <span className="flex h-full w-full items-center justify-center rounded-full bg-neutral-900 text-[10px] font-bold text-white">
+                      {commentToDm.handle.charAt(1).toUpperCase()}
+                    </span>
+                  </span>
+                  <p className="min-w-0 flex-1 text-neutral-300">
+                    <span className="font-semibold text-white">{commentToDm.handle}</span> commented{" "}
+                    <span className="rounded bg-white/10 px-1.5 py-px font-bold text-white">{commentToDm.comment}</span>
+                  </p>
+                  <Photo src={followUpPhotos.post} className="h-10 w-10 shrink-0 rounded object-cover" />
+                </div>
                 <p className="flex items-start gap-2">
                   <Send aria-hidden="true" className="mt-0.5 h-3.5 w-3.5 shrink-0 text-brass-400" />
                   <span className="rounded-lg bg-brass-400/15 px-2.5 py-1.5 text-white">{commentToDm.dm}</span>

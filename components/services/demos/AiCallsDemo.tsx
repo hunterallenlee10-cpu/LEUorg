@@ -1,11 +1,11 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 import { Bot, CalendarCheck, Check, MessageSquareText, Pause, Phone, PhoneIncoming, Play } from "lucide-react";
 import { DemoFrame } from "@/components/services/demo/DemoFrame";
 import { useDemo } from "@/components/services/demo/useDemo";
-import { ExampleTag, Panel, Segmented, TypeText } from "@/components/services/demo/ui";
+import { ExampleTag, Panel, Photo, Segmented, TypeText } from "@/components/services/demo/ui";
 import { demoSizes, demoTitles, type DemoProps } from "@/components/services/demo/sizes";
 import { callScenarios, type CallScenario, type CallScenarioId } from "@/data/demos/calls";
 import { site } from "@/data/site";
@@ -14,9 +14,10 @@ import { site } from "@/data/site";
  * AI Call Answering: a call at 11:48 PM, answered and booked.
  *
  * The visitor picks the business (AC repair, law consultation, gym trial,
- * restaurant reservation). The phone rings, the assistant picks up, the
- * transcript appears line by line, a calendar slot fills in as "Booked by
- * AI", and the confirmation text arrives.
+ * restaurant reservation). The phone rings over a photo of the business, the
+ * assistant picks up (a call timer and a voice waveform run while it talks),
+ * the transcript appears line by line, a calendar slot fills in as "Booked
+ * by AI", and the confirmation text arrives.
  *
  * Audio is optional and never plays by itself: when a recording for the
  * scenario is in public/demos/calls/ (found at build time), a "Listen"
@@ -94,23 +95,51 @@ export default function AiCallsDemo({ formPath, assets }: DemoProps) {
       <div className="grid h-full grid-cols-1 content-start gap-4 p-4 sm:grid-cols-[280px_1fr] sm:p-5 lg:gap-6">
         {/* The phone */}
         <div className="mx-auto flex h-[440px] w-full max-w-[280px] flex-col overflow-hidden rounded-[2rem] border-[6px] border-neutral-800 bg-[#050b18] shadow-2xl light:bg-[#fff]">
-          <div className="border-b border-white/10 px-4 pt-6 pb-3 text-center">
-            <p className="text-[11px] tracking-wider text-neutral-400 uppercase">
-              {demo.step === RING ? "Incoming call · 11:48 PM" : ended ? "Call ended" : "AI assistant on the line"}
-            </p>
-            <p className="mt-1 truncate text-sm font-semibold text-white">{scenario.business}</p>
-            <p className="text-[11px] text-neutral-400">
-              {scenario.caller} · {scenario.callerPhone}
-            </p>
-          </div>
+          {demo.step === RING ? null : (
+            <div className="flex items-center gap-3 border-b border-white/10 px-4 pt-6 pb-3">
+              <Photo src={scenario.photo} className="h-10 w-10 shrink-0 rounded-full object-cover ring-1 ring-white/15" />
+              <div className="min-w-0 flex-1">
+                <p className="flex items-center gap-1.5 text-[10px] font-semibold tracking-wider text-neutral-400 uppercase">
+                  {ended ? (
+                    "Call ended"
+                  ) : (
+                    <>
+                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                      AI on the line
+                    </>
+                  )}
+                  <span className="ml-auto font-mono tracking-normal text-neutral-300 tabular-nums">
+                    <CallTimer key={`${scenarioId}-${demo.run}`} running={typing && demo.active && !ended} fallback={lineCount * 9} />
+                  </span>
+                </p>
+                <p className="mt-0.5 truncate text-sm font-semibold text-white">{scenario.business}</p>
+                <p className="truncate text-[11px] text-neutral-400">
+                  {scenario.caller} · {scenario.callerPhone}
+                </p>
+              </div>
+            </div>
+          )}
 
           {demo.step === RING ? (
-            <div className="flex flex-1 flex-col items-center justify-center gap-3">
-              <span className="relative flex h-16 w-16 items-center justify-center rounded-full bg-brass-400 text-neutral-950">
-                {typing && <span className="svc-l-pulse absolute inset-0 rounded-full bg-brass-400/50" />}
-                <PhoneIncoming aria-hidden="true" className="relative h-7 w-7" />
+            // The ringing screen, over a dimmed photo of the business. White
+            // text whatever the theme, since it sits on the photo.
+            <div className="relative flex flex-1 flex-col items-center overflow-hidden px-4 pt-10 pb-6 text-center text-[#fff]">
+              <Photo key={scenario.photo} src={scenario.photo} className="svc-photo-in absolute inset-0 h-full w-full scale-110 object-cover blur-[2px]" />
+              <span aria-hidden="true" className="absolute inset-0 bg-gradient-to-b from-[#000]/70 via-[#000]/35 to-[#000]/80" />
+              <p className="relative text-[11px] tracking-wider uppercase opacity-80">Incoming call · 11:48 PM</p>
+              <span className="relative mt-5 flex h-16 w-16 items-center justify-center rounded-full bg-[#fff]/15 text-xl font-semibold ring-1 ring-[#fff]/30 backdrop-blur">
+                {initials(scenario.caller)}
               </span>
-              <p className="text-xs text-neutral-300">Answering&hellip;</p>
+              <p className="relative mt-3 text-lg font-semibold">{scenario.caller}</p>
+              <p className="relative text-[12px] opacity-75">{scenario.callerPhone}</p>
+              <p className="relative mt-1 truncate text-[12px] opacity-75">to {scenario.business}</p>
+              <span className="relative mt-auto flex flex-col items-center gap-2">
+                <span className="relative flex h-14 w-14 items-center justify-center rounded-full bg-emerald-500 text-[#fff]">
+                  {typing && <span className="svc-l-pulse absolute inset-0 rounded-full bg-emerald-400/60" />}
+                  <PhoneIncoming aria-hidden="true" className="relative h-6 w-6" />
+                </span>
+                <span className="text-[11px] opacity-85">AI answering&hellip;</span>
+              </span>
             </div>
           ) : (
             <ol
@@ -150,16 +179,29 @@ export default function AiCallsDemo({ formPath, assets }: DemoProps) {
             </ol>
           )}
 
-          <div className="flex items-center justify-center border-t border-white/10 py-3">
-            <span
-              className={clsx(
-                "flex h-10 w-10 items-center justify-center rounded-full",
-                ended ? "bg-white/10 text-neutral-400" : "bg-red-400 text-neutral-950"
-              )}
-            >
-              <Phone aria-hidden="true" className="h-4 w-4 rotate-[135deg]" />
-            </span>
-          </div>
+          {demo.step !== RING && (
+            <div className="flex items-center justify-center gap-4 border-t border-white/10 py-3">
+              {/* The assistant's voice while it talks; flat once the call ends. */}
+              <span aria-hidden="true" className="flex h-6 w-16 items-center justify-center gap-[3px]">
+                {[45, 80, 60, 100, 70, 90, 50].map((height, i) => (
+                  <span
+                    key={i}
+                    style={{ height: ended ? "12%" : `${height}%`, animationDelay: `${i * 0.12}s` }}
+                    className={clsx("w-[3px] rounded-full bg-brass-300/80", typing && !ended && "svc-l-wave")}
+                  />
+                ))}
+              </span>
+              <span
+                className={clsx(
+                  "flex h-10 w-10 items-center justify-center rounded-full",
+                  ended ? "bg-white/10 text-neutral-400" : "bg-red-500 text-[#fff]"
+                )}
+              >
+                <Phone aria-hidden="true" className="h-4 w-4 rotate-[135deg]" />
+              </span>
+              <span aria-hidden="true" className="w-16" />
+            </div>
+          )}
         </div>
 
         {/* The calendar, the text, and the optional extras */}
@@ -242,6 +284,33 @@ export default function AiCallsDemo({ formPath, assets }: DemoProps) {
       </div>
     </DemoFrame>
   );
+}
+
+/** "Dana W." to "DW", for the caller's avatar. */
+function initials(name: string) {
+  return name
+    .split(/\s+/)
+    .map((part) => part[0])
+    .join("")
+    .replace(/[^A-Za-z]/g, "")
+    .slice(0, 2)
+    .toUpperCase();
+}
+
+/**
+ * The call's running time. It ticks once a second while the demo plays the
+ * call; paused, it holds. When it never ran (reduced motion, or opened on the
+ * result) it shows `fallback` seconds, worked out from the lines shown.
+ */
+function CallTimer({ running, fallback }: { running: boolean; fallback: number }) {
+  const [seconds, setSeconds] = useState(0);
+  useEffect(() => {
+    if (!running) return;
+    const timer = window.setInterval(() => setSeconds((current) => current + 1), 1000);
+    return () => window.clearInterval(timer);
+  }, [running]);
+  const shown = seconds > 0 ? seconds : fallback;
+  return <>{`${Math.floor(shown / 60)}:${String(shown % 60).padStart(2, "0")}`}</>;
 }
 
 /**

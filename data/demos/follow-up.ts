@@ -4,7 +4,16 @@
  * the visitor typed and picked; neither leaves the page.
  */
 
+import { demoImages } from "@/data/demos/images";
+
 export const followUpBusiness = "Ridgeline Roofing";
+
+/** The business's contact photo on the lead's phone, and the post the
+ *  PRICE comment was left on (data/demos/images.ts). */
+export const followUpPhotos = {
+  contact: demoImages.homeServices,
+  post: demoImages.houseDusk,
+} as const;
 
 /** Used when the visitor presses Play without typing a name. */
 export const defaultLeadName = "Alex";

@@ -1,8 +1,11 @@
+import { demoImages } from "@/data/demos/images";
+
 /**
  * The Websites demo's five made-up businesses (components/services/demos/
  * WebsitesDemo.tsx): the industry switch re-skins one mock site with these.
  * `accent` names one of the site's existing colour scales, which the light
- * theme already re-points, so each skin reads in both themes.
+ * theme already re-points, so each skin reads in both themes. `photo` is the
+ * hero picture (data/demos/images.ts); the store's is its product.
  */
 
 export type WebsiteSkinId = "home" | "law" | "fitness" | "restaurant" | "store";
@@ -20,6 +23,14 @@ export interface WebsiteSkin {
   accent: "cyan" | "brass" | "red" | "yellow" | "emerald";
   /** What the lead in the closing toast asked for. */
   lead: string;
+  photo: string;
+  /** Where the hero crops the photo (CSS object-position). */
+  focus: string;
+  /** The made-up review score under the button. */
+  rating: number;
+  reviews: number;
+  /** Three nav links. */
+  nav: readonly [string, string, string];
 }
 
 export const websiteSkins: readonly WebsiteSkin[] = [
@@ -34,6 +45,11 @@ export const websiteSkins: readonly WebsiteSkin[] = [
     trust: "Licensed and insured",
     accent: "cyan",
     lead: "Jordan P. booked a free inspection",
+    photo: demoImages.homeServices,
+    focus: "70% 40%",
+    rating: 4.9,
+    reviews: 212,
+    nav: ["Repairs", "Replacement", "Reviews"],
   },
   {
     id: "law",
@@ -46,6 +62,11 @@ export const websiteSkins: readonly WebsiteSkin[] = [
     trust: "Every call returned",
     accent: "brass",
     lead: "Marcus T. booked a consultation",
+    photo: demoImages.law,
+    focus: "45% 50%",
+    rating: 4.8,
+    reviews: 164,
+    nav: ["Practice areas", "Results", "About"],
   },
   {
     id: "fitness",
@@ -58,6 +79,11 @@ export const websiteSkins: readonly WebsiteSkin[] = [
     trust: "First session free",
     accent: "red",
     lead: "Priya S. booked a free trial",
+    photo: demoImages.fitness,
+    focus: "40% 60%",
+    rating: 5.0,
+    reviews: 98,
+    nav: ["Classes", "Coaches", "Pricing"],
   },
   {
     id: "restaurant",
@@ -70,6 +96,11 @@ export const websiteSkins: readonly WebsiteSkin[] = [
     trust: "Open Tuesday to Sunday",
     accent: "yellow",
     lead: "Sam R. reserved a table for 4",
+    photo: demoImages.restaurant,
+    focus: "55% 50%",
+    rating: 4.7,
+    reviews: 430,
+    nav: ["Menu", "Private dining", "Hours"],
   },
   {
     id: "store",
@@ -77,18 +108,23 @@ export const websiteSkins: readonly WebsiteSkin[] = [
     business: "Northwind Goods",
     eyebrow: "Handmade leather",
     headline: "Leather goods made to last.",
-    sub: "Made by hand in small batches. Free shipping.",
+    sub: "Bags made by hand in small batches. Free shipping.",
     cta: "Shop now",
     trust: "30-day returns",
     accent: "emerald",
     lead: "Order #1042 placed",
+    photo: demoImages.storeProduct,
+    focus: "50% 45%",
+    rating: 4.9,
+    reviews: 1204,
+    nav: ["Shop", "Our story", "Journal"],
   },
 ];
 
 /** The store skin's one product. Totals are worked out from these. */
 export const storeProduct = {
-  name: "Field Wallet",
-  detail: "Full-grain leather, 6 card slots",
-  price: 48,
+  name: "Field Satchel",
+  detail: "Full-grain leather, fits a 14\" laptop",
+  price: 148,
   shipping: 0,
 } as const;
