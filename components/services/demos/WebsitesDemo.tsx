@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 import { DemoFrame } from "@/components/services/demo/DemoFrame";
 import { useDemo } from "@/components/services/demo/useDemo";
-import { Segmented } from "@/components/services/demo/ui";
+import { Photo, Segmented, Stars } from "@/components/services/demo/ui";
 import { demoSizes, demoTitles, type DemoProps } from "@/components/services/demo/sizes";
 import {
   storeProduct,
@@ -29,8 +29,8 @@ import {
  * Websites & Online Stores: an outdated site against a new one.
  *
  * The slider under the mock site wipes between the old site (left: slow,
- * cluttered, no clear next step) and the new one (right: one headline, one
- * button). The industry switch re-skins the new site, the device switch
+ * cluttered, no clear next step, its photo squashed) and the new one (right:
+ * one headline, one button, the business's photo filling the side). The industry switch re-skins the new site, the device switch
  * shows it on a phone, and the online store skin walks through add to cart,
  * checkout and "Order confirmed". It ends on the phone with a "New lead
  * received" toast.
@@ -174,7 +174,7 @@ export default function WebsitesDemo({ formPath }: DemoProps) {
         <div className="relative flex min-h-0 flex-1 items-center justify-center">
           <DeviceFrame device={device} business={skin.business}>
             <Compare slider={slider} smooth={mine.slider === undefined}>
-              <OldSite loading={!!frame.loading && mine.slider === undefined} compact={device === "phone"} />
+              <OldSite skin={skin} loading={!!frame.loading && mine.slider === undefined} compact={device === "phone"} />
               <NewSite
                 skin={skin}
                 compact={device === "phone"}
@@ -311,20 +311,39 @@ function Compare({
   );
 }
 
-/** Slow, crowded, and nowhere obvious to click. */
-function OldSite({ loading, compact }: { loading: boolean; compact: boolean }) {
+/**
+ * Slow, crowded, and nowhere obvious to click: the same business's site as
+ * it might have looked for years, with its photo stretched and washed out.
+ */
+function OldSite({
+  skin,
+  loading,
+  compact,
+}: {
+  skin: WebsiteSkin;
+  loading: boolean;
+  compact: boolean;
+}) {
   return (
     <div aria-hidden="true" className="relative h-full overflow-hidden bg-[#d9d6cf] font-serif text-[#3a3a3a]">
       <div className="bg-[#5a5f73] px-3 py-1.5 text-[11px] text-[#e6e6e6]">
-        Welcome to our website!!! Call us today!!!
+        Welcome to {skin.business}!!! Call us today!!!
       </div>
       <div className="flex flex-wrap gap-x-2 gap-y-0.5 border-b border-[#9b9b9b] px-3 py-1 text-[9px] text-[#2d4ea8] underline">
         {["Home", "About Us", "Our History", "Services", "Gallery", "Links", "Specials", "Testimonials", "FAQ", "Contact"].map((link) => (
           <span key={link}>{link}</span>
         ))}
       </div>
-      <div className={clsx("grid gap-2 p-3", compact ? "grid-cols-1" : "grid-cols-3")}>
-        {Array.from({ length: compact ? 3 : 6 }, (_, i) => (
+      <div className={clsx("grid gap-2 p-3", compact ? "grid-cols-1" : "grid-cols-[1.4fr_1fr_1fr]")}>
+        {/* The one photo, squashed to fit a box it was never cropped for. */}
+        <div className="space-y-1">
+          <Photo
+            src={skin.photo}
+            className="block h-16 w-full border-2 border-[#8c8c8c] object-fill opacity-90 contrast-75 saturate-50 sepia-[.35]"
+          />
+          <span className="block text-[8px] leading-tight">Photo of our work (click to enlarge)</span>
+        </div>
+        {Array.from({ length: compact ? 2 : 5 }, (_, i) => (
           <div key={i} className="space-y-1">
             <span className="block h-10 bg-[#b9b5ab]" />
             <span className="block text-[8px] leading-tight">
@@ -334,6 +353,10 @@ function OldSite({ loading, compact }: { loading: boolean; compact: boolean }) {
         ))}
       </div>
       <p className="px-3 text-[8px] text-[#2d4ea8] underline">Click here for more information</p>
+      <p className="absolute inset-x-0 bottom-0 flex justify-between gap-2 border-t border-[#9b9b9b] bg-[#cfccc4] px-3 py-1 text-[8px] text-[#555]">
+        <span>Best viewed in 800 x 600</span>
+        <span className="font-mono">Visitors: 004213</span>
+      </p>
       {loading && (
         <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-[#d9d6cf]/85 font-sans text-xs text-[#555]">
           <span className="svc-l-spin h-7 w-7 rounded-full border-2 border-[#999] border-t-[#333]" />
@@ -344,7 +367,12 @@ function OldSite({ loading, compact }: { loading: boolean; compact: boolean }) {
   );
 }
 
-/** One headline, one button, re-skinned per industry. */
+/**
+ * One headline, one button and a real photo, re-skinned per industry. On a
+ * wide screen the photo fills the right side and fades into the page; on a
+ * phone (or a narrow frame) it is a band across the top. The store skin
+ * shows its product in a card that adds to cart, checks out and confirms.
+ */
 function NewSite({
   skin,
   compact,
@@ -362,68 +390,114 @@ function NewSite({
   const total = storeProduct.price + storeProduct.shipping;
 
   return (
-    <div className="relative h-full overflow-hidden bg-[#050b18] text-white light:bg-[#fff]">
-      <div
-        aria-hidden="true"
-        className={clsx("pointer-events-none absolute -top-1/3 -right-1/4 h-full w-3/4 rounded-full bg-gradient-to-b to-transparent blur-3xl", accent.glow)}
-      />
+    <div className="relative flex h-full flex-col overflow-hidden bg-[#050b18] text-white light:bg-[#fff]">
+      {!isStore && (
+        <div
+          aria-hidden="true"
+          className={clsx(
+            "pointer-events-none absolute",
+            compact ? "inset-x-0 top-0 h-[42%]" : "inset-x-0 top-0 h-[38%] @lg:inset-y-0 @lg:right-0 @lg:left-auto @lg:h-auto @lg:w-[56%]"
+          )}
+        >
+          <Photo
+            key={skin.photo}
+            src={skin.photo}
+            className="svc-photo-in h-full w-full object-cover"
+            style={{ objectPosition: skin.focus }}
+          />
+          {/* Fades the photo into the page: down on a phone, left on a wide screen. */}
+          <span
+            className={clsx(
+              "absolute inset-0",
+              compact
+                ? "bg-gradient-to-t from-[#050b18] via-[#050b18]/40 to-[#050b18]/10 light:from-[#fff] light:via-[#fff]/40 light:to-[#fff]/0"
+                : "bg-gradient-to-t from-[#050b18] via-[#050b18]/40 to-[#050b18]/10 light:from-[#fff] light:via-[#fff]/40 light:to-[#fff]/0 @lg:bg-gradient-to-r @lg:from-[#050b18] @lg:via-[#050b18]/45 @lg:via-30% @lg:to-transparent light:@lg:from-[#fff] light:@lg:via-[#fff]/45"
+            )}
+          />
+        </div>
+      )}
+      {isStore && (
+        <div
+          aria-hidden="true"
+          className={clsx("pointer-events-none absolute -top-1/3 -right-1/4 h-full w-3/4 rounded-full bg-gradient-to-b to-transparent blur-3xl", accent.glow)}
+        />
+      )}
+
       <div className="relative flex items-center justify-between gap-2 px-4 py-2.5">
         <span className="flex min-w-0 items-center gap-2 text-[12px] font-bold">
           <span className={clsx("flex h-6 w-6 shrink-0 items-center justify-center rounded text-neutral-950", accent.solid)}>
             <Icon aria-hidden="true" className="h-3.5 w-3.5" />
           </span>
-          <span className="truncate">{skin.business}</span>
-        </span>
-        {isStore ? (
-          <span className="relative flex items-center text-neutral-300" aria-label={`Cart, ${store >= 1 ? 1 : 0} item`}>
-            <ShoppingCart aria-hidden="true" className="h-4 w-4" />
-            {store >= 1 && store < 3 && (
-              <span className={clsx("absolute -top-1.5 -right-2 flex h-3.5 w-3.5 items-center justify-center rounded-full text-[9px] font-bold text-neutral-950", accent.solid)}>
-                1
-              </span>
-            )}
+          {/* Over the photo band (phone, narrow frame) the name is white
+              whatever the theme; on a wide screen it sits on the page. */}
+          <span className={clsx("truncate", !isStore && "text-[#fff] [text-shadow:0_1px_6px_rgb(0_0_0/0.6)] @lg:text-white @lg:[text-shadow:none]")}>
+            {skin.business}
           </span>
-        ) : (
-          !compact && (
-            <span className={clsx("rounded px-2.5 py-1 text-[10px] font-semibold text-neutral-950", accent.solid)}>
-              {skin.cta}
+        </span>
+        <span className="flex items-center gap-4">
+          {!compact && (
+            <span aria-hidden="true" className={clsx("hidden items-center gap-4 text-[10px] font-medium @xl:flex", isStore ? "text-neutral-300" : "text-[#fff]/90 [text-shadow:0_1px_6px_rgb(0_0_0/0.6)]")}>
+              {skin.nav.map((link) => (
+                <span key={link}>{link}</span>
+              ))}
             </span>
-          )
-        )}
-      </div>
-
-      <div className={clsx("relative grid gap-4 px-4 pt-3 @lg:pt-6", compact ? "grid-cols-1" : "@lg:grid-cols-[1.15fr_1fr] @lg:items-center @lg:px-8")}>
-        <div>
-          <p className={clsx("text-[10px] font-semibold tracking-[0.16em] uppercase", accent.text)}>{skin.eyebrow}</p>
-          <p className="mt-2 text-[22px] leading-[1.1] font-bold tracking-tight @lg:text-[28px]">{skin.headline}</p>
-          <p className="mt-2 text-[12px] leading-snug text-neutral-300">{skin.sub}</p>
-          {!isStore && (
-            <>
-              <span className={clsx("mt-4 inline-block rounded-md px-4 py-2 text-[12px] font-semibold text-neutral-950", accent.solid)}>
+          )}
+          {isStore ? (
+            <span className="relative flex items-center text-neutral-300" aria-label={`Cart, ${store >= 1 ? 1 : 0} item`}>
+              <ShoppingCart aria-hidden="true" className="h-4 w-4" />
+              {store >= 1 && store < 3 && (
+                <span className={clsx("absolute -top-1.5 -right-2 flex h-3.5 w-3.5 items-center justify-center rounded-full text-[9px] font-bold text-neutral-950", accent.solid)}>
+                  1
+                </span>
+              )}
+            </span>
+          ) : (
+            !compact && (
+              // Narrow frames drop it: it would wrap, and the hero has the same button.
+              <span className={clsx("hidden rounded px-2.5 py-1 text-[10px] font-semibold whitespace-nowrap text-neutral-950 @md:inline-block", accent.solid)}>
                 {skin.cta}
               </span>
-              <p className="mt-2 flex items-center gap-1 text-[10px] text-neutral-400">
-                <Check aria-hidden="true" className="h-3 w-3" />
-                {skin.trust}
+            )
+          )}
+        </span>
+      </div>
+
+      <div
+        className={clsx(
+          "relative grid flex-1 gap-4 px-4",
+          compact
+            ? "content-end grid-cols-1 pb-5"
+            : isStore
+              ? "content-center @lg:grid-cols-[1.1fr_1fr] @lg:items-center @lg:px-8"
+              : "content-end pb-6 @lg:max-w-[56%] @lg:content-center @lg:px-8 @lg:pb-0"
+        )}
+      >
+        <div>
+          <p className={clsx("text-[10px] font-semibold tracking-[0.16em] uppercase", accent.text)}>{skin.eyebrow}</p>
+          <p className="mt-2 text-[22px] leading-[1.1] font-bold tracking-tight @lg:text-[30px]">{skin.headline}</p>
+          <p className="mt-2 max-w-[34ch] text-[12px] leading-snug text-neutral-300">{skin.sub}</p>
+          {!isStore && (
+            <>
+              <span className={clsx("mt-4 inline-block rounded-md px-4 py-2 text-[12px] font-semibold text-neutral-950 shadow-lg", accent.solid)}>
+                {skin.cta}
+              </span>
+              <p className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-[10px] text-neutral-300">
+                <span className="flex items-center gap-1 text-[11px]">
+                  <Stars rating={skin.rating} />
+                  <span className="font-semibold text-white">{skin.rating.toFixed(1)}</span>
+                </span>
+                <span className="text-neutral-400">{skin.reviews.toLocaleString("en-US")} reviews</span>
+                <span aria-hidden="true" className="text-neutral-500">·</span>
+                <span className="flex items-center gap-1">
+                  <Check aria-hidden="true" className="h-3 w-3" />
+                  {skin.trust}
+                </span>
               </p>
             </>
           )}
         </div>
 
-        {isStore ? (
-          <StoreCard store={store} onStore={onStore} accent={accent} total={total} />
-        ) : (
-          <div
-            aria-hidden="true"
-            className={clsx(
-              "flex aspect-[4/3] items-center justify-center rounded-lg ring-1 ring-white/10",
-              accent.soft,
-              compact && "hidden"
-            )}
-          >
-            <Icon className={clsx("h-12 w-12", accent.text)} strokeWidth={1.25} />
-          </div>
-        )}
+        {isStore && <StoreCard store={store} onStore={onStore} accent={accent} total={total} photo={skin.photo} compact={compact} />}
       </div>
     </div>
   );
@@ -435,11 +509,15 @@ function StoreCard({
   onStore,
   accent,
   total,
+  photo,
+  compact,
 }: {
   store: StoreStage;
   onStore: (stage: StoreStage) => void;
   accent: (typeof accents)[keyof typeof accents];
   total: number;
+  photo: string;
+  compact: boolean;
 }) {
   const button = clsx("mt-3 inline-flex min-h-9 w-full items-center justify-center rounded-md px-3 text-[12px] font-semibold text-neutral-950", accent.solid);
 
@@ -459,8 +537,11 @@ function StoreCard({
   if (store === 2) {
     return (
       <div className="svc-enter rounded-lg border border-white/10 bg-white/[0.04] p-4 text-[12px] light:bg-[#f6f7f9]">
-        <p className="font-bold">Checkout</p>
-        <dl className="mt-2 space-y-1 text-neutral-300">
+        <div className="flex items-center gap-3">
+          <Photo src={photo} className="h-12 w-12 shrink-0 rounded-md object-cover" />
+          <p className="font-bold">Checkout</p>
+        </div>
+        <dl className="mt-3 space-y-1 text-neutral-300">
           <div className="flex justify-between"><dt>{storeProduct.name}</dt><dd>{money(storeProduct.price)}</dd></div>
           <div className="flex justify-between"><dt>Shipping</dt><dd>{storeProduct.shipping ? money(storeProduct.shipping) : "Free"}</dd></div>
           <div className="flex justify-between border-t border-white/10 pt-1 font-semibold text-white"><dt>Total</dt><dd>{money(total)}</dd></div>
@@ -473,23 +554,25 @@ function StoreCard({
   }
 
   return (
-    <div className="rounded-lg border border-white/10 bg-white/[0.04] p-3 light:bg-[#f6f7f9]">
-      <div aria-hidden="true" className={clsx("flex aspect-[5/2] items-center justify-center rounded-md", accent.soft)}>
-        <ShoppingBag className={clsx("h-8 w-8", accent.text)} strokeWidth={1.25} />
+    <div className="overflow-hidden rounded-lg border border-white/10 bg-white/[0.04] light:bg-[#f6f7f9]">
+      <Photo src={photo} className={clsx("block w-full object-cover", compact ? "aspect-[2/1]" : "aspect-[16/9]")} />
+      <div className="p-3">
+        <div className="flex items-baseline justify-between gap-2">
+          <p className="text-[13px] font-bold">{storeProduct.name}</p>
+          <p className="text-[13px] font-semibold">{money(storeProduct.price)}</p>
+        </div>
+        <p className="text-[11px] text-neutral-400">{storeProduct.detail}</p>
+        {store === 0 ? (
+          <button type="button" onClick={() => onStore(1)} className={button}>
+            Add to cart
+          </button>
+        ) : (
+          <button type="button" onClick={() => onStore(2)} className={button}>
+            <Check aria-hidden="true" className="mr-1 h-3.5 w-3.5" />
+            Added · Checkout
+          </button>
+        )}
       </div>
-      <p className="mt-2 text-[13px] font-bold">{storeProduct.name}</p>
-      <p className="text-[11px] text-neutral-400">{storeProduct.detail}</p>
-      <p className="mt-1 text-[13px] font-semibold">{money(storeProduct.price)}</p>
-      {store === 0 ? (
-        <button type="button" onClick={() => onStore(1)} className={button}>
-          Add to cart
-        </button>
-      ) : (
-        <button type="button" onClick={() => onStore(2)} className={button}>
-          <Check aria-hidden="true" className="mr-1 h-3.5 w-3.5" />
-          Added · Checkout
-        </button>
-      )}
     </div>
   );
 }

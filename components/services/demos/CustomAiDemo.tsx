@@ -14,16 +14,17 @@ import {
 } from "lucide-react";
 import { DemoFrame } from "@/components/services/demo/DemoFrame";
 import { useDemo, type Demo } from "@/components/services/demo/useDemo";
-import { ExampleTag, Panel, Segmented, TypeText } from "@/components/services/demo/ui";
+import { ExampleTag, Panel, Photo, Segmented, TypeText } from "@/components/services/demo/ui";
 import { demoSizes, demoTitles, type DemoProps } from "@/components/services/demo/sizes";
-import { contract, hazards, quoteLines, spreadsheet, voiceNote } from "@/data/demos/custom-ai";
+import { contract, hazards, inspectionPhoto, quoteLines, spreadsheet, voiceNote } from "@/data/demos/custom-ai";
 
 /**
  * Custom AI Tools: four small tools, one at a time (the sub-tabs above).
  * - Voice to quote: a voice note's transcript, the line items pulled out of
  *   it, and a branded quote whose totals are worked out here from the lines.
- * - Photo inspection: a drawn job site gets three numbered hazard pins, a
- *   severity list and a "Signed report" stamp.
+ * - Photo inspection: a job-site photo is scanned and gets three numbered
+ *   hazard pins (on the ladder, the roof and the gutter), a severity list and
+ *   a "Signed report" stamp.
  * - Contract check: two risky clauses highlighted and explained in plain
  *   English, and the auto-renewal's cancel-by date (worked out from the
  *   term and the notice period) added to a mini calendar.
@@ -270,15 +271,27 @@ const severityStyle = {
   Low: "bg-emerald-400 text-neutral-950",
 } as const;
 
+/** The detection box drawn round each hazard on the photo. */
+const severityBox = {
+  High: "border-red-400 bg-red-400/15",
+  Medium: "border-yellow-400 bg-yellow-400/10",
+  Low: "border-emerald-400 bg-emerald-400/10",
+} as const;
+
 function PhotoInspection({ demo }: { demo: Demo }) {
   const pins = hazards.filter((_, index) => demo.reached(2 + index));
   const scanning = demo.step === 1 && demo.status === "playing";
   return (
     <div className={two}>
-      <div className="relative overflow-hidden rounded-xl border border-white/10">
-        <JobSiteDrawing />
-        <span className="absolute top-2 left-2 rounded bg-black/60 px-1.5 py-0.5 text-[10px] font-semibold tracking-wider text-white uppercase">
-          Illustration
+      {/* The photo's box is its own 16:9, so the pins' percentages land on
+          the ladder, the roof and the gutter at any width. */}
+      <div className="relative aspect-[16/9] self-start overflow-hidden rounded-xl border border-white/10">
+        <Photo src={inspectionPhoto.src} alt={inspectionPhoto.alt} className="absolute inset-0 h-full w-full object-cover" />
+        <span className="absolute top-2 left-2 rounded bg-[#000]/60 px-1.5 py-0.5 text-[10px] font-semibold tracking-wider text-[#fff] uppercase">
+          Example photo
+        </span>
+        <span className="absolute right-2 bottom-2 rounded bg-[#000]/60 px-1.5 py-0.5 font-mono text-[10px] text-[#fff]/80">
+          IMG_2071.jpg
         </span>
         {scanning && (
           <span aria-hidden="true" className="svc-scan absolute inset-x-0 h-0.5 bg-brass-300 shadow-[0_0_12px_2px_rgb(var(--gold)/0.6)]" />
@@ -288,14 +301,18 @@ function PhotoInspection({ demo }: { demo: Demo }) {
           return (
             <span
               key={hazard.title}
-              className={clsx(
-                "svc-enter absolute flex h-7 w-7 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full text-xs font-bold ring-2 ring-white",
-                severityStyle[hazard.severity]
-              )}
-              style={{ left: `${hazard.x}%`, top: `${hazard.y}%` }}
+              className={clsx("svc-enter absolute rounded-md border-2", severityBox[hazard.severity])}
+              style={{ left: `${hazard.x}%`, top: `${hazard.y}%`, width: `${hazard.w}%`, height: `${hazard.h}%` }}
             >
-              <span className="sr-only">Hazard </span>
-              {number}
+              <span
+                className={clsx(
+                  "absolute -top-3 -left-3 flex h-6 w-6 items-center justify-center rounded-full text-xs font-bold ring-2 ring-[#fff]",
+                  severityStyle[hazard.severity]
+                )}
+              >
+                <span className="sr-only">Hazard </span>
+                {number}
+              </span>
             </span>
           );
         })}
@@ -347,40 +364,6 @@ function PhotoInspection({ demo }: { demo: Demo }) {
         )}
       </Panel>
     </div>
-  );
-}
-
-/** A simple drawn job site: a house, a ladder, a gutter. Not a photo. */
-function JobSiteDrawing() {
-  return (
-    <svg viewBox="0 0 400 260" role="img" aria-label="Drawing of a house with a ladder against it and a gutter along the roof" className="block h-auto w-full">
-      <rect width="400" height="260" fill="#1d2633" />
-      <rect y="200" width="400" height="60" fill="#2d3a2b" />
-      <polygon points="70,120 210,40 350,120" fill="#4a3f3a" />
-      <rect x="90" y="120" width="240" height="95" fill="#8f8a80" />
-      <rect x="130" y="145" width="40" height="35" fill="#2b3442" />
-      <rect x="250" y="145" width="40" height="35" fill="#2b3442" />
-      <rect x="196" y="165" width="30" height="50" fill="#5b4334" />
-      <rect x="66" y="118" width="288" height="7" fill="#b9b4aa" />
-      {/* missing shingles near the ridge */}
-      <polygon points="215,58 245,74 232,82 205,66" fill="#1d2633" />
-      {/* leaves in the gutter */}
-      <circle cx="322" cy="120" r="5" fill="#8a6d2f" />
-      <circle cx="333" cy="119" r="4" fill="#a3843a" />
-      <circle cx="342" cy="121" r="5" fill="#7a5e28" />
-      {/* the ladder */}
-      <g stroke="#d6d3cc" strokeWidth="4">
-        <line x1="88" y1="205" x2="112" y2="118" />
-        <line x1="108" y1="208" x2="130" y2="121" />
-        {[0, 1, 2, 3, 4].map((rung) => (
-          <line key={rung} x1={92 + rung * 4.6} y1={190 - rung * 17} x2={112 + rung * 4.4} y2={192 - rung * 17} />
-        ))}
-      </g>
-      {/* loose gravel at its foot */}
-      {[80, 92, 104, 116].map((x) => (
-        <circle key={x} cx={x} cy="210" r="3" fill="#9c968c" />
-      ))}
-    </svg>
   );
 }
 

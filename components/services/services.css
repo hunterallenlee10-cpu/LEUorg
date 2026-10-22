@@ -119,3 +119,37 @@
 .svc-tabs::-webkit-scrollbar {
   display: none;
 }
+
+/* A demo photo arriving or swapping (a new industry on the mock site). */
+.svc-photo-in {
+  animation: svc-photo-in 700ms cubic-bezier(0.3, 0.7, 0.3, 1) both;
+}
+@keyframes svc-photo-in {
+  from { opacity: 0; transform: scale(1.04); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .svc-photo-in {
+    animation: none !important;
+  }
+}
+
+/* The Content demo's stock-photo reel (StockReel in ContentDemo.tsx), inside
+   a .svc-mp so it only moves while on screen. Edited: three shots, two
+   seconds each, cut on the captions' beat (svc-word-*), each pushing in from
+   its cut. Raw: one shot drifting like a handheld take. The first shot is
+   the still. */
+@keyframes svc-cut-1 { 0%, 33% { opacity: 1; } 33.4%, 100% { opacity: 0; } }
+@keyframes svc-cut-2 { 0%, 33% { opacity: 0; } 33.4%, 66.3% { opacity: 1; } 66.7%, 100% { opacity: 0; } }
+@keyframes svc-cut-3 { 0%, 66.3% { opacity: 0; } 66.7%, 100% { opacity: 1; } }
+.svc-a-cut1 { animation-name: svc-cut-1; animation-timing-function: linear !important; }
+.svc-a-cut2 { animation-name: svc-cut-2; animation-timing-function: linear !important; opacity: 0; }
+.svc-a-cut3 { animation-name: svc-cut-3; animation-timing-function: linear !important; opacity: 0; }
+.svc-l-punch { animation: svc-punch 2s linear infinite; }
+@keyframes svc-punch { from { scale: 1; } to { scale: 1.09; } }
+.svc-l-drift { animation: svc-drift 5s ease-in-out infinite alternate; }
+@keyframes svc-drift {
+  0% { translate: -1.5% 0.5%; rotate: -0.4deg; }
+  50% { translate: 1% -0.8%; rotate: 0.3deg; }
+  100% { translate: -0.5% 1.2%; rotate: -0.2deg; }
+}

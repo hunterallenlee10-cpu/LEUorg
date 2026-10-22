@@ -4,6 +4,8 @@
  * in code from these, never typed in.
  */
 
+import { demoImages } from "@/data/demos/images";
+
 export const voiceNote = {
   business: "Ridgeline Roofing",
   quoteNumber: "Q-2071",
@@ -22,11 +24,20 @@ export const quoteLines = [
   { item: "Gutter guards, front", qty: 25, unit: "ft", rate: 9 },
 ] as const;
 
-/** Where each pin sits on the drawing, in % of its width and height. */
+/** The job-site photo the inspection runs on (data/demos/images.ts). */
+export const inspectionPhoto = {
+  src: demoImages.homeServices,
+  alt: "A house at dusk with a ladder leaning against the roof",
+};
+
+/**
+ * Each hazard's box on the photo, in % of its width and height: left, top,
+ * width, height. Its number pin sits on the box's top-left corner.
+ */
 export const hazards = [
-  { x: 24, y: 70, title: "Ladder footing on loose gravel", severity: "High" },
-  { x: 58, y: 26, title: "Missing shingles near the ridge", severity: "Medium" },
-  { x: 83, y: 50, title: "Debris blocking the gutter", severity: "Low" },
+  { x: 50, y: 76, w: 17, h: 24, title: "Ladder footing not secured", severity: "High" },
+  { x: 72, y: 9, w: 22, h: 20, title: "Worn shingles near the ridge", severity: "Medium" },
+  { x: 21, y: 59, w: 26, h: 12, title: "Gutter pulling away over the window", severity: "Low" },
 ] as const;
 
 export const contract = {
@@ -57,7 +68,7 @@ export const spreadsheet = {
   size: "212 MB",
   stats: [
     { label: "Orders", value: "1,048,576" },
-    { label: "Top product", value: "Field Wallet, 18%" },
+    { label: "Top product", value: "Field Satchel, 18%" },
     { label: "Busiest day", value: "Saturday" },
   ],
   /** Orders by month, in thousands, for the chart. */

@@ -63,6 +63,26 @@ The small looping pictures on the homepage, `/how-it-works` and `/services`
 are `MiniPreview` (CSS only, `components/services/services.css`): they move
 only on screen and show their finished frame otherwise.
 
+### Photos in the demos
+
+The demos and the previews show real photos rather than icons in boxes, all
+listed in `data/demos/images.ts`:
+
+- the mock websites, the ringing phone, the contact photo and the photo
+  inspection use the four "Who we help" pictures
+  (`public/lee-systems/industries/`);
+- everything else is in `public/demos/img/`: the store's satchel, the AC
+  unit, a house at dusk, four listing thumbnails, three 9:16 reel shots and
+  the street map. The photos are CC0 / public domain (StockSnap and Flickr,
+  via Openverse), so no credit is owed;
+- the map is OpenStreetMap, which does need its credit: keep the
+  "© OpenStreetMap" label (`MapCredit`) wherever it shows. The dark theme
+  shows it inverted into night colours with a CSS filter; it is one file.
+
+To swap a photo, replace the file under the same name (same size and crop)
+or point `data/demos/images.ts` at a new one. Pictures are decorative and
+plain `<img>`s, so keep them small WebPs (the set is about 320 KB).
+
 ## To fill in
 
 Nothing here blocks the site; each falls back cleanly until it is added.
@@ -71,7 +91,7 @@ Nothing here blocks the site; each falls back cleanly until it is added.
 | --- | --- | --- |
 | A real number for the AI call demo line | `callAnswering.demoPhone` in `data/site.ts` | "Call our demo line" is hidden |
 | Call recordings, one per scenario | `public/demos/calls/ac-repair.mp3`, `law.mp3`, `gym.mp3`, `restaurant.mp3` | Transcript only, no Listen button |
-| The same 9:16 clip raw and edited, plus a still | `public/demos/content/raw.mp4`, `edited.mp4`, `poster.webp` (or `.jpg`) | A "[SAMPLE REEL]" frame |
+| The same 9:16 clip raw and edited, plus a still | `public/demos/content/raw.mp4`, `edited.mp4`, `poster.webp` (or `.jpg`) | A reel cut from three stock shots (`data/demos/images.ts`) |
 | A picture for "Online stores" | an `online-stores.webp` beside the other industry pictures, then `serviceIndustry` in `data/services.ts` | An icon card |
 
 Media is found at build time (`lib/demo-assets.ts`), so add the file and

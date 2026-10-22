@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import clsx from "clsx";
-import { ArrowRight, MapPin, Phone, Search, Sparkles, Star } from "lucide-react";
+import { ArrowRight, MapPin, Phone, Search, Sparkles } from "lucide-react";
 import { DemoFrame } from "@/components/services/demo/DemoFrame";
 import { useDemo } from "@/components/services/demo/useDemo";
-import { CountUp, ExampleTag, Panel, Segmented, TypeText } from "@/components/services/demo/ui";
+import { CountUp, ExampleTag, MapCredit, Panel, Photo, Segmented, Stars, TypeText } from "@/components/services/demo/ui";
 import { demoSizes, demoTitles, type DemoProps } from "@/components/services/demo/sizes";
 import {
   adPreview,
@@ -17,16 +17,18 @@ import {
   searchQuery,
   type Listing,
 } from "@/data/demos/get-found";
+import { demoImages } from "@/data/demos/images";
 
 /**
  * Get Found & Get Leads, in three panels:
- * 1. A plain local search for "roofer near me". Before, the made-up business
- *    sits on page two; After, it moves into the top three map results with
- *    its stars and a Call button.
- * 2. An AI answer to "Who's the best roofer near me?" that names it (After)
- *    or doesn't (Before).
- * 3. An ad preview, then the outbound strip counting up: leads found, emails
- *    sent, replies, calls booked.
+ * 1. A plain local search for "roofer near me", over a real street map
+ *    (OpenStreetMap). Before, the made-up business sits on page two; After,
+ *    it moves into the top three map results with its photo, stars and a
+ *    Call button, and its pin lights up on the map.
+ * 2. An AI answer to "Who's the best roofer near me?" that names it (After),
+ *    with the business's card under it, or doesn't (Before).
+ * 3. An ad with a photo, then the outbound strip counting up: leads found,
+ *    emails sent, replies, calls booked.
  * Everything is labelled Example, and the footer says rankings aren't
  * guaranteed. The Before/After switch is the visitor's to flip.
  */
@@ -130,13 +132,33 @@ export default function GetFoundDemo({ formPath }: DemoProps) {
               <p className="text-neutral-400">Waiting for a question&hellip;</p>
             )}
             {demo.reached(STEP.answer) && (
-              <p className="svc-enter rounded-lg border border-white/10 px-3 py-2 text-neutral-300">
-                <AiAnswer
-                  key={`aa-${demo.run}-${mode}`}
-                  mode={mode}
-                  play={typing && demo.step === STEP.answer}
-                />
-              </p>
+              <div className="svc-enter space-y-2">
+                <p className="flex items-center gap-1.5 text-[10px] font-semibold tracking-wider text-neutral-400 uppercase">
+                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-gradient-to-br from-brass-300 to-brass-400 text-neutral-950">
+                    <Sparkles aria-hidden="true" className="h-3 w-3" />
+                  </span>
+                  Assistant
+                </p>
+                <p className="rounded-lg border border-white/10 px-3 py-2 text-neutral-300">
+                  <AiAnswer
+                    key={`aa-${demo.run}-${mode}`}
+                    mode={mode}
+                    play={typing && demo.step === STEP.answer}
+                  />
+                </p>
+                {mode === "after" && !(typing && demo.step === STEP.answer) && (
+                  <div className="svc-enter flex items-center gap-2.5 rounded-lg border border-brass-400/40 bg-brass-400/[0.06] p-2">
+                    <Photo src={ourBusiness.photo} className="h-10 w-10 shrink-0 rounded-md object-cover" />
+                    <span className="min-w-0 text-[11px] leading-tight">
+                      <span className="block truncate text-[12px] font-semibold text-white">{ourBusiness.name}</span>
+                      <span className="mt-0.5 flex items-center gap-1 text-neutral-400">
+                        <Stars rating={ourBusiness.rating} className="text-[10px]" />
+                        {ourBusiness.rating.toFixed(1)} · {ourBusiness.distance}
+                      </span>
+                    </span>
+                  </div>
+                )}
+              </div>
             )}
           </div>
         </Panel>
@@ -153,19 +175,28 @@ export default function GetFoundDemo({ formPath }: DemoProps) {
         >
           <div
             className={clsx(
-              "rounded-lg border border-white/10 bg-neutral-950/60 p-3 transition-opacity duration-500 motion-reduce:transition-none light:bg-[#fff]",
+              "flex overflow-hidden rounded-lg border border-white/10 bg-neutral-950/60 transition-opacity duration-500 motion-reduce:transition-none lg:block light:bg-[#fff]",
               demo.reached(STEP.ad) ? "opacity-100" : "opacity-30"
             )}
           >
-            <p className="text-[10px] font-semibold tracking-wider text-neutral-400 uppercase">
-              {adPreview.label} · {ourBusiness.name}
-            </p>
-            <p className="mt-1 text-[13px] leading-snug font-semibold text-white">{adPreview.headline}</p>
-            <p className="mt-1 text-[12px] text-neutral-400">{adPreview.body}</p>
-            <span className="mt-2 inline-flex items-center gap-1.5 rounded-md bg-brass-400 px-2.5 py-1 text-[11px] font-semibold text-neutral-950">
-              <Phone aria-hidden="true" className="h-3 w-3" />
-              Call {adPreview.phone}
-            </span>
+            {/* A side thumbnail until the panel is wide enough for a banner. */}
+            <div className="relative w-20 shrink-0 lg:w-auto">
+              <Photo src={adPreview.photo} className="block h-full w-full object-cover lg:aspect-[5/2] lg:h-auto" />
+              <span className="absolute top-2 left-2 rounded bg-[#000]/65 px-1.5 py-0.5 text-[9px] font-bold tracking-wider text-[#fff] uppercase">
+                {adPreview.label}
+              </span>
+            </div>
+            <div className="min-w-0 p-3">
+              <p className="text-[10px] font-semibold tracking-wider text-neutral-400 uppercase">
+                {ourBusiness.name}
+              </p>
+              <p className="mt-1 text-[13px] leading-snug font-semibold text-white">{adPreview.headline}</p>
+              <p className="mt-1 text-[12px] text-neutral-400">{adPreview.body}</p>
+              <span className="mt-2 inline-flex items-center gap-1.5 rounded-md bg-brass-400 px-2.5 py-1 text-[11px] font-semibold whitespace-nowrap text-neutral-950">
+                <Phone aria-hidden="true" className="h-3 w-3" />
+                Call {adPreview.phone}
+              </span>
+            </div>
           </div>
 
           <ol className="mt-3 grid grid-cols-2 gap-2">
@@ -206,34 +237,39 @@ export default function GetFoundDemo({ formPath }: DemoProps) {
   );
 }
 
-/** A small drawn map with pins; the business's pin lights up After. */
+/**
+ * A strip of real streets (OpenStreetMap, data/demos/images.ts) with the
+ * competitors' pins; the business's pin drops in After. The dark theme shows
+ * the map inverted into night colours; the light theme shows it as it is.
+ */
 function MapStrip({ after }: { after: boolean }) {
   const pins = [
-    { x: 22, y: 40 },
-    { x: 58, y: 26 },
-    { x: 78, y: 60 },
+    { x: 18, y: 38 },
+    { x: 61, y: 30 },
+    { x: 82, y: 66 },
   ];
   return (
-    <div
-      aria-hidden="true"
-      className="relative mt-3 h-[72px] overflow-hidden rounded-lg border border-white/10 bg-[linear-gradient(0deg,rgb(var(--ink)/0.04)_1px,transparent_1px),linear-gradient(90deg,rgb(var(--ink)/0.04)_1px,transparent_1px)] bg-[size:18px_18px]"
-    >
-      <span className="absolute top-[45%] left-0 h-1.5 w-full -rotate-6 bg-white/[0.07]" />
-      <span className="absolute top-0 left-[40%] h-full w-1.5 rotate-12 bg-white/[0.07]" />
+    <div aria-hidden="true" className="relative mt-3 h-[88px] overflow-hidden rounded-lg border border-white/10 bg-neutral-900">
+      <Photo
+        src={demoImages.map}
+        className="absolute inset-0 h-full w-full object-cover [filter:invert(1)_hue-rotate(180deg)_saturate(0.45)_brightness(0.8)_contrast(0.95)] light:[filter:saturate(0.85)]"
+        style={{ objectPosition: "40% 55%" }}
+      />
       {pins.map((pin, index) => (
         <MapPin
           key={index}
-          className="absolute h-4 w-4 -translate-x-1/2 -translate-y-full text-neutral-400"
+          className="absolute h-4 w-4 -translate-x-1/2 -translate-y-full fill-neutral-700 text-neutral-300 drop-shadow"
           style={{ left: `${pin.x}%`, top: `${pin.y + 20}%` }}
         />
       ))}
       <MapPin
         className={clsx(
-          "absolute h-6 w-6 -translate-x-1/2 -translate-y-full fill-brass-400/30 text-brass-400 transition-opacity duration-500 motion-reduce:transition-none",
-          after ? "opacity-100" : "opacity-0"
+          "absolute h-7 w-7 origin-bottom -translate-x-1/2 -translate-y-full fill-brass-400 text-neutral-950 drop-shadow-lg transition-[opacity,scale] duration-500 motion-reduce:transition-none",
+          after ? "opacity-100" : "scale-50 opacity-0"
         )}
-        style={{ left: "44%", top: "70%" }}
+        style={{ left: "44%", top: "72%" }}
       />
+      <MapCredit />
     </div>
   );
 }
@@ -265,7 +301,7 @@ function SearchResults({ after, highlightCall }: { after: boolean; highlightCall
             <li
               key={listing.name}
               className={clsx(
-                "absolute inset-x-0 flex h-[50px] items-center gap-2.5 rounded-lg border px-2.5 transition-[top,opacity,border-color] duration-700 ease-out motion-reduce:transition-none",
+                "absolute inset-x-0 flex h-[50px] items-center gap-2 rounded-lg border px-2 transition-[top,opacity,border-color] duration-700 ease-out motion-reduce:transition-none sm:gap-2.5 sm:px-2.5",
                 us && after
                   ? "z-10 border-brass-400/60 bg-[#0f2346] light:bg-[#fff]"
                   : "border-white/10 bg-white/[0.02]",
@@ -281,11 +317,13 @@ function SearchResults({ after, highlightCall }: { after: boolean; highlightCall
               >
                 {index < 3 ? index + 1 : "·"}
               </span>
+              <Photo src={listing.photo} className="h-8 w-8 shrink-0 rounded-md object-cover sm:h-9 sm:w-9" />
               <span className="min-w-0 flex-1">
                 <span className="block truncate text-[13px] font-semibold text-white">{listing.name}</span>
-                <span className="flex items-center gap-1 text-[11px] text-neutral-400">
-                  <Star aria-hidden="true" className="h-3 w-3 fill-brass-300 text-brass-300" />
-                  {listing.rating.toFixed(1)} ({listing.reviews}) · {listing.distance}
+                <span className="flex items-center gap-1 text-[11px] whitespace-nowrap text-neutral-400">
+                  {listing.rating.toFixed(1)}
+                  <Stars rating={listing.rating} className="text-[10px]" />
+                  <span className="truncate">({listing.reviews}) · {listing.distance}</span>
                 </span>
               </span>
               {us && after && (
@@ -296,7 +334,7 @@ function SearchResults({ after, highlightCall }: { after: boolean; highlightCall
                   )}
                 >
                   <Phone aria-hidden="true" className="h-3 w-3" />
-                  Call
+                  <span className="sr-only sm:not-sr-only">Call</span>
                 </span>
               )}
             </li>

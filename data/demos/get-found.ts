@@ -2,8 +2,11 @@
  * The Get Found demo's made-up search (components/services/demos/
  * GetFoundDemo.tsx). The business, its competitors, ratings and the
  * outreach numbers are all invented and labelled Example on screen; nothing
- * here is a result or a promise of one.
+ * here is a result or a promise of one. The photos are stock (data/demos/
+ * images.ts), not the businesses' own.
  */
+
+import { demoImages } from "@/data/demos/images";
 
 export const searchQuery = "roofer near me";
 
@@ -12,6 +15,8 @@ export interface Listing {
   rating: number;
   reviews: number;
   distance: string;
+  /** The listing's thumbnail. */
+  photo: string;
 }
 
 export const ourBusiness: Listing = {
@@ -19,12 +24,13 @@ export const ourBusiness: Listing = {
   rating: 4.9,
   reviews: 212,
   distance: "2.1 mi",
+  photo: demoImages.thumbs[0],
 };
 
 export const competitors: readonly Listing[] = [
-  { name: "Oak Hill Roof Pros", rating: 4.6, reviews: 148, distance: "3.4 mi" },
-  { name: "Bayside Roofing", rating: 4.4, reviews: 97, distance: "1.8 mi" },
-  { name: "Granite Ridge Exteriors", rating: 4.3, reviews: 61, distance: "4.0 mi" },
+  { name: "Oak Hill Roof Pros", rating: 4.6, reviews: 148, distance: "3.4 mi", photo: demoImages.thumbs[1] },
+  { name: "Bayside Roofing", rating: 4.4, reviews: 97, distance: "1.8 mi", photo: demoImages.thumbs[2] },
+  { name: "Granite Ridge Exteriors", rating: 4.3, reviews: 61, distance: "4.0 mi", photo: demoImages.thumbs[3] },
 ];
 
 export const aiQuestion = "Who's the best roofer near me?";
@@ -42,6 +48,7 @@ export const adPreview = {
   headline: "Storm damage? Free roof inspection this week.",
   body: "Local, licensed crew. Book online in a minute.",
   phone: "(555) 010-7730",
+  photo: demoImages.houseDusk,
 };
 
 /** The outbound strip, counted up one stage at a time. */

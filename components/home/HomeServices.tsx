@@ -2,12 +2,15 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { serviceGroups, servicePath, servicesRoutes } from "@/data/services";
 import { serviceIcons } from "@/components/services/serviceIcons";
+import { MiniPreview } from "@/components/services/MiniPreview";
 import { SectionHead } from "@/components/ui/ds";
 
 /**
  * "What we do" (the black-and-gold redesign, 2026-10-18): the six service
- * groups as cut-corner cards, each with its icon, name and outcome, linking
- * to its /services page. "Try every demo" opens the Demo Lab.
+ * groups as cut-corner cards, each with a tiny looping preview of its demo
+ * (MiniPreview, the same one /services shows, with the demos' real photos),
+ * its icon, name and outcome, linking to its /services page. "Try every
+ * demo" opens the Demo Lab.
  */
 export function HomeServices() {
   return (
@@ -31,6 +34,7 @@ export function HomeServices() {
               <li key={group.slug} className="flex" data-reveal>
                 <Link href={servicePath(group.slug)} className="ds-card group w-full">
                   <div className="ds-card-body gap-5 p-6 md:p-8">
+                    <MiniPreview slug={group.slug} />
                     <span className="flex items-start justify-between gap-4">
                       <span className="grid h-12 w-12 place-items-center border border-brass-400/40 text-brass-400">
                         <Icon aria-hidden="true" strokeWidth={1.5} className="h-6 w-6" />

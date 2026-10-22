@@ -6,6 +6,8 @@
  * the transcript here is shown either way.
  */
 
+import { demoImages } from "@/data/demos/images";
+
 export const callScenarioIds = ["ac-repair", "law", "gym", "restaurant"] as const;
 export type CallScenarioId = (typeof callScenarioIds)[number];
 
@@ -14,6 +16,8 @@ export interface CallScenario {
   /** The picker's label. */
   label: string;
   business: string;
+  /** Behind the ringing screen and beside the business's name. */
+  photo: string;
   caller: string;
   callerPhone: string;
   /** Who says what, in order. `ai` is the assistant. */
@@ -35,6 +39,7 @@ export const callScenarios: readonly CallScenario[] = [
     id: "ac-repair",
     label: "AC repair",
     business: "Cool Breeze Heating & Air",
+    photo: demoImages.acUnit,
     caller: "Dana W.",
     callerPhone: "(555) 010-4471",
     lines: [
@@ -58,6 +63,7 @@ export const callScenarios: readonly CallScenario[] = [
     id: "law",
     label: "Law consultation",
     business: "Hartwell Injury Law",
+    photo: demoImages.law,
     caller: "Marcus T.",
     callerPhone: "(555) 010-2286",
     lines: [
@@ -81,6 +87,7 @@ export const callScenarios: readonly CallScenario[] = [
     id: "gym",
     label: "Gym trial",
     business: "Forge Strength Studio",
+    photo: demoImages.fitness,
     caller: "Priya S.",
     callerPhone: "(555) 010-9032",
     lines: [
@@ -104,6 +111,7 @@ export const callScenarios: readonly CallScenario[] = [
     id: "restaurant",
     label: "Restaurant reservation",
     business: "Olive & Ember",
+    photo: demoImages.restaurant,
     caller: "Sam R.",
     callerPhone: "(555) 010-6618",
     lines: [

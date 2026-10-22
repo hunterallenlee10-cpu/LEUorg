@@ -3,6 +3,8 @@
 import clsx from "clsx";
 import { Check, Heart, Mic, Phone, Search, Star } from "lucide-react";
 import type { ServiceSlug } from "@/data/services";
+import { demoImages } from "@/data/demos/images";
+import { Photo } from "@/components/services/demo/ui";
 import { useInView } from "@/lib/hooks/useInView";
 import "./services.css";
 
@@ -14,10 +16,11 @@ import "./services.css";
  * /how-it-works cards and the /services rows.
  *
  * Pure CSS (services.css) that scales with its box (`cqw` units), so the
- * same preview works as a thumbnail and as a large panel. It only moves
- * while on screen, and under reduced motion it holds its finished frame.
- * Decorative: the card around it names the service, so screen readers skip
- * it.
+ * same preview works as a thumbnail and as a large panel. The photos are the
+ * demos' own (data/demos/images.ts), so a preview looks like the demo it
+ * opens. It only moves while on screen, and under reduced motion it holds
+ * its finished frame. Decorative: the card around it names the service, so
+ * screen readers skip it.
  */
 export function MiniPreview({
   slug,
@@ -68,9 +71,13 @@ function WebsitesPreview() {
 
       {/* The old site: cluttered and still loading. */}
       <div className="svc-a-out25 absolute inset-x-0 top-[11%] bottom-0 grid grid-cols-3 gap-[1.5cqw] p-[4cqw]">
-        {Array.from({ length: 9 }, (_, i) => (
-          <span key={i} className="rounded-sm bg-white/[0.07]" />
-        ))}
+        {Array.from({ length: 9 }, (_, i) =>
+          i === 0 ? (
+            <Photo key={i} src={demoImages.homeServices} className="h-full w-full rounded-sm object-fill opacity-60 saturate-50 sepia-[.4]" />
+          ) : (
+            <span key={i} className="rounded-sm bg-white/[0.07]" />
+          )
+        )}
         <span className="svc-l-spin absolute top-1/2 left-1/2 -mt-[3cqw] -ml-[3cqw] h-[6cqw] w-[6cqw] rounded-full border-[0.6cqw] border-white/20 border-t-white/60" />
       </div>
 
@@ -86,7 +93,11 @@ function WebsitesPreview() {
             Book a call
           </span>
         </div>
-        <div className="aspect-[4/3] rounded-[1cqw] bg-[radial-gradient(120%_100%_at_30%_20%,rgb(var(--gold)/0.35),transparent_70%)] ring-1 ring-white/10" />
+        <Photo
+          src={demoImages.homeServices}
+          className="aspect-[4/3] w-full rounded-[1cqw] object-cover ring-1 ring-white/10"
+          style={{ objectPosition: "70% 40%" }}
+        />
       </div>
 
       <div className="svc-a-in55 absolute right-[4cqw] bottom-[5cqw] flex items-center gap-[1.5cqw] rounded-[1cqw] border border-white/10 bg-neutral-950 px-[2.4cqw] py-[1.4cqw] text-[2.4cqw] font-semibold text-white shadow-lg light:bg-[#fff]">
@@ -101,14 +112,24 @@ function WebsitesPreview() {
 
 function GetFoundPreview() {
   const rows = [
-    { name: "Your Roofing Co.", stars: 5, you: true },
-    { name: "Ridgeline Roofing", stars: 4 },
-    { name: "Summit Exteriors", stars: 4 },
-    { name: "Oak Hill Roof Pros", stars: 3 },
+    { name: "Your Roofing Co.", stars: 5, you: true, photo: demoImages.thumbs[0] },
+    { name: "Ridgeline Roofing", stars: 4, photo: demoImages.thumbs[1] },
+    { name: "Summit Exteriors", stars: 4, photo: demoImages.thumbs[2] },
+    { name: "Oak Hill Roof Pros", stars: 3, photo: demoImages.thumbs[3] },
   ];
   return (
     <div className="svc-a-fade absolute inset-0 px-[5cqw] pt-[4.5cqw]">
-      <div className="flex items-center gap-[1.6cqw] rounded-full border border-white/10 bg-white/[0.04] px-[2.6cqw] py-[1.4cqw] text-[2.6cqw] text-neutral-300">
+      {/* Real streets (OpenStreetMap) behind the search, night-toned in the
+          dark theme; the credit is in the corner. */}
+      <div className="absolute inset-0">
+        <Photo
+          src={demoImages.map}
+          className="h-full w-full object-cover opacity-50 [filter:invert(1)_hue-rotate(180deg)_saturate(0.45)_brightness(0.8)] light:opacity-60 light:[filter:saturate(0.8)]"
+        />
+        <span className="absolute inset-0 bg-gradient-to-b from-transparent via-[#050b18]/70 to-[#050b18] light:via-[#f6f7f9]/70 light:to-[#f6f7f9]" />
+        <span className="absolute top-[1cqw] right-[1.4cqw] text-[1.6cqw] text-[#fff]/70 light:text-[#000]/60">&copy; OpenStreetMap</span>
+      </div>
+      <div className="relative flex items-center gap-[1.6cqw] rounded-full border border-white/10 bg-neutral-950/80 px-[2.6cqw] py-[1.4cqw] text-[2.6cqw] text-neutral-300 light:bg-[#fff]">
         <Search className="h-[2.8cqw] w-[2.8cqw] text-neutral-400" />
         roofer near me
       </div>
@@ -121,7 +142,7 @@ function GetFoundPreview() {
               "absolute inset-x-0 flex h-[10cqw] items-center gap-[2cqw] rounded-[1cqw] border px-[2.4cqw]",
               row.you
                 ? "svc-a-rankup z-10 border-brass-400/60 bg-[#0f2346] light:bg-[#fff]"
-                : "svc-a-rankdown border-white/10 bg-white/[0.03]"
+                : "svc-a-rankdown border-white/10 bg-[#050b18]/85 light:bg-[#fff]/90"
             )}
           >
             <span
@@ -132,6 +153,7 @@ function GetFoundPreview() {
             >
               {i + 1}
             </span>
+            <Photo src={row.photo} className="h-[6.4cqw] w-[6.4cqw] shrink-0 rounded-[0.8cqw] object-cover" />
             <span className="min-w-0 flex-1">
               <span className={clsx("block truncate text-[2.6cqw] font-semibold", row.you ? "text-white" : "text-neutral-300")}>
                 {row.name}
@@ -173,14 +195,16 @@ function AiCallsPreview() {
   return (
     <div className="svc-a-fade absolute inset-0">
       <Phone916>
-        {/* Ringing at 11:48 PM. */}
+        {/* Ringing at 11:48 PM, over a photo of the business. */}
         <div className="svc-a-out40 absolute inset-0 flex flex-col items-center justify-center gap-[2cqw] text-center">
-          <span className="relative flex h-[9cqw] w-[9cqw] items-center justify-center rounded-full bg-brass-400 text-neutral-950">
-            <span className="svc-l-pulse absolute inset-0 rounded-full bg-brass-400/50" />
+          <Photo src={demoImages.acUnit} className="absolute inset-0 h-full w-full scale-110 object-cover blur-[1px]" />
+          <span className="absolute inset-0 bg-[#000]/55" />
+          <span className="relative flex h-[9cqw] w-[9cqw] items-center justify-center rounded-full bg-emerald-500 text-[#fff]">
+            <span className="svc-l-pulse absolute inset-0 rounded-full bg-emerald-400/60" />
             <Phone className="relative h-[4cqw] w-[4cqw]" />
           </span>
-          <span className="text-[2.4cqw] font-semibold text-white">Incoming call</span>
-          <span className="text-[2.2cqw] text-neutral-400">11:48 PM</span>
+          <span className="relative text-[2.4cqw] font-semibold text-[#fff]">Incoming call</span>
+          <span className="relative text-[2.2cqw] text-[#fff]/70">11:48 PM</span>
         </div>
         {/* Answered and booked. */}
         <div className="absolute inset-0 flex flex-col justify-center gap-[1.6cqw] p-[2.4cqw]">
@@ -226,12 +250,13 @@ function ContentPreview() {
   return (
     <div className="absolute inset-0">
       <Phone916>
-        <div className="absolute inset-0 bg-[linear-gradient(160deg,rgb(var(--gold)/0.35),transparent_45%),linear-gradient(20deg,#2a2c31,#101113)] light:bg-[linear-gradient(160deg,rgb(var(--gold)/0.25),transparent_45%),linear-gradient(20deg,#dfe4ec,#f6f7f9)]" />
-        <div className="absolute inset-x-[2cqw] top-[2cqw] h-[0.6cqw] overflow-hidden rounded-full bg-white/20">
-          <span className="svc-a-progress block h-full rounded-full bg-white" />
+        <Photo src={demoImages.reel[0]} className="absolute inset-0 h-full w-full object-cover saturate-[1.1]" />
+        <span className="absolute inset-0 bg-gradient-to-b from-[#000]/30 via-transparent to-[#000]/40" />
+        <div className="absolute inset-x-[2cqw] top-[2cqw] h-[0.6cqw] overflow-hidden rounded-full bg-[#fff]/25">
+          <span className="svc-a-progress block h-full rounded-full bg-[#fff]" />
         </div>
         <div className="absolute inset-x-0 top-[44%] flex justify-center">
-          <span className="relative h-[5cqw] w-[24cqw] text-center text-[2.8cqw] font-extrabold tracking-tight text-white uppercase">
+          <span className="relative h-[5cqw] w-[24cqw] text-center text-[2.8cqw] font-extrabold tracking-tight text-[#fff] uppercase">
             <span className="svc-a-word1 absolute inset-0 rounded bg-black/60 px-[1cqw] py-[0.6cqw]">Stop</span>
             <span className="svc-a-word2 absolute inset-0 rounded bg-black/60 px-[1cqw] py-[0.6cqw]">scrolling</span>
             <span className="svc-a-word3 absolute inset-0 rounded bg-brass-400 px-[1cqw] py-[0.6cqw] text-neutral-950">
@@ -239,7 +264,7 @@ function ContentPreview() {
             </span>
           </span>
         </div>
-        <Heart className="absolute right-[2cqw] bottom-[5cqw] h-[3.4cqw] w-[3.4cqw] fill-white text-white" />
+        <Heart className="absolute right-[2cqw] bottom-[5cqw] h-[3.4cqw] w-[3.4cqw] fill-[#fff] text-[#fff]" />
       </Phone916>
     </div>
   );

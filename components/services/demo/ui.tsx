@@ -135,6 +135,64 @@ export function CountUp({
   return <>{format(play ? value : to)}</>;
 }
 
+/**
+ * A photo inside a demo (data/demos/images.ts). Decorative unless given an
+ * `alt` (the text around it says what it is); lazy, since most demos only
+ * show it a few steps in. The site serves images as they are
+ * (next.config.mjs), so this is a plain <img>.
+ */
+export function Photo({
+  src,
+  alt = "",
+  className,
+  style,
+}: {
+  src: string;
+  alt?: string;
+  className?: string;
+  style?: React.CSSProperties;
+}) {
+  return (
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src={src}
+      alt={alt}
+      loading="lazy"
+      decoding="async"
+      draggable={false}
+      className={clsx("select-none", className)}
+      style={style}
+    />
+  );
+}
+
+/** The credit OpenStreetMap's licence asks for, wherever its map shows. */
+export function MapCredit({ className }: { className?: string }) {
+  return (
+    <span
+      className={clsx(
+        "pointer-events-none absolute right-1 bottom-0.5 rounded-sm bg-[#000]/50 px-1 text-[8px] leading-tight text-[#fff]/80",
+        className
+      )}
+    >
+      &copy; OpenStreetMap
+    </span>
+  );
+}
+
+/** Five review stars, `rating` of them (rounded) filled in review gold. */
+export function Stars({ rating, className }: { rating: number; className?: string }) {
+  return (
+    <span aria-hidden="true" className={clsx("inline-flex gap-px", className)}>
+      {Array.from({ length: 5 }, (_, i) => (
+        <svg key={i} viewBox="0 0 20 20" className={clsx("h-[1em] w-[1em]", i < Math.round(rating) ? "fill-[#f5b301]" : "fill-current opacity-25")}>
+          <path d="M10 1.5l2.6 5.4 5.9.8-4.3 4.1 1 5.9L10 14.9l-5.2 2.8 1-5.9L1.5 7.7l5.9-.8z" />
+        </svg>
+      ))}
+    </span>
+  );
+}
+
 /** The small "Example" tag on a panel inside a demo. */
 export function ExampleTag({ children = "Example" }: { children?: ReactNode }) {
   return (
