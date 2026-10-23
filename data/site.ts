@@ -103,9 +103,9 @@ export const site = {
   ] as Stat[],
   /**
    * "Recent Builds": finished work the owner has permission to show, in the
-   * owner's order (sent 2026-10-05; Copperleaf, Rocha and Lumen Chapel added
-   * 2026-10-07), with our own site last. Names are as each live site shows
-   * them. docs/RECENT-BUILDS.md has the format for adding one.
+   * owner's order (sent 2026-10-05; Copperleaf and Rocha added 2026-10-07;
+   * Lumen Chapel removed 2026-10-23), with our own site last. Names are as
+   * each live site shows them. docs/RECENT-BUILDS.md has the format for adding one.
    */
   projects: [
     {
@@ -178,13 +178,6 @@ export const site = {
       built: ["Website", "Backend automation", "Ready-to-go template"],
       href: "https://rocha-nu.vercel.app",
       image: "/projects/rocha-family-auto-sales.webp",
-    },
-    {
-      name: "Lumen Chapel",
-      category: "Church",
-      built: ["Website", "Backend automation", "Ready-to-go template"],
-      href: "https://template-church-xi.vercel.app",
-      image: "/projects/lumen-chapel.webp",
     },
     {
       name: "Lee Enterprises Unlimited",
