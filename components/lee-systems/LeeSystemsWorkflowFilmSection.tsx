@@ -486,7 +486,7 @@ export function LeeSystemsWorkflowFilmSection() {
       <div className="section-container">
         <div className="mx-auto mb-10 max-w-3xl text-center md:mb-14">
           <p className="ds-eyebrow ds-eyebrow--center mb-4">How it runs</p>
-          <h2 className="heading-lg text-white">Watch one system run your week</h2>
+          <h2 className="heading-lg text-balance text-white">Watch one system run your week</h2>
           <p className="mx-auto mt-4 max-w-2xl text-lg leading-relaxed text-neutral-300">
             A late-night call, a new lead, a finished job and your morning report, each handled
             start to finish without you.

@@ -28,7 +28,7 @@ export function LeeSystemsHeroSection() {
             </p>
           </div>
 
-          <h1 className="heading-xl mb-6 text-white">
+          <h1 className="heading-xl mb-6 text-white lg:text-[4.5rem]">
             {leeSystems.headline.map((beat) => (
               <span key={beat} className="block">
                 {beat}

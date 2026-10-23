@@ -108,7 +108,7 @@ export function BmYearClock() {
         </svg>
 
         <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center text-center">
-          <span className="font-[family-name:var(--font-display)] text-4xl font-black tabular-nums text-white md:text-5xl">
+          <span className="font-[family-name:var(--font-display)] text-3xl font-black tabular-nums text-white md:text-4xl">
             {percent === null ? "…" : `${percent.toFixed(6)}%`}
           </span>
           <span className="mt-1 text-sm text-neutral-400">

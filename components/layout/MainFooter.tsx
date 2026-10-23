@@ -105,7 +105,8 @@ export function MainFooter({
                   href={`mailto:${site.email}`}
                   className={`${footerLinkClass} [overflow-wrap:anywhere]`}
                 >
-                  {site.email}
+                  {/* A break, if one is needed, falls after the "@". */}
+                  {site.email.split("@")[0]}@<wbr />{site.email.split("@").slice(1).join("@")}
                 </a>
               </li>
               {site.instagramUrl && (
