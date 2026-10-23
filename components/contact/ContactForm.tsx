@@ -5,7 +5,7 @@ import { flushSync } from "react-dom";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import clsx from "clsx";
 import type { ContactInterest } from "@/data/contact";
-import { site } from "@/data/site";
+import { bookHref, site } from "@/data/site";
 import {
   FIELD_LIMITS,
   INVALID_NAME_MESSAGE,
@@ -15,8 +15,16 @@ import {
   isValidPhone,
 } from "@/lib/validation";
 import { BookCallLink } from "@/components/ui/BookCallLink";
+import { BookCallPicker } from "@/components/forms/BookCallPicker";
+import {
+  CALL_DAY_ERROR,
+  callConfirmation,
+  callPayload,
+  emptyCallChoice,
+  type CallRequest,
+} from "@/lib/call-request";
 
-type Field = "name" | "email" | "phone" | "message";
+type Field = "name" | "email" | "phone" | "message" | "call";
 type FieldErrors = Partial<Record<Field | "form", string>>;
 
 const emptyForm = {
@@ -39,7 +47,13 @@ const cardClass =
   "ds-cut relative border border-white/10 bg-[var(--ds-surface)] p-6 md:p-9";
 
 /** The order errors are checked in, which is the order focus goes to them. */
-const fieldOrder: Field[] = ["name", "email", "phone", "message"];
+const fieldOrder: Field[] = ["name", "email", "phone", "message", "call"];
+
+/** The `?interest=` every "Book a free call" link carries, when the button
+ *  leads here (data/site.ts). Arriving with it starts "Book a call" on. */
+const bookInterest = bookHref.startsWith("/contact")
+  ? new URLSearchParams(bookHref.split("?")[1] ?? "").get("interest")
+  : null;
 
 function RequiredMark() {
   return (
@@ -87,6 +101,10 @@ export function ContactForm({
   const [errors, setErrors] = useState<FieldErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [sent, setSent] = useState(false);
+  const callOnAtStart = !!initialInterest && initialInterest === bookInterest;
+  const [call, setCall] = useState(() => emptyCallChoice(callOnAtStart));
+  /** The call asked for in the message just sent, for the thank-you. */
+  const [sentCall, setSentCall] = useState<CallRequest | null>(null);
   const successRef = useRef<HTMLDivElement>(null);
 
   // The success panel replaces the form, taking the focused submit button with
@@ -126,6 +144,8 @@ export function ContactForm({
     else if (!isValidPhone(phone))
       next.phone = "Please enter a valid phone number, including the area code.";
 
+    if (call.wanted && !call.day) next.call = CALL_DAY_ERROR;
+
     return next;
   };
 
@@ -155,12 +175,19 @@ export function ContactForm({
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...formData, interest: initialInterest, honeypot }),
+        body: JSON.stringify({
+          ...formData,
+          interest: initialInterest,
+          call: callPayload(call),
+          honeypot,
+        }),
       });
 
       if (response.ok) {
+        setSentCall(callPayload(call));
         setSent(true);
         setFormData(emptyForm);
+        setCall(emptyCallChoice(callOnAtStart));
         setHoneypot("");
         return;
       }
@@ -199,12 +226,16 @@ export function ContactForm({
           aria-hidden="true"
         />
         <Heading className="mb-3 text-2xl font-bold text-white">
-          Thanks, your message is in.
+          {sentCall
+            ? "Thanks, your call request is in."
+            : "Thanks, your message is in."}
         </Heading>
         <p className="text-neutral-300">
-          {site.replyTime
-            ? `I'll reply ${site.replyTime}.`
-            : "I'll get back to you soon."}
+          {sentCall
+            ? callConfirmation(sentCall, site.replyTime)
+            : site.replyTime
+              ? `I'll reply ${site.replyTime}.`
+              : "I'll get back to you soon."}
         </p>
 
         {site.bookingUrl && (
@@ -358,6 +389,16 @@ export function ContactForm({
         />
         <ErrorText id="contact-message-error">{errors.message}</ErrorText>
       </div>
+
+      <BookCallPicker
+        idPrefix="contact"
+        value={call}
+        onChange={(next) => {
+          setCall(next);
+          setErrors((prev) => ({ ...prev, call: undefined, form: undefined }));
+        }}
+        error={errors.call}
+      />
 
       <button
         type="submit"

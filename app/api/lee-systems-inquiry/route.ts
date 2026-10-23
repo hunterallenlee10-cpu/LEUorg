@@ -4,6 +4,7 @@ import { inquiryNeeds, legacyNeedLabels } from "@/data/services";
 import { site } from "@/data/site";
 import { readJsonBody, stringField, tooLongMessage } from "@/lib/api";
 import { DEFAULT_TO_EMAIL, sendLeadEmail } from "@/lib/email";
+import { callEmailBlock, callSubjectSuffix, readCallRequest } from "@/lib/call-request";
 import {
   FIELD_LIMITS,
   INVALID_NAME_MESSAGE,
@@ -30,6 +31,8 @@ interface LeeSystemsInquiryRequest {
   industry?: unknown;
   currentWebsite?: unknown;
   message?: unknown;
+  /** "Book a call": the day, part of day and call type, or null. */
+  call?: unknown;
   honeypot?: unknown;
 }
 
@@ -107,6 +110,9 @@ export async function POST(request: NextRequest) {
       errors.message = tooLongMessage(FIELD_LIMITS.long);
     }
 
+    const { call, error: callError } = readCallRequest(body.call);
+    if (callError) errors.call = callError;
+
     if (!need || Object.keys(errors).length > 0) {
       return NextResponse.json({ errors }, { status: 400 });
     }
@@ -121,7 +127,7 @@ Industry: ${industry}
 Current Website: ${currentWebsite || "None / not provided"}
 
 Message:
-${message || "No message"}
+${message || "No message"}${callEmailBlock(call, phone)}
 
 ${site.replyTime ? `Reply promised ${site.replyTime}, to set up their free consultation call.` : "They asked for a free consultation call."}
     `.trim();
@@ -134,9 +140,10 @@ ${site.replyTime ? `Reply promised ${site.replyTime}, to set up their free consu
       form: "LEU inquiry form",
       to: DEFAULT_TO_EMAIL,
       replyTo: email,
-      subject: need.website
+      subject:
+        (need.website
         ? `LEU: New Website Request from ${fullName}, ${businessName}`
-        : `LEU: New Consultation Request from ${fullName}, ${businessName}`,
+        : `LEU: New Consultation Request from ${fullName}, ${businessName}`) + callSubjectSuffix(call),
       text: emailBody,
     });
   } catch (error) {

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { contactInterests, isContactInterest } from "@/data/contact";
 import { readJsonBody, stringField, tooLongMessage } from "@/lib/api";
 import { DEFAULT_TO_EMAIL, sendLeadEmail } from "@/lib/email";
+import { callEmailBlock, callSubjectSuffix, readCallRequest } from "@/lib/call-request";
 import {
   FIELD_LIMITS,
   INVALID_NAME_MESSAGE,
@@ -17,6 +18,8 @@ interface ContactFormRequest {
   phone?: unknown;
   interest?: unknown;
   message?: unknown;
+  /** "Book a call": the day, part of day and call type, or null. */
+  call?: unknown;
   honeypot?: unknown;
 }
 
@@ -81,6 +84,9 @@ export async function POST(request: NextRequest) {
       errors.message = tooLongMessage(FIELD_LIMITS.long);
     }
 
+    const { call, error: callError } = readCallRequest(body.call);
+    if (callError) errors.call = callError;
+
     if (Object.keys(errors).length > 0) {
       return NextResponse.json({ errors }, { status: 400 });
     }
@@ -95,7 +101,7 @@ Email: ${email}
 Phone: ${phone}${choice ? `\nInterested in: ${choice.label}` : ""}
 
 Message:
-${message || "No message"}
+${message || "No message"}${callEmailBlock(call, phone)}
     `.trim();
 
     return await sendLeadEmail({
@@ -103,7 +109,7 @@ ${message || "No message"}
       form: "contact form",
       to: DEFAULT_TO_EMAIL,
       replyTo: email,
-      subject: `[${choice?.subjectTag ?? "General"}] New inquiry from ${name}`,
+      subject: `[${choice?.subjectTag ?? "General"}] New inquiry from ${name}` + callSubjectSuffix(call),
       text: emailBody,
     });
   } catch (error) {

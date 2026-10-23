@@ -15,6 +15,14 @@ import {
   isValidPhone,
 } from "@/lib/validation";
 import { BookCallLink } from "@/components/ui/BookCallLink";
+import { BookCallPicker } from "@/components/forms/BookCallPicker";
+import {
+  CALL_DAY_ERROR,
+  callConfirmation,
+  callPayload,
+  emptyCallChoice,
+  type CallRequest,
+} from "@/lib/call-request";
 
 const emptyForm = {
   fullName: "",
@@ -28,7 +36,7 @@ const emptyForm = {
 };
 
 type FormState = typeof emptyForm;
-type FieldErrors = Partial<Record<keyof FormState | "form", string>>;
+type FieldErrors = Partial<Record<keyof FormState | "call" | "form", string>>;
 
 const industryOptions = inquiryIndustryOptions.map((option) => ({
   value: option,
@@ -65,6 +73,9 @@ export function LeeSystemsInquiryForm({
   const [errors, setErrors] = useState<FieldErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [call, setCall] = useState(() => emptyCallChoice());
+  /** The call asked for in the request just sent, for the thank-you. */
+  const [sentCall, setSentCall] = useState<CallRequest | null>(null);
   const successRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -105,6 +116,7 @@ export function LeeSystemsInquiryForm({
       next.phone = "Please enter a valid phone number";
     if (!formData.need) next.need = "Please select what you are looking for";
     if (!formData.industry) next.industry = "Please choose your industry";
+    if (call.wanted && !call.day) next.call = CALL_DAY_ERROR;
     return next;
   };
 
@@ -139,11 +151,13 @@ export function LeeSystemsInquiryForm({
       const response = await fetch("/api/lee-systems-inquiry", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...formData, honeypot }),
+        body: JSON.stringify({ ...formData, call: callPayload(call), honeypot }),
       });
 
       if (response.ok) {
+        setSentCall(callPayload(call));
         setSubmitted(true);
+        setCall(emptyCallChoice());
         setFormData({ ...emptyForm, need: initialNeed });
         return;
       }
@@ -180,11 +194,13 @@ export function LeeSystemsInquiryForm({
           aria-hidden="true"
         />
         <h3 className="mb-3 text-2xl font-bold text-white">
-          Details received
+          {sentCall ? "Call request received" : "Details received"}
         </h3>
         <p className="mb-6 text-neutral-300">
           Thank you.{" "}
-          {site.replyTime
+          {sentCall
+            ? callConfirmation(sentCall, site.replyTime)
+            : site.replyTime
             ? `We'll reply ${site.replyTime} to set up your free consultation call.`
             : "We'll get back to you to set up your free consultation call."}
         </p>
@@ -347,6 +363,16 @@ export function LeeSystemsInquiryForm({
           </p>
         )}
       </div>
+
+      <BookCallPicker
+        idPrefix="ls-inquiry"
+        value={call}
+        onChange={(next) => {
+          setCall(next);
+          setErrors((prev) => ({ ...prev, call: undefined, form: undefined }));
+        }}
+        error={errors.call}
+      />
 
       <button
         type="submit"
