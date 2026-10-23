@@ -1373,6 +1373,8 @@
 
   .tools-track {
     width: auto;
+    max-width: 80rem;
+    margin-inline: auto;
     justify-content: center;
     padding: 0 1rem;
     animation: none;
@@ -1773,8 +1775,10 @@
   }
 
   /* Section utilities */
+  /* The same width and gutters as `.ds-container`, so older sections and
+     redesigned ones share one left edge down a page. */
   .section-container {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+    @apply mx-auto w-full max-w-[72.5rem] px-5 sm:px-6 lg:px-8;
   }
 
   /* Heading styles */
@@ -3724,9 +3728,20 @@ a.ds-card:focus-visible {
 /* ---- stat tiles ---- */
 .ds-stats {
   display: grid;
-  gap: 1px;
-  background: var(--ds-line);
   border: 1px solid var(--ds-line);
+}
+
+/* Dividers are borders, not a 1px gap over a coloured ground: a gap lands
+   on fractional pixels and one of the two lines all but vanishes. */
+.ds-stat + .ds-stat {
+  border-top: 1px solid var(--ds-line);
+}
+
+@media (min-width: 768px) {
+  .ds-stat + .ds-stat {
+    border-top: 0;
+    border-left: 1px solid var(--ds-line);
+  }
 }
 
 @media (min-width: 768px) {

@@ -81,7 +81,7 @@ export function LegalSection() {
       <div className="section-container relative">
         {/* The page's one H1; the two documents below are its H2s. The legal
             text itself is unchanged. */}
-        <h1 className="heading-xl mb-14 text-center text-white">
+        <h1 className="heading-xl mx-auto mb-14 max-w-4xl text-balance text-center text-white">
           Privacy policy and terms of service
         </h1>
 

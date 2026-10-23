@@ -202,14 +202,16 @@ export default function WebsitesDemo({ formPath }: DemoProps) {
 
         <label className="mt-4 flex items-center gap-3 text-xs font-semibold tracking-[0.14em] text-neutral-400 uppercase">
           Before
+          {/* The thumb sits where the divider on the picture does, so the two
+              move together: the old site is left of both. */}
           <input
             type="range"
             min={0}
             max={100}
-            value={100 - slider}
-            onChange={(event) => choose({ slider: 100 - Number(event.target.value) })}
+            value={slider}
+            onChange={(event) => choose({ slider: Number(event.target.value) })}
             aria-label="Compare the old site with the new one"
-            aria-valuetext={`${100 - slider}% of the new site showing`}
+            aria-valuetext={`${slider}% of the old site showing`}
             className="h-11 min-w-0 flex-1 cursor-ew-resize accent-[var(--color-brass-400)]"
           />
           After
