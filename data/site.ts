@@ -186,7 +186,7 @@ export const site = {
       name: "G1 Baseball & Softball Training",
       kind: "client",
       category: "Baseball & softball training",
-      built: ["Website", "Backend automation", "Ready-to-go template"],
+      built: ["Website", "Backend automation"],
       href: "https://template-zeta-nine.vercel.app",
       upgradedFrom: "https://g1-baseball.com",
       image: "/projects/g1-baseball.webp",
