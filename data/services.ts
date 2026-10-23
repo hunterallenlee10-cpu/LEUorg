@@ -53,6 +53,10 @@ export interface ServiceItem {
   name: string;
   /** One sentence for the "What's included" card on the service's page. */
   detail: string;
+  /** A heading the service page groups this item under, e.g. "Ads". Items
+   *  with the same section sit together, in order. Optional: a group whose
+   *  items have none shows one list. */
+  section?: string;
 }
 
 export interface ServiceGroup {
@@ -200,45 +204,80 @@ export const serviceGroups: readonly ServiceGroup[] = [
   },
   {
     slug: "get-found",
-    name: "Get Found & Get Leads",
+    // Renamed from "Get Found & Get Leads" on 2026-10-23 (the owner's call),
+    // organized as SEO, ads and outreach, with every ad platform we run.
+    // The slug stays so /services/get-found keeps working.
+    name: "Marketing & Lead Generation",
     outcome: "More people find you. More of them reach out.",
     description:
-      "Show up where customers look: Google Maps, AI answers and social feeds. Then reach the businesses and people who should hear from you.",
+      "SEO, ads and outreach: we get you found in search and AI answers, run your ads on every major platform, and reach out to the people you want as customers.",
     icon: "leads",
     anchor: "services-leads",
     items: [
       {
-        name: "Google Maps and local SEO",
+        section: "SEO",
+        name: "Google Maps & local SEO",
         detail:
           "Your business profile, site and reviews set up so you show up in local searches.",
       },
       {
-        name: "Showing up in ChatGPT and Google AI answers",
+        section: "SEO",
+        name: "AI search visibility (ChatGPT, Google AI & more)",
         detail:
           "Your site written and structured so AI assistants can find you and name you.",
       },
       {
-        name: "Google Ads and Facebook/Instagram ads",
-        detail:
-          "Ads aimed at people nearby who are looking for what you do, sent to a page built to convert.",
+        section: "Ads",
+        name: "Google Search, Maps & Local Services ads",
+        detail: "Ads shown to people searching for what you do, nearby.",
       },
       {
-        name: "Lead lists and done-for-you cold email",
+        section: "Ads",
+        name: "YouTube ads",
+        detail:
+          "Video ads in front of the right audience before and during what they watch.",
+      },
+      {
+        section: "Ads",
+        name: "Facebook & Instagram ads",
+        detail:
+          "Ads aimed at the people most likely to buy, sent to a page built to convert.",
+      },
+      {
+        section: "Ads",
+        name: "TikTok ads",
+        detail: "Short video ads that reach new customers where they scroll.",
+      },
+      {
+        section: "Ads",
+        name: "LinkedIn ads",
+        detail:
+          "Ads aimed at business owners and decision-makers by title, company and industry.",
+      },
+      {
+        section: "Ads",
+        name: "Retargeting ads",
+        detail:
+          "Ads that bring back people who visited your site but didn't reach out.",
+      },
+      {
+        section: "Outreach",
+        name: "Targeted lead lists & cold email",
         detail:
           "Lists of the businesses you want to work with, and emails sent and followed up for you.",
       },
       {
-        name: "LinkedIn outreach",
-        detail:
-          "Connection requests and messages to the decision-makers you want to meet.",
+        section: "Outreach",
+        name: "LinkedIn outreach to decision-makers",
+        detail: "Connection requests and messages to the people you want to meet.",
       },
     ],
     keyItems: [
-      "Google Maps and local SEO",
-      "Showing up in ChatGPT and Google AI answers",
-      "Google Ads and Facebook/Instagram ads",
-      "Lead lists and done-for-you cold email",
-      "LinkedIn outreach",
+      "Google Maps & local SEO",
+      "AI search visibility (ChatGPT, Google AI & more)",
+      "Google Search, Maps & Local Services ads",
+      "Facebook & Instagram ads",
+      "Targeted lead lists & cold email",
     ],
     audience: [
       {
@@ -275,13 +314,13 @@ export const serviceGroups: readonly ServiceGroup[] = [
     pairsWith: ["websites", "content"],
     showRelatedBuilds: false,
     demo: {
-      label: "Get found",
+      label: "Marketing",
       intro: "See a business move from page two into the top three, then into an AI answer.",
     },
     seo: {
-      title: "Get Found & Get Leads | Lee Enterprises Unlimited",
+      title: "Marketing & Lead Generation | Lee Enterprises Unlimited",
       description:
-        "Local SEO, AI search, ads and outreach that help more people find your business and reach out. Built personally for you by LEU.",
+        "Local SEO, AI search, ads on every major platform and outreach that help more people find your business and reach out. By LEU.",
     },
     faqs: [
       "Will AI talk to my customers without me knowing?",
@@ -580,35 +619,37 @@ export const serviceGroups: readonly ServiceGroup[] = [
   },
   {
     slug: "custom-ai",
-    name: "Custom AI Tools",
-    outcome: "If it's done by hand, we can build a tool for it.",
+    // Renamed from "Custom AI Tools" on 2026-10-23 (the owner's call). The
+    // slug stays so /services/custom-ai keeps working.
+    name: "AI Tools Built for Your Business",
+    outcome: "If your team does it by hand, we can build AI to do it.",
     description:
       "Tools built around the work your team does by hand: quotes from a voice note, reports from photos, contract checks and reports from big spreadsheets.",
     icon: "customAi",
     anchor: "services-custom-ai",
     items: [
       {
-        name: "Speak a job, get a quote or invoice PDF",
+        name: "Voice-to-quote & invoice generator",
         detail:
           "Describe the job out loud and get a branded quote back, with the totals worked out.",
       },
       {
-        name: "Photo-to-report inspections",
+        name: "Photo-to-report inspection tool",
         detail:
           "Snap photos on site and get a written report with issues marked and ranked.",
       },
       {
-        name: "Contract review with deadline reminders",
+        name: "AI contract review & deadline tracking",
         detail:
           "Risky clauses flagged in plain English, and key dates added to your calendar.",
       },
       {
-        name: "Reports from big spreadsheets and exports",
+        name: "Instant reports from large spreadsheets",
         detail:
           "Files too big to open become a short summary with the numbers that matter.",
       },
       {
-        name: "AI assistants trained on your process",
+        name: "A custom AI assistant for your team",
         detail:
           "An assistant that knows how your business does things and answers your team's questions.",
       },
@@ -618,16 +659,16 @@ export const serviceGroups: readonly ServiceGroup[] = [
           "AI that runs on hardware you control, so sensitive files never leave.",
       },
       {
-        name: "Connecting the software you already use",
+        name: "Connect the software you already use",
         detail:
           "Your tools pass information to each other, so nobody copies it by hand.",
       },
     ],
     keyItems: [
-      "Speak a job, get a quote or invoice PDF",
-      "Photo-to-report inspections",
-      "Contract review with deadline reminders",
-      "Reports from big spreadsheets and exports",
+      "Voice-to-quote & invoice generator",
+      "Photo-to-report inspection tool",
+      "AI contract review & deadline tracking",
+      "Instant reports from large spreadsheets",
       "Private AI that keeps your data in-house",
     ],
     audience: [
@@ -665,13 +706,13 @@ export const serviceGroups: readonly ServiceGroup[] = [
     pairsWith: ["follow-up", "ai-calls"],
     showRelatedBuilds: false,
     demo: {
-      label: "Custom AI",
+      label: "AI tools",
       intro: "Try four small tools: voice to quote, photo inspection, contract check and spreadsheet report.",
     },
     seo: {
-      title: "Custom AI Tools | Lee Enterprises Unlimited",
+      title: "AI Tools Built for Your Business | Lee Enterprises Unlimited",
       description:
-        "Custom AI tools for the work you do by hand: voice-to-quote, photo reports, contract review and spreadsheet reports. By LEU.",
+        "AI tools built for the work you do by hand: voice-to-quote, photo reports, contract review and spreadsheet reports. By LEU.",
     },
     faqs: [
       "What do you build the systems with?",
@@ -801,4 +842,17 @@ if (
   serviceSlugs.some((slug) => !serviceGroups.some((group) => group.slug === slug))
 ) {
   throw new Error("data/services.ts: serviceGroups must cover every slug once");
+}
+
+/** A group's items split into runs that share a section, in order. */
+export function serviceItemParts(
+  items: readonly ServiceItem[],
+): { section?: string; items: ServiceItem[] }[] {
+  const parts: { section?: string; items: ServiceItem[] }[] = [];
+  for (const item of items) {
+    const last = parts.at(-1);
+    if (last && last.section === item.section) last.items.push(item);
+    else parts.push({ section: item.section, items: [item] });
+  }
+  return parts;
 }

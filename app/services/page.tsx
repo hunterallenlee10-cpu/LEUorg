@@ -23,7 +23,7 @@ import { serviceGroups, servicePath, servicesRoutes } from "@/data/services";
  */
 const title = "Services | Lee Enterprises Unlimited";
 const description =
-  "Websites, local SEO and leads, AI call answering, follow-up automation, content and custom AI tools. See each one working in the Demo Lab.";
+  "Websites, marketing and lead generation, AI call answering, follow-up automation, content and AI tools for your business. See each one in the Demo Lab.";
 const pageUrl = `${SITE_URL}${servicesRoutes.hub}`;
 
 export const metadata: Metadata = {

@@ -16,11 +16,11 @@ there and it changes everywhere.
 | Slug | Name |
 | --- | --- |
 | `websites` | Websites & Online Stores |
-| `get-found` | Get Found & Get Leads |
+| `get-found` | Marketing & Lead Generation |
 | `ai-calls` | AI Call Answering |
 | `follow-up` | Follow-Up & Booking Automation |
 | `content` | Content & Social Media |
-| `custom-ai` | Custom AI Tools |
+| `custom-ai` | AI Tools Built for Your Business |
 
 The care plan is never on the site (the owner's rule, 2026-10-23): it is part of
 every build, not optional, and discussed right before a deal closes.

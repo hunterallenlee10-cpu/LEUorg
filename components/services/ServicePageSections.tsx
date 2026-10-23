@@ -11,6 +11,7 @@ import {
   servicesAnchors,
   servicesRoutes,
   type ServiceGroup,
+  serviceItemParts,
 } from "@/data/services";
 import { FaqAccordion } from "@/components/lee-systems/FaqAccordion";
 import { site } from "@/data/site";
@@ -142,18 +143,34 @@ export function IncludedSection({ group }: { group: ServiceGroup }) {
     <section aria-labelledby="included-title" className={section}>
       <div className="section-container">
         <SectionHeader id="included-title" kicker="What's included" title="Everything in this service" />
-        <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {group.items.map((item) => (
-            <li
-              key={item.name}
-              className="rounded-xl border border-white/10 bg-[#0f2346] p-6 light:bg-[#fff] light:shadow-[0_20px_50px_-24px_rgb(15_35_70/0.18)]"
-            >
-              <CircleCheck aria-hidden="true" strokeWidth={1.5} className="h-6 w-6 text-brass-400" />
-              <h3 className="mt-4 text-lg leading-snug font-bold text-white">{item.name}</h3>
-              <p className="mt-2 leading-relaxed text-neutral-300">{item.detail}</p>
-            </li>
-          ))}
-        </ul>
+        {/* Grouped under small headings when the items have sections, like
+            Marketing & Lead Generation's SEO, Ads and Outreach. */}
+        <div className="space-y-10">
+          {serviceItemParts(group.items).map((part) => {
+            const ItemTitle = part.section ? "h4" : "h3";
+            return (
+              <div key={part.section ?? "items"}>
+                {part.section && (
+                  <h3 className="mb-4 text-xs font-semibold tracking-[0.2em] text-brass-300 uppercase">
+                    {part.section}
+                  </h3>
+                )}
+                <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                  {part.items.map((item) => (
+                    <li
+                      key={item.name}
+                      className="rounded-xl border border-white/10 bg-[#0f2346] p-6 light:bg-[#fff] light:shadow-[0_20px_50px_-24px_rgb(15_35_70/0.18)]"
+                    >
+                      <CircleCheck aria-hidden="true" strokeWidth={1.5} className="h-6 w-6 text-brass-400" />
+                      <ItemTitle className="mt-4 text-lg leading-snug font-bold text-white">{item.name}</ItemTitle>
+                      <p className="mt-2 leading-relaxed text-neutral-300">{item.detail}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );
