@@ -43,9 +43,11 @@ const industryOptions = inquiryIndustryOptions.map((option) => ({
   label: option,
 }));
 
-const labelClass = "block text-sm font-semibold text-neutral-200 mb-2";
+/** Square fields with a gold focus edge, the same as the contact form's (the
+ *  black-and-gold redesign; this form joined it on 2026-10-23). */
+const labelClass = "mb-2 block text-sm font-medium text-neutral-300";
 const fieldClass =
-  "w-full rounded-lg border bg-neutral-900 px-4 py-3 text-white placeholder-neutral-500 transition-colors focus:outline-none focus:ring-2 focus:ring-brass-400/60";
+  "w-full rounded-none border bg-neutral-950/70 px-4 py-3 text-white placeholder-neutral-500 transition-colors focus:border-brass-400 focus:outline-none focus:ring-2 focus:ring-brass-400/40";
 
 /**
  * The one form on /how-it-works. It replaced the automation page's
@@ -105,17 +107,17 @@ export function LeeSystemsInquiryForm({
   const validate = (): FieldErrors => {
     const next: FieldErrors = {};
     if (formData.fullName.trim().length < 2)
-      next.fullName = "Please enter your full name";
+      next.fullName = "Please enter your name.";
     else if (!isValidName(formData.fullName.trim()))
       next.fullName = INVALID_NAME_MESSAGE;
     if (!formData.businessName.trim())
-      next.businessName = "Please enter your business name";
+      next.businessName = "Please enter your business name.";
     if (!isValidEmail(formData.email.trim()))
-      next.email = "Please enter a valid email address";
+      next.email = "Please enter a valid email address, like name@example.com.";
     if (!isValidPhone(formData.phone.trim()))
-      next.phone = "Please enter a valid phone number";
-    if (!formData.need) next.need = "Please select what you are looking for";
-    if (!formData.industry) next.industry = "Please choose your industry";
+      next.phone = "Please enter a valid phone number, including the area code.";
+    if (!formData.need) next.need = "Please choose what you need.";
+    if (!formData.industry) next.industry = "Please choose your industry.";
     if (call.wanted && !call.day) next.call = CALL_DAY_ERROR;
     return next;
   };
@@ -187,7 +189,7 @@ export function LeeSystemsInquiryForm({
         ref={successRef}
         tabIndex={-1}
         role="status"
-        className="mx-auto max-w-2xl rounded-xl border border-brass-400/30 bg-brass-400/[0.06] p-10 text-center focus:outline-none md:p-12"
+        className="ds-cut mx-auto max-w-2xl border border-brass-400/30 bg-[var(--ds-surface)] p-10 text-center focus:outline-none md:p-12"
       >
         <CheckCircle2
           className="mx-auto mb-5 h-12 w-12 text-brass-300"
@@ -227,10 +229,10 @@ export function LeeSystemsInquiryForm({
       onSubmit={handleSubmit}
       noValidate
       aria-describedby="inquiry-form-description"
-      className="mx-auto max-w-3xl rounded-xl border border-white/10 bg-white/[0.04] p-6 md:p-10 light:bg-[#fff] light:shadow-[0_20px_50px_-24px_rgb(15_35_70/0.18)]"
+      className="ds-cut relative mx-auto max-w-3xl border border-white/10 bg-[var(--ds-surface)] p-6 md:p-10"
     >
       <div className="mb-2">
-        <h3 className="text-2xl font-bold text-white">
+        <h3 className="ds-h3">
           Request your free consultation
         </h3>
       </div>
@@ -255,7 +257,7 @@ export function LeeSystemsInquiryForm({
       {errors.form && (
         <p
           role="alert"
-          className="mb-6 rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-400"
+          className="mb-6 border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-400"
         >
           {errors.form}
         </p>
@@ -330,11 +332,12 @@ export function LeeSystemsInquiryForm({
         <Field
           id="currentWebsite"
           label="Current website"
+          optional
           type="url"
           error={errors.currentWebsite}
           value={formData.currentWebsite}
           onChange={handleChange}
-          placeholder="https://yourcompany.com (optional, leave blank if you don't have one)"
+          placeholder="https://yourcompany.com"
           autoComplete="url"
           maxLength={FIELD_LIMITS.short}
         />
@@ -342,19 +345,20 @@ export function LeeSystemsInquiryForm({
 
       <div className="mt-5">
         <label htmlFor="message" className={labelClass}>
-          Message
+          Message <span className="font-normal text-neutral-400">(optional)</span>
         </label>
         <textarea
           id="message"
           name="message"
           rows={4}
+          placeholder="Anything else we should know?"
           value={formData.message}
           onChange={handleChange}
           maxLength={FIELD_LIMITS.long}
           aria-invalid={errors.message ? "true" : undefined}
           aria-describedby={errors.message ? "message-error" : undefined}
-          className={`${fieldClass} resize-none ${
-            errors.message ? "border-red-500/60" : "border-neutral-700"
+          className={`${fieldClass} resize-y ${
+            errors.message ? "border-red-500/60" : "border-white/10 hover:border-white/20"
           }`}
         />
         {errors.message && (
@@ -407,6 +411,8 @@ interface FieldProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   type?: string;
   required?: boolean;
+  /** Says "(optional)" after the label. */
+  optional?: boolean;
   error?: string;
   placeholder?: string;
   autoComplete?: string;
@@ -420,6 +426,7 @@ function Field({
   onChange,
   type = "text",
   required,
+  optional,
   error,
   placeholder,
   autoComplete,
@@ -430,6 +437,9 @@ function Field({
       <label htmlFor={id} className={labelClass}>
         {label}
         {required && <RequiredMark />}
+        {optional && (
+          <span className="font-normal text-neutral-400"> (optional)</span>
+        )}
       </label>
       <input
         id={id}
@@ -444,7 +454,7 @@ function Field({
         placeholder={placeholder}
         autoComplete={autoComplete}
         maxLength={maxLength}
-        className={`${fieldClass} ${error ? "border-red-500/60" : "border-neutral-700"}`}
+        className={`${fieldClass} ${error ? "border-red-500/60" : "border-white/10 hover:border-white/20"}`}
       />
       {error && (
         <p id={`${id}-error`} role="alert" className="mt-2 text-sm text-red-400">
@@ -481,7 +491,7 @@ function SelectField({ id, label, value, onChange, options, error }: SelectField
         aria-required="true"
         aria-invalid={error ? "true" : undefined}
         aria-describedby={error ? `${id}-error` : undefined}
-        className={`${fieldClass} ${error ? "border-red-500/60" : "border-neutral-700"}`}
+        className={`${fieldClass} ${error ? "border-red-500/60" : "border-white/10 hover:border-white/20"}`}
       >
         <option value="">Select...</option>
         {options.map((option) => (

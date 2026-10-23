@@ -41,9 +41,9 @@ export async function POST(request: NextRequest) {
 
     const fullName = stringField(body.fullName).trim();
     if (!fullName) {
-      errors.fullName = "Full name is required";
+      errors.fullName = "Please enter your name.";
     } else if (fullName.length < 2) {
-      errors.fullName = "Name must be at least 2 characters";
+      errors.fullName = "Please enter at least 2 characters.";
     } else if (fullName.length > FIELD_LIMITS.short) {
       errors.fullName = tooLongMessage(FIELD_LIMITS.short);
     } else if (!isValidName(fullName)) {
@@ -52,23 +52,23 @@ export async function POST(request: NextRequest) {
 
     const email = stringField(body.email).trim();
     if (!email) {
-      errors.email = "Email is required";
+      errors.email = "Please enter your email address.";
     } else if (email.length > FIELD_LIMITS.email || !isValidEmail(email)) {
-      errors.email = "Please enter a valid email address";
+      errors.email = "Please enter a valid email address, like name@example.com.";
     }
 
     const phone = stringField(body.phone).trim();
     if (!phone) {
-      errors.phone = "Phone number is required";
+      errors.phone = "Please enter your phone number.";
     } else if (phone.length > FIELD_LIMITS.phone || !isValidPhone(phone)) {
-      errors.phone = "Please enter a valid phone number";
+      errors.phone = "Please enter a valid phone number, including the area code.";
     }
 
     const story = stringField(body.story).trim();
     if (!story) {
-      errors.story = "Please tell us about where you are and what you want to build";
+      errors.story = "Please tell us where you are and what you want to build.";
     } else if (story.length < 20) {
-      errors.story = "Please add a little more detail";
+      errors.story = "Please tell us a little more about where you are and what you want to build.";
     } else if (story.length > FIELD_LIMITS.long) {
       errors.story = tooLongMessage(FIELD_LIMITS.long);
     }

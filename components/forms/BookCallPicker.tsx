@@ -50,7 +50,7 @@ function Chip({
       />
       <span
         className={clsx(
-          "flex min-h-11 flex-col items-center justify-center whitespace-nowrap rounded-lg border px-1.5 py-2 text-center text-sm transition-colors",
+          "flex min-h-11 flex-col items-center justify-center whitespace-nowrap border px-1.5 py-2 text-center text-sm transition-colors",
           "peer-focus-visible:ring-2 peer-focus-visible:ring-brass-400/60",
           checked
             ? "border-brass-400 bg-brass-400/15 font-semibold text-white"
@@ -95,7 +95,7 @@ export function BookCallPicker({
   const errorId = `${idPrefix}-call-error`;
 
   return (
-    <div className="mt-6 rounded-xl border border-white/10 bg-white/[0.03] p-4 md:p-5">
+    <div className="mt-6 border border-white/10 bg-white/[0.03] p-4 md:p-5">
       <div className="flex items-center justify-between gap-4">
         <div className="flex items-start gap-3">
           <CalendarDays

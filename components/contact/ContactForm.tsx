@@ -234,8 +234,8 @@ export function ContactForm({
           {sentCall
             ? callConfirmation(sentCall, site.replyTime)
             : site.replyTime
-              ? `I'll reply ${site.replyTime}.`
-              : "I'll get back to you soon."}
+              ? `We'll reply ${site.replyTime}.`
+              : "We'll get back to you soon."}
         </p>
 
         {site.bookingUrl && (

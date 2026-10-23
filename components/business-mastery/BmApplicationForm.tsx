@@ -34,19 +34,19 @@ function checkField(id: StepId, form: FormState): string | undefined {
   const value = form[id].trim();
   switch (id) {
     case "fullName":
-      if (value.length < 2) return "Please enter your full name";
+      if (value.length < 2) return "Please enter your name.";
       if (!isValidName(value)) return INVALID_NAME_MESSAGE;
       return undefined;
     case "email":
-      return isValidEmail(value) ? undefined : "Please enter a valid email address";
+      return isValidEmail(value) ? undefined : "Please enter a valid email address, like name@example.com.";
     case "phone":
       return isValidPhone(value)
         ? undefined
-        : "Please enter a valid phone number, including the area code";
+        : "Please enter a valid phone number, including the area code.";
     case "story":
       return value.length >= 20
         ? undefined
-        : "Please tell us a little more about where you are and what you want to build";
+        : "Please tell us a little more about where you are and what you want to build.";
   }
 }
 

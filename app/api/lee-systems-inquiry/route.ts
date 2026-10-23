@@ -54,9 +54,9 @@ export async function POST(request: NextRequest) {
 
     const fullName = stringField(body.fullName).trim();
     if (!fullName) {
-      errors.fullName = "Name is required";
+      errors.fullName = "Please enter your name.";
     } else if (fullName.length < 2) {
-      errors.fullName = "Name must be at least 2 characters";
+      errors.fullName = "Please enter at least 2 characters.";
     } else if (fullName.length > FIELD_LIMITS.short) {
       errors.fullName = tooLongMessage(FIELD_LIMITS.short);
     } else if (!isValidName(fullName)) {
@@ -65,23 +65,23 @@ export async function POST(request: NextRequest) {
 
     const businessName = stringField(body.businessName).trim();
     if (!businessName) {
-      errors.businessName = "Business name is required";
+      errors.businessName = "Please enter your business name.";
     } else if (businessName.length > FIELD_LIMITS.short) {
       errors.businessName = tooLongMessage(FIELD_LIMITS.short);
     }
 
     const email = stringField(body.email).trim();
     if (!email) {
-      errors.email = "Email is required";
+      errors.email = "Please enter your email address.";
     } else if (email.length > FIELD_LIMITS.email || !isValidEmail(email)) {
-      errors.email = "Please enter a valid email address";
+      errors.email = "Please enter a valid email address, like name@example.com.";
     }
 
     const phone = stringField(body.phone).trim();
     if (!phone) {
-      errors.phone = "Phone number is required";
+      errors.phone = "Please enter your phone number.";
     } else if (phone.length > FIELD_LIMITS.phone || !isValidPhone(phone)) {
-      errors.phone = "Please enter a valid phone number";
+      errors.phone = "Please enter a valid phone number, including the area code.";
     }
 
     // Checked against the form's own lists so the email never carries a value
@@ -92,12 +92,12 @@ export async function POST(request: NextRequest) {
     const needValue = legacyNeedLabels[postedNeed] ?? postedNeed;
     const need = inquiryNeeds.find(({ value }) => value === needValue);
     if (!need) {
-      errors.need = "Please select what you are looking for";
+      errors.need = "Please choose what you need.";
     }
 
     const industry = stringField(body.industry).trim();
     if (!inquiryIndustryOptions.includes(industry)) {
-      errors.industry = "Please choose your industry";
+      errors.industry = "Please choose your industry.";
     }
 
     const currentWebsite = stringField(body.currentWebsite).trim();
