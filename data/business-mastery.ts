@@ -102,8 +102,9 @@ export const bmHero = {
  *   leaves the line when joining stops being by application.
  * - "Paid monthly membership" is `site.businessMastery.format`, which the
  *   offer section renders in full ("A paid monthly membership").
- * - "90-day money-back guarantee" is `bmOffer.guaranteeHeading`, which the
- *   offer section renders as its expandable's title.
+ * - "90-day money-back guarantee" is the guarantee in
+ *   data/business-mastery-terms.ts, which the offer section renders as one
+ *   of its membership terms.
  *
  * Change the fact where it lives and change the short form here in the same
  * edit, or the page states two versions of one thing.
@@ -439,15 +440,8 @@ export const bmPillars: BmPillar[] = [
 export const bmOffer = {
   eyebrow: "Member offer",
   heading: "Join Business Mastery",
-  guaranteeHeading: "90-Day Money-Back Guarantee",
-  guaranteeSummary:
-    "Join, get inside the network, and see the value for yourself. If Business Mastery isn't for you, tell us within 90 days of joining and we'll refund your payment.",
-  // Rendered inside the guarantee expandable, followed by the contact email.
-  // Replaced the "Coming Soon" marker and its note at the owner's request
-  // (2026-09-27). The full legal terms are still a hard gate for Phase C
-  // (checkout) — see docs/BUSINESS-MASTERY.md §6.
-  guaranteeTermsNote:
-    "Have questions about eligibility, refund conditions, or the full guarantee terms? Reach out and we'll walk you through exactly how it works:",
+  // The guarantee, with billing, renewal and cancellation, is in
+  // data/business-mastery-terms.ts (the owner's terms, 2026-10-23).
 } as const;
 
 // --- 7. Why I Built LEU ----------------------------------------------------

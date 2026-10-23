@@ -1,4 +1,5 @@
 import { site } from "@/data/site";
+import { bmTerms } from "@/data/business-mastery-terms";
 
 /**
  * The site's own origin, no trailing slash: the www host, which the bare
@@ -74,6 +75,12 @@ export const termsOfServiceContent = {
       content:
         "You warrant and represent that your use of the site will be consistent with these Terms and will not violate any applicable law or regulation, nor will it infringe the rights of any third party.",
     },
+    // Business Mastery's membership terms, the same wording as its page's
+    // dropdowns (data/business-mastery-terms.ts).
+    ...bmTerms.map((term) => ({
+      heading: `Business Mastery: ${term.heading}`,
+      content: term.body,
+    })),
     {
       heading: "Limitation of Liability",
       content:

@@ -188,8 +188,8 @@ export const site = {
     },
   ] as Project[],
   businessMastery: {
-    /** e.g. "$49 a month". */
-    price: "",
+    /** The owner's price, set 2026-10-18. */
+    price: "$199/month",
     /** How it is paid for, confirmed 2026-09-28. The amount isn't set yet. */
     format: "A paid monthly membership",
     /** e.g. "Skool". */
@@ -199,8 +199,6 @@ export const site = {
     joinUrl: "",
     /** Scarcity wording, shown once in the offer section. Removed 2026-09-28. */
     scarcity: "",
-    /** Full guarantee terms, once written. */
-    guaranteeTerms: "",
     /** What happens once someone joins, in the owner's words (2026-09-28). */
     afterJoining: "Once you join, you're added to our member resources and groups.",
   },

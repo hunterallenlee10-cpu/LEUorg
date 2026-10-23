@@ -11,7 +11,7 @@ import { businessMasteryPage } from "@/data/navigation";
 
 const title = "Business Mastery | Learn to Start a Business and Use AI | LEU";
 const description =
-  "Courses, coaching, and a community for people starting a business and learning to use AI. A paid monthly membership, part of Lee Enterprises Unlimited.";
+  "Courses, coaching, and a community for people starting a business and learning to use AI. A $199/month membership, part of Lee Enterprises Unlimited.";
 
 // The share image is app/business-mastery/opengraph-image.tsx. The canonical
 // address is the subdomain's root once BUSINESS_MASTERY_SITE_LIVE is on

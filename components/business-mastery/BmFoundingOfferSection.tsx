@@ -1,7 +1,6 @@
-import { ShieldCheck } from "lucide-react";
 import { BM_OFFER_ID, bmOffer } from "@/data/business-mastery";
 import { BmApplicationForm } from "@/components/business-mastery/BmApplicationForm";
-import { companyInfo } from "@/data/company";
+import { BmMembershipTerms } from "@/components/business-mastery/BmMembershipTerms";
 import { site } from "@/data/site";
 import { SectionHead } from "@/components/ui/ds";
 
@@ -22,7 +21,7 @@ const afterApplySteps = [
 
 /**
  * Section 6 — the conversion section every CTA on the page points at. The
- * guarantee expandable is a native <details>, so it works with no JS and the
+ * membership terms are native <details>, so they work with no JS and the
  * section stays a server component around the one client child (the form).
  *
  * tabIndex={-1} on the section: every CTA is an anchor to this id, and the
@@ -30,7 +29,7 @@ const afterApplySteps = [
  * users — a focusable landing target keeps hash navigation equivalent.
  *
  * In the site's design system since 2026-10-22: the shared section head, the
- * guarantee as one of the site's FAQ bars, the steps in the display face with
+ * membership terms as the site's FAQ bars, the steps in the display face with
  * badges shaped like the site's buttons, and the form as a cut-corner card
  * like the contact form.
  */
@@ -71,36 +70,10 @@ export function BmFoundingOfferSection() {
           </p>
         )}
 
-        {/* 90-day guarantee. Native <details> keeps it dependency-free; the
-            full legal terms are a Phase C gate — see docs/BUSINESS-MASTERY.md
-            §6 — so the body carries the summary and points people to email
-            for the details. */}
-        <div className="ds-faq mx-auto mt-10 max-w-2xl" data-reveal>
-          <details>
-            <summary>
-              <span className="flex items-center gap-3">
-                <ShieldCheck
-                  className="h-6 w-6 shrink-0 text-brass-400"
-                  aria-hidden="true"
-                />
-                {bmOffer.guaranteeHeading}
-              </span>
-              <span className="ds-faq-icon" aria-hidden="true" />
-            </summary>
-            <div className="ds-faq-answer">
-              <p className="text-neutral-300">{bmOffer.guaranteeSummary}</p>
-              <p className="mt-4 text-sm">
-                {bmOffer.guaranteeTermsNote}{" "}
-                <a
-                  href={`mailto:${companyInfo.contactEmail}`}
-                  className="font-medium text-brass-400 underline underline-offset-4 hover:text-white"
-                >
-                  {companyInfo.contactEmail}
-                </a>
-              </p>
-            </div>
-          </details>
-        </div>
+        {/* Billing, renewal, cancellation and the 90-day guarantee, one
+            dropdown each (the owner's terms, 2026-10-23). Their wording is
+            data/business-mastery-terms.ts, shared with /legal. */}
+        <BmMembershipTerms />
 
         {/* What happens after you apply, while joining is by application
             (`joinMode` "apply" in data/site.ts). The third step is the owner's

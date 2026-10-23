@@ -445,12 +445,20 @@ before rendering:
    before it ships. What replaced it is weaker in kind, the same trade §9
    describes for the teaser: "limited spots" is not checkable against
    anything, and holds only while spots really are limited.
-3. **The 90-day guarantee.** *Stated* in this build — allowed because no
-   payment is taken on-page — with its expandable showing a plain-language
-   summary plus a line pointing to the contact email for the full terms
-   (it carried a coming-soon marker until 2026-09-27). Full guarantee terms,
-   eligibility, refund conditions, and ToS must exist **before Phase C ships
-   any checkout**. That is a hard gate, not a nice-to-have.
+3. **The membership terms.** Billing, renewal, cancellation and the 90-day
+   guarantee are written, in the owner's words (agreed 2026-10-23), in
+   `data/business-mastery-terms.ts`: $199 a month, first charged when an
+   accepted applicant pays their Stripe link, renewing monthly on that date
+   until canceled; cancel anytime by email, with access to the end of the
+   paid month and no refund of paid months outside the guarantee; the
+   guarantee refunds the first month if asked within 90 days of the first
+   payment, for members who went through the material, joined the
+   community and can show what they put into practice, back to their card
+   within 14 days, ending the membership, once per person. They show as the
+   "Membership terms" dropdowns in the offer section
+   (`BmMembershipTerms`) and as the Business Mastery entries in /legal's
+   Terms of Service, both from that one file. If how members pay, cancel or
+   get refunded changes, change that file in the same edit.
 
 ---
 
@@ -572,7 +580,8 @@ proof line's word-quantities with hard numbers (§6.1). The proof line
 renders verbatim; the counter no longer renders at all (§6.2).
 
 1. The founding-member price (needed for Phase C, not Phase A).
-2. Guarantee terms / eligibility / refund conditions (gates Phase C).
+2. ~~Guarantee terms / eligibility / refund conditions.~~ Written 2026-10-23
+   (§6.3).
 3. The My Story document (gates Phase B).
 4. Legacy statement pick — the evolved version is the built centerpiece per
    §7; say the word to swap in the alternate. Not urgent while the section
