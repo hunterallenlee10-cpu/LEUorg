@@ -210,7 +210,7 @@ export default function WebsitesDemo({ formPath }: DemoProps) {
             onChange={(event) => choose({ slider: 100 - Number(event.target.value) })}
             aria-label="Compare the old site with the new one"
             aria-valuetext={`${100 - slider}% of the new site showing`}
-            className="h-11 flex-1 cursor-ew-resize accent-[var(--color-brass-400)]"
+            className="h-11 min-w-0 flex-1 cursor-ew-resize accent-[var(--color-brass-400)]"
           />
           After
         </label>

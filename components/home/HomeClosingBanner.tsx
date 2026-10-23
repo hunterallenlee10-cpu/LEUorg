@@ -11,7 +11,7 @@ export function HomeClosingBanner() {
     <section aria-labelledby="home-closing-title" className="ds-section--tight">
       <div className="ds-container">
         <div className="ds-cut ds-cut--lg bg-[var(--ds-gold)] p-px" data-reveal>
-          <div className="ds-band ds-cut ds-cut--lg relative isolate overflow-hidden px-6 py-16 text-center md:px-12 md:py-20">
+          <div className="ds-band ds-cut ds-cut--lg relative isolate overflow-hidden px-4 py-16 text-center sm:px-6 md:px-12 md:py-20">
             <div
               aria-hidden="true"
               className="absolute inset-x-0 bottom-0 -z-10 h-full bg-[radial-gradient(60%_80%_at_50%_110%,rgb(157_187_240/0.22),transparent)]"
@@ -20,7 +20,12 @@ export function HomeClosingBanner() {
               Every missed lead is <span className="ds-accent">lost money.</span>
             </h2>
             <div className="mt-10 flex justify-center">
-              <BookCallLink variant="hero" arrow className="w-full sm:w-auto" />
+              {/* Smaller type and padding on a phone keep the label on one line. */}
+              <BookCallLink
+                variant="hero"
+                arrow
+                className="w-full whitespace-nowrap max-[399px]:px-3 max-[399px]:text-base max-[359px]:[&>svg]:hidden sm:w-auto"
+              />
             </div>
           </div>
         </div>

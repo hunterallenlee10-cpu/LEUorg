@@ -171,7 +171,7 @@ function VoiceToQuote({ demo }: { demo: Demo }) {
             >
               <Mic aria-hidden="true" className="h-5 w-5" />
             </span>
-            <span aria-hidden="true" className="flex h-8 flex-1 items-center gap-[3px]">
+            <span aria-hidden="true" className="flex h-8 min-w-0 flex-1 items-center gap-[3px] overflow-hidden">
               {Array.from({ length: 28 }, (_, i) => (
                 <span
                   key={i}
@@ -184,7 +184,7 @@ function VoiceToQuote({ demo }: { demo: Demo }) {
                 />
               ))}
             </span>
-            <span className="text-xs text-neutral-400 tabular-nums">{voiceNote.length}</span>
+            <span className="shrink-0 text-xs text-neutral-400 tabular-nums">{voiceNote.length}</span>
           </div>
           <p className="mt-3 min-h-[60px] text-[13px] leading-relaxed text-neutral-200">
             {demo.reached(1) ? (
