@@ -18,9 +18,25 @@ export interface Stat {
   definition: string;
 }
 
+/** What a portfolio item is, shown as a badge on its card. */
+export type ProjectKind = "client" | "template" | "venture";
+
+/** The badge's words for each kind (the owner's wording, 2026-10-23). */
+export const projectKindLabels: Record<ProjectKind, string> = {
+  client: "Client work",
+  template: "Template",
+  venture: "Our venture",
+};
+
 export interface Project {
   /** The name as the live site shows it. */
   name: string;
+  /**
+   * Client work (a site for someone else's business), a template (a demo
+   * site with a made-up business, sold ready to go), or our own venture.
+   * Set by the owner, 2026-10-23.
+   */
+  kind: ProjectKind;
   /** The kind of business and where, e.g. "Landscaping · Southern Maryland". */
   category: string;
   /** Optional: one line on the result, only numbers the owner can back up. */
@@ -105,11 +121,14 @@ export const site = {
    * "Recent Builds": finished work the owner has permission to show, in the
    * owner's order (sent 2026-10-05; Copperleaf and Rocha added 2026-10-07;
    * Lumen Chapel removed 2026-10-23), with our own site last. Names are as
-   * each live site shows them. docs/RECENT-BUILDS.md has the format for adding one.
+   * each live site shows them. Each is labeled client work, template or our
+   * venture (`kind`, the owner's call, 2026-10-23). docs/RECENT-BUILDS.md has
+   * the format for adding one.
    */
   projects: [
     {
       name: "Pelican Power Wash",
+      kind: "client",
       category: "Exterior cleaning · Maryland",
       built: ["Website", "Backend automation"],
       href: "https://pelicanpowerwash.vercel.app",
@@ -117,6 +136,7 @@ export const site = {
     },
     {
       name: "Graystone Contracting",
+      kind: "template",
       category: "Construction · Southern Maryland",
       built: ["Website", "Backend automation", "Ready-to-go template"],
       href: "https://template-greystone.vercel.app",
@@ -124,6 +144,7 @@ export const site = {
     },
     {
       name: "Sage & Stone",
+      kind: "template",
       category: "Landscaping · Southern Maryland",
       built: ["Website", "Backend automation", "Ready-to-go template"],
       href: "https://landscapingtemplate-eight.vercel.app",
@@ -131,6 +152,7 @@ export const site = {
     },
     {
       name: "Thread T-Shirts",
+      kind: "client",
       category: "Apparel · Ships worldwide",
       built: ["Website", "Backend automation"],
       href: "https://tread-two.vercel.app",
@@ -138,6 +160,7 @@ export const site = {
     },
     {
       name: "H1 Performance",
+      kind: "client",
       category: "Athletic training · Nationwide",
       built: ["Website", "Backend automation"],
       href: "https://h1-three-sandy.vercel.app",
@@ -145,6 +168,7 @@ export const site = {
     },
     {
       name: "Terps Fostering Futures",
+      kind: "client",
       category: "Student club · University of Maryland",
       built: ["Website", "Backend automation"],
       href: "https://www.terpsfosteringfutures.com",
@@ -152,6 +176,7 @@ export const site = {
     },
     {
       name: "Fieldhouse Athletic Club",
+      kind: "template",
       category: "Fitness coaching",
       built: ["Website", "Backend automation", "Ready-to-go template"],
       href: "https://fitness-orpin-six.vercel.app/?style=fieldhouse",
@@ -159,6 +184,7 @@ export const site = {
     },
     {
       name: "G1 Baseball & Softball Training",
+      kind: "client",
       category: "Baseball & softball training",
       built: ["Website", "Backend automation", "Ready-to-go template"],
       href: "https://template-zeta-nine.vercel.app",
@@ -167,6 +193,7 @@ export const site = {
     },
     {
       name: "Copperleaf Grounds Co.",
+      kind: "template",
       category: "Lawn care · Brandywine Valley",
       built: ["Website", "Backend automation", "Ready-to-go template"],
       href: "https://boltlandscaping.vercel.app",
@@ -174,6 +201,7 @@ export const site = {
     },
     {
       name: "Rocha Family Auto Sales",
+      kind: "template",
       category: "Pre-owned vehicles · Sequim, Washington",
       built: ["Website", "Backend automation", "Ready-to-go template"],
       href: "https://rocha-nu.vercel.app",
@@ -181,6 +209,7 @@ export const site = {
     },
     {
       name: "Lee Enterprises Unlimited",
+      kind: "venture",
       category: "Business services · Maryland",
       built: ["Website", "Contact forms", "Narrated videos"],
       href: "https://www.leeenterprisesunlimited.com",

@@ -1,6 +1,11 @@
 import Image from "next/image";
 import { ArrowUpRight, Globe } from "lucide-react";
-import { isExternalHref, site, type Project } from "@/data/site";
+import {
+  isExternalHref,
+  projectKindLabels,
+  site,
+  type Project,
+} from "@/data/site";
 import { ComingSoonSlot } from "@/components/shared/ComingSoonSlot";
 import { ShowMoreGrid } from "@/components/ui/ShowMoreGrid";
 import { SectionHead } from "@/components/ui/ds";
@@ -120,6 +125,10 @@ export function BuildBox({ project }: { project: Project }) {
           </div>
         )}
         <div className="flex flex-1 flex-col p-6">
+          {/* What it is: client work, a template or our own venture. */}
+          <span className="mb-3 inline-flex w-fit border border-brass-400/50 bg-brass-400/10 px-2.5 py-1 text-xs font-semibold text-white">
+            {projectKindLabels[project.kind]}
+          </span>
           <p className="font-mono text-[0.6875rem] uppercase tracking-[0.22em] text-brass-400">
             {project.category}
           </p>
