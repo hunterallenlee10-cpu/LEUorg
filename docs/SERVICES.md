@@ -22,7 +22,8 @@ there and it changes everywhere.
 | `content` | Content & Social Media |
 | `custom-ai` | Custom AI Tools |
 
-Plus the add-on, `carePlan` (hosting, updates, speed monitoring, security).
+The care plan is never on the site (the owner's rule, 2026-10-23): it is part of
+every build, not optional, and discussed right before a deal closes.
 
 Copy rules: say what it does and who it is for; no vendor or tool names; no
 prices, timelines, results, client counts or testimonials. The platforms
@@ -32,7 +33,7 @@ named (Google, Instagram and so on) are where the work shows up.
 
 | URL | What it is |
 | --- | --- |
-| `/services` | Hero, the six groups as alternating rows ("See it work" opens the group's Demo Lab tab, "Learn more" its page), the Demo Lab (`#demo-lab`), the Care Plan with an example website-health card, a closing call, and the form. |
+| `/services` | Hero, the six groups as alternating rows ("See it work" opens the group's Demo Lab tab, "Learn more" its page), the Demo Lab (`#demo-lab`), a closing call, and the form. |
 | `/services/[slug]` | Hero, the group's demo (`#demo`), what's included, who it's for, how it works, related builds (websites only), pairs well with, a call, and the form with the group picked. Built at deploy time; any other slug is a 404. |
 
 Deep links: `/services?demo=ai-calls` or `/services#demo-lab?demo=ai-calls`

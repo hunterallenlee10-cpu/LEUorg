@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { ArrowRight, ShieldCheck } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { leeSystemsAnchors } from "@/data/lee-systems";
-import { carePlan, serviceGroups, servicePath, servicesRoutes } from "@/data/services";
+import { serviceGroups, servicePath, servicesRoutes } from "@/data/services";
 import { serviceIcons } from "@/components/services/serviceIcons";
 import { MiniPreview } from "@/components/services/MiniPreview";
 
@@ -11,8 +11,8 @@ import { MiniPreview } from "@/components/services/MiniPreview";
  * demo, its icon, name and outcome, and a link to its own page. Since
  * 2026-10-17 the cards link out rather than opening their items in place
  * ("See what's included"): each page lists them in full. "Try the demos"
- * under the grid opens the Demo Lab on /services, and the Care Plan, an
- * add-on to any of them, is one band under that.
+ * under the grid opens the Demo Lab on /services. The care plan is never
+ * shown here (the owner's rule, 2026-10-23; see data/services.ts).
  *
  * Each card keeps its group's old `anchor` as its id, so links made to a
  * card before the service pages existed still land on it.
@@ -85,19 +85,6 @@ export function LeeSystemsServicesSection() {
           </Link>
         </div>
 
-        <div className="mx-auto mt-10 flex max-w-6xl flex-col gap-3 rounded-xl border border-brass-400/25 bg-[#0f2346] px-6 py-5 sm:flex-row sm:items-center sm:gap-5 light:bg-[#fff] light:shadow-[0_20px_50px_-24px_rgb(15_35_70/0.18)]">
-          <span className="flex items-center gap-3">
-            <ShieldCheck
-              aria-hidden="true"
-              strokeWidth={1.5}
-              className="h-[22px] w-[22px] shrink-0 text-brass-400"
-            />
-            <span className="text-xs font-semibold tracking-[0.18em] whitespace-nowrap text-brass-300 uppercase">
-              Add-on: {carePlan.name}
-            </span>
-          </span>
-          <p className="leading-relaxed text-neutral-300">{carePlan.body}</p>
-        </div>
       </div>
     </section>
   );

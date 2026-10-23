@@ -84,7 +84,7 @@ export const leeSystems = {
   phone: site.phone,
 } as const;
 
-// The six service groups and the Care Plan moved to data/services.ts on
+// The six service groups moved to data/services.ts on
 // 2026-10-17, when each group got its own page under /services.
 
 /**
@@ -282,11 +282,6 @@ export const leeSystemsFaqs = [
     question: "Do I own the website?",
     answer:
       "Yes. You own your domain and your content. If you later move to another provider, the site goes with you.",
-  },
-  {
-    question: "What happens after launch?",
-    answer:
-      "You can take it from there, or we can keep it maintained with an optional care plan covering hosting, updates, backups and small changes. The care plan is quoted separately from the build.",
   },
   {
     question: "Can the site connect to the automation systems you build?",

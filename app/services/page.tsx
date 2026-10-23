@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { MainHeader } from "@/components/layout/MainHeader";
 import { MainFooter } from "@/components/layout/MainFooter";
 import {
-  CarePlanSection,
   DemoLabSection,
   ServiceRows,
   ServicesCtaBand,
@@ -17,7 +16,7 @@ import { serviceGroups, servicePath, servicesRoutes } from "@/data/services";
  * /services: everything LEU builds, in one place (2026-10-17).
  * The hero, the six service groups as alternating rows (each with "See it
  * work", which opens its tab in the Demo Lab, and "Learn more", its own
- * page), the Demo Lab, the Care Plan, a closing call, and the form.
+ * page), the Demo Lab, a closing call, and the form.
  *
  * Its structured data lists the six service pages; each of those carries the
  * full Service node.
@@ -68,7 +67,6 @@ export default function ServicesPage() {
         <ServicesHero />
         <ServiceRows />
         <DemoLabSection />
-        <CarePlanSection />
         <ServicesCtaBand
           title="Not sure which one you need?"
           body="Book a free call. We'll look at how your business runs and tell you which of the six would help most."

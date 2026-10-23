@@ -48,7 +48,6 @@ const offerings: [Offering, Offering] = [
       "Basic SEO so local customers can find you",
       "We draft the copy, you approve it",
       "You own your domain and your content",
-      "Optional care plan for hosting and updates",
     ],
     media: <WebsiteMedia />,
   },

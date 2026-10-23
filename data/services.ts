@@ -195,7 +195,6 @@ export const serviceGroups: readonly ServiceGroup[] = [
       "Do I need my content and photos ready first?",
       "Can you rebuild my existing website?",
       "Do I own the website?",
-      "What happens after launch?",
       "Can the site connect to the automation systems you build?",
     ],
   },
@@ -682,15 +681,11 @@ export const serviceGroups: readonly ServiceGroup[] = [
   },
 ];
 
-/**
- * The add-on that goes with any of the six rather than being a seventh: a
- * band under the cards on /how-it-works and a card on /services. "Quoted
- * separately" is the FAQ's own answer about the care plan.
+/*
+ * The care plan is not on the site, by the owner's rule (2026-10-23): it is
+ * part of every build, discussed right before a deal closes, and never
+ * mentioned on any page.
  */
-export const carePlan = {
-  name: "Care Plan",
-  body: "Hosting, updates, speed monitoring and security after launch. Add it to any build; it's quoted separately.",
-} as const;
 
 export const servicesRoutes = {
   hub: "/services",

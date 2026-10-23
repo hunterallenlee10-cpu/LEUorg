@@ -1,8 +1,7 @@
 import Link from "next/link";
-import { ArrowRight, Check, Gauge, ShieldCheck, Signal } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 import { pricingPromise } from "@/data/lee-systems";
 import {
-  carePlan,
   demoLabHref,
   serviceGroups,
   servicePath,
@@ -17,7 +16,7 @@ import { getDemoAssets } from "@/lib/demo-assets";
 
 /**
  * The sections of /services, top to bottom: the hero, one row per service
- * group, the Demo Lab, the Care Plan, and the closing call before the form.
+ * group, the Demo Lab, and the closing call before the form.
  * Each reads the groups from data/services.ts.
  */
 
@@ -182,65 +181,6 @@ export function DemoLabSection() {
         </div>
         <div className="mx-auto max-w-5xl rounded-2xl border border-white/10 bg-white/[0.02] p-3 sm:p-6 light:bg-[#fff]/60">
           <DemoLab assets={getDemoAssets()} />
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/** The Care Plan, with an example "website health" card. */
-export function CarePlanSection() {
-  const stats = [
-    { Icon: Gauge, label: "Speed score", value: "96", unit: "/100" },
-    { Icon: Signal, label: "Uptime, last 30 days", value: "99.98", unit: "%" },
-    { Icon: ShieldCheck, label: "Security", value: "On", unit: "" },
-  ];
-  return (
-    <section
-      aria-labelledby="care-plan-title"
-      className="border-t border-white/[0.06] py-20 md:py-28"
-    >
-      <div className="section-container grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
-        <div>
-          <p className={eyebrow}>Add-on for any build</p>
-          <h2 id="care-plan-title" className="heading-lg mt-4 text-white">
-            {carePlan.name}
-          </h2>
-          <p className="mt-4 max-w-xl text-lg leading-relaxed text-neutral-300">
-            {carePlan.body}
-          </p>
-          <p className="mt-3 max-w-xl leading-relaxed text-neutral-400">
-            We keep the site fast, up and patched, and you get a plain report.
-          </p>
-        </div>
-
-        <div className="rounded-xl border border-white/10 bg-[#0f2346] p-6 sm:p-8 light:bg-[#fff] light:shadow-[0_20px_50px_-24px_rgb(15_35_70/0.18)]">
-          <div className="flex items-center justify-between gap-4">
-            <p className="font-semibold text-white">Website health</p>
-            <span className="rounded border border-brass-400/40 px-2 py-0.5 text-[11px] font-semibold tracking-[0.16em] text-brass-300 uppercase">
-              Example
-            </span>
-          </div>
-          <dl className="mt-6 grid gap-4 sm:grid-cols-3">
-            {stats.map(({ Icon, label, value, unit }) => (
-              <div
-                key={label}
-                className="rounded-lg border border-white/10 bg-white/[0.03] p-4"
-              >
-                <dt className="flex items-center gap-2 text-xs text-neutral-400">
-                  <Icon aria-hidden="true" strokeWidth={1.5} className="h-4 w-4 text-brass-400" />
-                  {label}
-                </dt>
-                <dd className="mt-2 text-3xl font-bold tracking-tight text-white">
-                  {value}
-                  <span className="text-base font-semibold text-neutral-400">{unit}</span>
-                </dd>
-              </div>
-            ))}
-          </dl>
-          <p className="mt-5 text-xs text-neutral-400">
-            Example figures for illustration, not a real site.
-          </p>
         </div>
       </div>
     </section>

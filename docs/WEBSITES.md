@@ -50,7 +50,7 @@ what §3 forbids was on the page at some point and had to be taken back off.
 | --- | --- |
 | Route | `/lee-marketing-mastery/websites` |
 | Promise | One outcome: the finished site turns a visitor into a customer |
-| Offer | New builds, redesigns, "Never Miss a Lead", optional care plans |
+| Offer | New builds, redesigns, "Never Miss a Lead" (the care plan is never on the site: it is part of every build and discussed before a deal closes, the owner's rule, 2026-10-23) |
 | Prices | **Hidden.** Every CTA routes to the quote form |
 | Proof | LEU's own live sites, linked: two routes on this domain. No client work claimed |
 | Testimonials | **None.** Not a single fabricated quote - see §3 |
