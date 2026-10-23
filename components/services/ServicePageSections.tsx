@@ -257,7 +257,7 @@ export function RelatedBuildsSection({ group }: { group: ServiceGroup }) {
     <section aria-labelledby="related-title" className={section}>
       <div className="section-container">
         <SectionHeader id="related-title" kicker="Related builds" title="Sites we've built" />
-        <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {builds.map((project) => (
             <li key={project.href} className="flex">
               <BuildBox project={project} />

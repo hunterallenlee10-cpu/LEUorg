@@ -451,13 +451,13 @@ const styles = `
 .lwf-paused .lwf-play .lwf-ico-pause { display: none; }
 
 @container lwf (max-width: 820px) {
-  .lwf-stage { grid-template-columns: minmax(0,1fr); grid-template-rows: auto 300px 400px auto; aspect-ratio: auto; min-height: 0; }
+  .lwf-stage { grid-template-columns: minmax(0,1fr); grid-template-rows: auto 300px 480px auto; aspect-ratio: auto; min-height: 0; }
   .lwf-panel { border-left: 0; border-top: 1px solid var(--line); }
   .lwf-tabs, .lwf-active > span { display: none; }
   .lwf-bottom { flex-wrap: wrap; gap: 12px; }
   .lwf-caption { flex-basis: 100%; font-size: 14px; }
   .lwf-chapters { flex: 1; }
-  .lwf-chap { flex: 1; width: auto; }
+  .lwf-chap { flex: 1; width: auto; padding: 14px 0; margin-block: -14px; justify-content: center; }
   .lwf-chap > span:first-child { display: none; }
   .lwf-toast { top: auto; bottom: 12px; right: 50%; transform: translate(50%, 6px); }
   .lwf-toast.lwf-show { transform: translate(50%, 0); }

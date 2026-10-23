@@ -35,7 +35,7 @@ export function HomeFaq() {
               </li>
             )}
             <li>
-              <a href={`mailto:${site.email}`} className="break-all font-semibold text-white underline decoration-brass-400/60 underline-offset-4 hover:text-brass-400">
+              <a href={`mailto:${site.email}`} className="[overflow-wrap:anywhere] font-semibold text-white underline decoration-brass-400/60 underline-offset-4 hover:text-brass-400">
                 {site.email}
               </a>
             </li>

@@ -438,6 +438,22 @@
   margin-top: 1.125rem;
 }
 
+/* On a phone the call fills the card, so its label stays on one line; on a
+   320px phone the card's own side padding comes in a little too. */
+@media (max-width: 639px) {
+  .calc-result .btn-ls-glow {
+    width: 100%;
+    padding-inline: 0.75rem;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 359px) {
+  .calc-result {
+    padding-inline: 1rem;
+  }
+}
+
 /* The breakdown under the total: one row per part that is switched on,
    its name and what it counts on the left, its share of the total in brass
    on the right. */
@@ -1370,6 +1386,29 @@
 
   .tools-list[aria-hidden] {
     display: none;
+  }
+}
+
+/* On a phone the wrapped pills above stack one or two to a line, about 4,000px
+   of them, so with reduced motion each row becomes a strip to swipe instead. */
+@media (prefers-reduced-motion: reduce) and (max-width: 639px) {
+  .tools-row {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+  }
+
+  .tools-row::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tools-track {
+    width: max-content;
+    padding: 0 1.25rem;
+  }
+
+  .tools-list {
+    flex-wrap: nowrap;
   }
 }
 
@@ -3238,6 +3277,18 @@
 
   .bmh .bm-pill-badge {
     padding-inline: 0.5rem;
+  }
+}
+
+/* Under 400px the tracked capitals still run past the column even at that
+   size, so the quiet half (the company name) goes and the badge stays. */
+@media (max-width: 399px) {
+  .bmh .bm-pill > span:last-child {
+    display: none;
+  }
+
+  .bmh .bm-pill {
+    padding-right: 0.3125rem;
   }
 }
 

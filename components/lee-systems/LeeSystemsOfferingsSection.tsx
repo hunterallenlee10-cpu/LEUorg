@@ -90,7 +90,7 @@ export function LeeSystemsOfferingsSection() {
 function OfferingCard({ offering }: { offering: Offering }) {
   return (
     <article className="group flex flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#0f2346] transition-colors duration-300 hover:border-brass-400/55 light:bg-[#fff] light:shadow-[0_20px_50px_-24px_rgb(15_35_70/0.18)]">
-      <div className="relative aspect-[16/9] overflow-hidden bg-[#0a1830] light:bg-[#eef1f6]">
+      <div className="relative isolate aspect-[16/9] overflow-hidden bg-[#0a1830] light:bg-[#eef1f6]">
         {offering.media}
         {/* Fades the picture into the card so the copy can ride up over it. */}
         <span

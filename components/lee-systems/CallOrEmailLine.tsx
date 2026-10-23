@@ -19,7 +19,7 @@ export function CallOrEmailLine({ className }: { className?: string }) {
       )}
       <a
         href={`mailto:${site.email}`}
-        className="break-all font-semibold text-neutral-200 underline underline-offset-4 hover:text-brass-300"
+        className="whitespace-nowrap font-semibold text-neutral-200 underline underline-offset-4 hover:text-brass-300"
       >
         {site.email}
       </a>

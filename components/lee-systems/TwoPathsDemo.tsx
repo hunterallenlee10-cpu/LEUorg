@@ -88,7 +88,7 @@ export function TwoPathsDemo() {
               <span className="block text-[10px] font-semibold uppercase tracking-[0.18em] text-neutral-400 sm:text-xs">
                 Lose customers
               </span>
-              <span className="ls-loss mt-1.5 block text-xl font-bold leading-9 sm:text-4xl sm:leading-[3rem] md:text-5xl">
+              <span className="ls-loss mt-1.5 block whitespace-nowrap text-xl font-bold leading-9 sm:text-4xl sm:leading-[3rem] md:text-5xl">
                 Lose money
               </span>
             </h3>
@@ -99,7 +99,7 @@ export function TwoPathsDemo() {
             <button
               type="button"
               aria-controls="ls-paths-frame"
-              className="btn-ls-muted mt-auto w-full max-w-[16rem] px-2 text-[13px] sm:text-base"
+              className="btn-ls-muted mt-auto w-full max-w-[16rem] whitespace-nowrap px-2 text-[12px] min-[360px]:text-[13px] sm:text-base"
               onClick={() => playRun("before")}
             >
               Do it by hand
@@ -131,7 +131,7 @@ export function TwoPathsDemo() {
             <BookCallLink
               variant="glow"
               href={`#${leeSystemsAnchors.form}`}
-              className="mt-auto w-full max-w-[16rem] px-2 text-[13px] sm:text-base"
+              className="mt-auto w-full max-w-[16rem] whitespace-nowrap px-2 text-[12px] min-[360px]:text-[13px] sm:text-base"
             />
           </div>
 

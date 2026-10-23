@@ -275,10 +275,10 @@ export function BmApplicationForm() {
       </div>
 
       <div className="flex items-baseline justify-between gap-4 px-6 pt-4 md:px-10">
-        <h3 id="bm-form-title" className="font-mono text-xs uppercase tracking-[0.25em] text-brass-400">
+        <h3 id="bm-form-title" className="whitespace-nowrap font-mono text-xs uppercase tracking-[0.12em] text-brass-400 sm:tracking-[0.25em]">
           Apply to join
         </h3>
-        <p className="font-mono text-xs uppercase tracking-[0.15em] tabular-nums text-neutral-400" aria-live="polite">
+        <p className="whitespace-nowrap font-mono text-xs uppercase tracking-[0.1em] tabular-nums text-neutral-400 sm:tracking-[0.15em]" aria-live="polite">
           Question {step + 1} of {steps.length}
         </p>
       </div>

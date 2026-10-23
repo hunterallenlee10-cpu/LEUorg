@@ -103,7 +103,7 @@ export function MainFooter({
               <li>
                 <a
                   href={`mailto:${site.email}`}
-                  className={`${footerLinkClass} break-all`}
+                  className={`${footerLinkClass} [overflow-wrap:anywhere]`}
                 >
                   {site.email}
                 </a>

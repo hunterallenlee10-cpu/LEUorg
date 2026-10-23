@@ -76,7 +76,9 @@ export function TalkNow({
             </span>
             <span className="min-w-0 flex-1">
               <span className={labelClass}>Email</span>
-              <span className={valueClass}>{site.email}</span>
+              <span className={valueClass}>
+                <EmailBreakable email={site.email} />
+              </span>
             </span>
             <ArrowUpRight className={arrowClass} aria-hidden="true" />
           </a>
@@ -98,10 +100,24 @@ const labelClass =
   "block text-[0.6875rem] font-semibold uppercase tracking-[0.18em] text-neutral-400";
 
 const valueClass =
-  "mt-0.5 block break-all font-medium text-neutral-100 transition-colors group-hover:text-brass-300";
+  "mt-0.5 block font-medium [overflow-wrap:anywhere] text-neutral-100 transition-colors group-hover:text-brass-300";
 
 const arrowClass =
-  "h-4 w-4 shrink-0 text-neutral-600 transition-[color,transform] duration-200 group-hover:text-brass-300 motion-safe:group-hover:-translate-y-0.5 motion-safe:group-hover:translate-x-0.5";
+  "h-4 w-4 shrink-0 text-neutral-600 max-[359px]:hidden transition-[color,transform] duration-200 group-hover:text-brass-300 motion-safe:group-hover:-translate-y-0.5 motion-safe:group-hover:translate-x-0.5";
+
+/** The address with a line-break point after the "@", so on a narrow phone it
+ *  splits as "ceo@" / "domain.com" rather than mid-word. */
+function EmailBreakable({ email }: { email: string }) {
+  const at = email.indexOf("@");
+  if (at < 0) return email;
+  return (
+    <>
+      {email.slice(0, at + 1)}
+      <wbr />
+      {email.slice(at + 1)}
+    </>
+  );
+}
 
 /** lucide-react dropped its brand icons, so the Instagram glyph is drawn here
  *  in the same 24px, 2px-stroke style as the Mail icon beside it. */

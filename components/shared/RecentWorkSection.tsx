@@ -61,7 +61,7 @@ export function RecentWorkSection({ id }: { id?: string }) {
         <ShowMoreGrid
           label="builds"
           initial={INITIAL}
-          className="mt-12 grid gap-4 sm:grid-cols-2 lg:mt-16 lg:grid-cols-3"
+          className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:mt-16 lg:grid-cols-3"
           items={[
             ...projects.map((project) => (
               <BuildBox key={project.href} project={project} />
@@ -108,7 +108,7 @@ export function BuildBox({ project }: { project: Project }) {
               <span className="h-2 w-2 rounded-full bg-white/20" />
               <span className="h-2 w-2 rounded-full bg-white/20" />
               {domain && (
-                <span className="ml-2 truncate font-mono text-[0.6875rem] text-neutral-400">
+                <span className="ml-2 min-w-0 truncate font-mono text-[0.6875rem] text-neutral-400">
                   {domain}
                 </span>
               )}

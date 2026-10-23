@@ -80,8 +80,10 @@ export function HomeFeature() {
           </div>
         </div>
 
-        {/* The devices are illustration: the copy beside them says it all. */}
-        <div aria-hidden="true" className="relative mx-auto w-full max-w-xl select-none pb-10 lg:pb-0" data-reveal>
+        {/* The devices are illustration: the copy beside them says it all. On a
+            narrow phone the phone's feed wraps and it grows up past the
+            laptop, so the top padding keeps it off the buttons above. */}
+        <div aria-hidden="true" className="relative mx-auto w-full max-w-xl select-none pt-14 pb-10 min-[360px]:pt-8 min-[390px]:pt-4 sm:pt-0 lg:pb-0" data-reveal>
           <div className="absolute inset-x-[8%] top-[10%] bottom-[5%] -z-10 rounded-full bg-[radial-gradient(closest-side,rgb(var(--gold)/0.18),transparent)]" />
           <div className="ds-laptop w-[88%]">
             <div className="ds-laptop-screen">

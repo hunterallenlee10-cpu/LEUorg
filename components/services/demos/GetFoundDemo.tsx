@@ -194,7 +194,8 @@ export default function GetFoundDemo({ formPath }: DemoProps) {
               <p className="mt-1 text-[12px] text-neutral-400">{adPreview.body}</p>
               <span className="mt-2 inline-flex items-center gap-1.5 rounded-md bg-brass-400 px-2.5 py-1 text-[11px] font-semibold whitespace-nowrap text-neutral-950">
                 <Phone aria-hidden="true" className="h-3 w-3" />
-                Call {adPreview.phone}
+                {/* On a 320px phone the number doesn't fit the card, so it's just "Call". */}
+                Call<span className="max-[359px]:hidden"> {adPreview.phone}</span>
               </span>
             </div>
           </div>

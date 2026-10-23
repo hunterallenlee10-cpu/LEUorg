@@ -156,8 +156,13 @@ export function LeeSystemsChoiceSection() {
               <p className="mt-2 text-balance text-xs leading-relaxed text-neutral-400">
                 {otherTerms.map((term, i) => (
                   <span key={term}>
-                    {i > 0 && " · "}
-                    <span className="whitespace-nowrap">{term}</span>
+                    {/* The dot rides with the term before it, so a wrapped line never
+                        starts with one. */}
+                    {i > 0 && " "}
+                    <span className="whitespace-nowrap">
+                      {term}
+                      {i < otherTerms.length - 1 && " ·"}
+                    </span>
                   </span>
                 ))}
               </p>
