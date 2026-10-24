@@ -20,9 +20,10 @@ phases at the end say what ships first.
 3. **One set of demos, three sites.** The .net site becomes the source for
    the demo code and media, and .com and .org take the same files. Today the
    three have drifted apart in small ways (listed below).
-4. **Three phases, about 600 Higgsfield credits in all** (766 on the account
-   today): sound and photos first (about 90), then motion (about 240), then
-   the two narrated films on How It Works (about 255).
+4. **Three paid phases after a code-only setup, about 585 Higgsfield credits
+   in all** (766 on the account today): sound and photos first (about 90),
+   then motion (about 240), then the two narrated films on How It Works
+   (about 255).
 5. **Six decisions for Hunter** before any credits are spent (end of this
    file): the look, the voices, faces or no faces, the source site, one
    roofer name, and the budget.
