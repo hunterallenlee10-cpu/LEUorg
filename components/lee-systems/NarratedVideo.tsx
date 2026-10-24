@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState, type RefObject } from "react";
+import { useReducedMotion } from "@/lib/hooks/useMediaState";
 import {
   Captions,
   CaptionsOff,
@@ -146,6 +147,39 @@ export interface VideoView {
   playLabel: string;
   /** What the "Example" tag calls each run. */
   runLabels: { before: string; after: string };
+  /**
+   * The picture track, if the video has one: AI footage cut to the narration
+   * (scripts/build-demo-films.mjs), muted, playing under the panels on the
+   * narration's clock. Its first frame is the still before it plays.
+   */
+  film?: { src: string; poster: string };
+}
+
+/**
+ * Keeps the picture track on the narration's clock: playing alongside it,
+ * nudged back whenever they drift apart; under reduced motion it stays
+ * paused and shows one still from each line's shot instead.
+ */
+function syncFilm(film: HTMLVideoElement | null, video: VideoTimeline, ms: number, reduced: boolean) {
+  if (!film) return;
+  if (reduced) {
+    const index = lineAt(video, ms);
+    const still = index > 0 ? (video.starts[index] + 600) / 1000 : 0.6;
+    if (Math.abs(film.currentTime - still) > 0.05) film.currentTime = still;
+    if (!film.paused) film.pause();
+    return;
+  }
+  // A big gap (a start, a seek, a stall) is closed by jumping; a small one by
+  // running the film 5% fast or slow until it lines up, so each cut lands
+  // with its line without a visible skip.
+  const drift = film.currentTime - ms / 1000;
+  if (Math.abs(drift) > 0.35) {
+    film.currentTime = ms / 1000;
+    film.playbackRate = 1;
+  } else {
+    film.playbackRate = Math.abs(drift) < 0.03 ? 1 : drift > 0 ? 0.95 : 1.05;
+  }
+  if (film.paused) void film.play().catch(() => {});
 }
 
 /**
@@ -161,6 +195,8 @@ export function useNarratedVideo(video: VideoTimeline, view: VideoView) {
 
   const frameRef = useRef<HTMLDivElement>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
+  const filmRef = useRef<HTMLVideoElement>(null);
+  const reduced = useReducedMotion();
   const fillRefs = useRef<(HTMLSpanElement | null)[]>([]);
   const clockRef = useRef<Clock>({ kind: "audio" });
 
@@ -244,6 +280,7 @@ export function useNarratedVideo(video: VideoTimeline, view: VideoView) {
   // change the line when the clock passes the next one's start.
   useEffect(() => {
     if (phase !== "playing") return;
+    const film = filmRef.current;
     let frame = 0;
     const tick = () => {
       const audio = audioRef.current;
@@ -251,6 +288,7 @@ export function useNarratedVideo(video: VideoTimeline, view: VideoView) {
       const ms = readClock(clock, audio);
       paintProgress(video, fillRefs.current, ms);
       setLine(lineAt(video, ms));
+      syncFilm(film, video, Math.min(ms, video.total - 50), reduced);
       if (ms >= video.total || (clock.kind === "audio" && audio?.ended)) {
         audio?.pause();
         paintProgress(video, fillRefs.current, video.total);
@@ -261,8 +299,11 @@ export function useNarratedVideo(video: VideoTimeline, view: VideoView) {
       frame = requestAnimationFrame(tick);
     };
     frame = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(frame);
-  }, [phase, video]);
+    return () => {
+      cancelAnimationFrame(frame);
+      film?.pause();
+    };
+  }, [phase, video, reduced]);
 
   // Pause once the frame has been seen and then scrolled fully out of view,
   // so the voice doesn't follow the reader down the page.
@@ -305,6 +346,7 @@ export function useNarratedVideo(video: VideoTimeline, view: VideoView) {
       video={video}
       frameRef={frameRef}
       audioRef={audioRef}
+      filmRef={filmRef}
       phase={phase}
       current={current}
       mode={mode}
@@ -322,6 +364,7 @@ export function useNarratedVideo(video: VideoTimeline, view: VideoView) {
       onPrefetch={() => {
         // Fetch the soundtrack as soon as someone reaches for the video.
         if (audioRef.current) audioRef.current.preload = "auto";
+        if (filmRef.current) filmRef.current.preload = "auto";
       }}
       onAudioError={() => {
         if (phase === "playing") fallBack();
@@ -344,9 +387,11 @@ function NarratedVideoFrame({
   label,
   playLabel,
   runLabels,
+  film,
   video,
   frameRef,
   audioRef,
+  filmRef,
   phase,
   current,
   mode,
@@ -365,6 +410,7 @@ function NarratedVideoFrame({
   video: VideoTimeline;
   frameRef: RefObject<HTMLDivElement | null>;
   audioRef: RefObject<HTMLAudioElement | null>;
+  filmRef: RefObject<HTMLVideoElement | null>;
   phase: Phase;
   current: VideoLine | null;
   mode: VideoMode;
@@ -396,6 +442,7 @@ function NarratedVideoFrame({
       className="ls-paths-frame"
       data-state={phase}
       data-mode={mode}
+      data-film={film ? "" : undefined}
       onPointerEnter={onPrefetch}
     >
       {video.src && (
@@ -404,6 +451,20 @@ function NarratedVideoFrame({
           src={video.src}
           preload="none"
           onError={onAudioError}
+        />
+      )}
+
+      {film && (
+        <video
+          ref={filmRef}
+          className="ls-paths-film"
+          src={film.src}
+          poster={film.poster}
+          muted
+          playsInline
+          preload="none"
+          tabIndex={-1}
+          aria-hidden="true"
         />
       )}
 
@@ -443,7 +504,7 @@ function NarratedVideoFrame({
 
       {/* The tag names the run that's playing. */}
       <span className="ls-paths-tag" data-mode={mode} aria-hidden="true">
-        Example
+        {film ? "Example · AI footage" : "Example"}
         {mode && <span className="ls-paths-tag-run">{runLabels[mode]}</span>}
       </span>
 

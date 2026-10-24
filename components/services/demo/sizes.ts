@@ -5,6 +5,8 @@ import type { CallScenarioId } from "@/data/demos/calls";
 export interface DemoAssets {
   callAudio: Partial<Record<CallScenarioId, string>>;
   reel: { raw?: string; edited?: string; poster?: string };
+  /** The voice-to-quote tool's recording. */
+  voiceNote?: string;
 }
 
 export const noDemoAssets: DemoAssets = { callAudio: {}, reel: {} };

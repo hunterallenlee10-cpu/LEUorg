@@ -61,6 +61,12 @@ export interface Demo {
   next: () => void;
   /** Back to the start, for a demo whose input changed (a new scenario). */
   restart: (byVisitor?: boolean) => void;
+  /**
+   * Jumps to step `n` without changing whether it plays: for a demo that
+   * follows its own recording (the call demo), with `hold` keeping the clock
+   * from moving on by itself meanwhile.
+   */
+  seek: (n: number) => void;
 }
 
 /** A fresh run: from the top, or on the result (`done`) under reduced motion. */
@@ -82,11 +88,14 @@ export function useDemo({
   service,
   durations,
   autoplay = true,
+  hold = false,
 }: {
   service: ServiceSlug;
   /** How long each step is held, in ms. Define it outside the component. */
   durations: readonly number[];
   autoplay?: boolean;
+  /** True while something else (a recording) moves the steps with `seek`. */
+  hold?: boolean;
 }): [DemoFrameRef, Demo] {
   const reduced = useReducedMotion();
   const pageVisible = usePageVisible();
@@ -113,7 +122,7 @@ export function useDemo({
   }
 
   useEffect(() => {
-    if (state.status !== "playing" || !active) return;
+    if (state.status !== "playing" || !active || hold) return;
     const timer = window.setTimeout(() => {
       setState((current) => {
         if (current.status !== "playing") return current;
@@ -124,7 +133,7 @@ export function useDemo({
       });
     }, durations[state.step] ?? 1000);
     return () => window.clearTimeout(timer);
-  }, [state.status, state.step, active, durations, last]);
+  }, [state.status, state.step, active, hold, durations, last]);
 
   const play = useCallback(() => {
     setState((current) =>
@@ -169,6 +178,17 @@ export function useDemo({
     [reduced, last],
   );
 
+  const seek = useCallback(
+    (n: number) => {
+      setState((current) => {
+        const step = Math.max(0, Math.min(n, last));
+        if (step === current.step) return current;
+        return { ...current, step, status: step >= last ? "done" : current.status };
+      });
+    },
+    [last],
+  );
+
   return [
     ref,
     {
@@ -187,6 +207,7 @@ export function useDemo({
       stepThrough,
       next,
       restart,
+      seek,
     },
   ];
 }

@@ -5,7 +5,10 @@ import { demoImages } from "@/data/demos/images";
  * WebsitesDemo.tsx): the industry switch re-skins one mock site with these.
  * `accent` names one of the site's existing colour scales, which the light
  * theme already re-points, so each skin reads in both themes. `photo` is the
- * hero picture (data/demos/images.ts); the store's is its product.
+ * hero picture (data/demos/images.ts); the store's is its product. `video`
+ * is the same picture as a 5-second seamless loop (AI footage from Higgsfield,
+ * scripts/build-demo-media.sh), which the new site plays behind its headline
+ * while the old site keeps the still; the store's is its 360° product spin.
  */
 
 export type WebsiteSkinId = "home" | "law" | "fitness" | "restaurant" | "store";
@@ -24,6 +27,8 @@ export interface WebsiteSkin {
   /** What the lead in the closing toast asked for. */
   lead: string;
   photo: string;
+  /** The hero as a loop, with its first frame as the still. */
+  video?: { src: string; poster: string };
   /** Where the hero crops the photo (CSS object-position). */
   focus: string;
   /** The made-up review score under the button. */
@@ -31,6 +36,11 @@ export interface WebsiteSkin {
   reviews: number;
   /** Three nav links. */
   nav: readonly [string, string, string];
+}
+
+/** A loop in public/demos/video/ and its still. */
+function loop(name: string) {
+  return { src: `/demos/video/${name}.mp4`, poster: `/demos/video/${name}.webp` };
 }
 
 export const websiteSkins: readonly WebsiteSkin[] = [
@@ -46,6 +56,7 @@ export const websiteSkins: readonly WebsiteSkin[] = [
     accent: "cyan",
     lead: "Jordan P. booked a free inspection",
     photo: demoImages.homeServices,
+    video: loop("home-services"),
     focus: "70% 40%",
     rating: 4.9,
     reviews: 212,
@@ -63,6 +74,7 @@ export const websiteSkins: readonly WebsiteSkin[] = [
     accent: "brass",
     lead: "Marcus T. booked a consultation",
     photo: demoImages.law,
+    video: loop("law-firms"),
     focus: "45% 50%",
     rating: 4.8,
     reviews: 164,
@@ -80,6 +92,7 @@ export const websiteSkins: readonly WebsiteSkin[] = [
     accent: "red",
     lead: "Priya S. booked a free trial",
     photo: demoImages.fitness,
+    video: loop("fitness"),
     focus: "40% 60%",
     rating: 5.0,
     reviews: 98,
@@ -97,6 +110,7 @@ export const websiteSkins: readonly WebsiteSkin[] = [
     accent: "yellow",
     lead: "Sam R. reserved a table for 4",
     photo: demoImages.restaurant,
+    video: loop("restaurants"),
     focus: "55% 50%",
     rating: 4.7,
     reviews: 430,
@@ -123,6 +137,8 @@ export const websiteSkins: readonly WebsiteSkin[] = [
 
 /** The store skin's one product. Totals are worked out from these. */
 export const storeProduct = {
+  /** The satchel turning a full circle: 36 frames in a 6 x 6 sheet. */
+  spin: "/demos/img/spin/satchel.webp",
   name: "Field Satchel",
   detail: "Full-grain leather, fits a 14\" laptop",
   price: 148,

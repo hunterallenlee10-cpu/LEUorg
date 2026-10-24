@@ -1,43 +1,51 @@
 "use client";
 
 import clsx from "clsx";
-import { Check, Heart, Mic, Phone, Search, Star } from "lucide-react";
+import { CalendarCheck, Check, FileText, Heart, MapPin, MessageSquareText, Mic, Phone, Search, Star } from "lucide-react";
 import type { ServiceSlug } from "@/data/services";
 import { demoImages } from "@/data/demos/images";
+import { posters } from "@/data/demos/posters";
 import { Photo } from "@/components/services/demo/ui";
+import { DemoVideo } from "@/components/services/demo/DemoVideo";
 import { useInView } from "@/lib/hooks/useInView";
 import "./services.css";
 
 /**
- * A tiny looping picture of each service working, readable in under a
- * second: an old site turning into a new one, a business climbing to #1, a
- * late call getting booked, a lead getting a reply, a clip getting captions,
- * a voice note becoming a quote. Used on the homepage showcase, the
- * /how-it-works cards and the /services rows.
+ * A small picture of each service working, readable in under a second, in
+ * two kinds:
  *
- * Pure CSS (services.css) that scales with its box (`cqw` units), so the
- * same preview works as a thumbnail and as a large panel. The photos are the
- * demos' own (data/demos/images.ts), so a preview looks like the demo it
- * opens. It only moves while on screen, and under reduced motion it holds
- * its finished frame. Decorative: the card around it names the service, so
+ * - `live` (the default; the homepage tiles, the How It Works cards and each
+ *   service page's hero): a "live poster", a 5-second loop of the moment the
+ *   service is for (a phone lighting up on a nightstand at 11:48 PM) with one
+ *   line of what just happened over it, drawn in code so it stays sharp at
+ *   thumbnail size (data/demos/posters.ts). The loops are AI footage, tagged.
+ * - `ui`: the service's own interface in miniature, an old site turning
+ *   into a new one, a business climbing to #1 and so on, in pure CSS
+ *   (services.css) that scales with its box (`cqw` units). The /services
+ *   rows use it, where the tile is large enough to read.
+ *
+ * Both only move while on screen, and under reduced motion hold their
+ * finished frame. Decorative: the card around it names the service, so
  * screen readers skip it.
  */
 export function MiniPreview({
   slug,
+  variant = "live",
   className,
 }: {
   slug: ServiceSlug;
+  variant?: "live" | "ui";
   className?: string;
 }) {
   const [ref, inView] = useInView<HTMLDivElement>({ threshold: 0.2 });
-  const Preview = previews[slug];
+  const Preview = variant === "live" ? livePosters[slug] : previews[slug];
   return (
     <div
       ref={ref}
       aria-hidden="true"
       data-play={inView ? "" : undefined}
       className={clsx(
-        "svc-mp @container relative aspect-[16/10] overflow-hidden rounded-lg border border-white/10 bg-[#050b18] select-none light:bg-[#f6f7f9]",
+        "svc-mp @container relative aspect-[16/10] overflow-hidden rounded-lg border border-white/10 bg-[var(--svc-ground)] select-none light:bg-[#f6f7f9]",
         className
       )}
     >
@@ -53,6 +61,53 @@ const previews: Record<ServiceSlug, () => React.JSX.Element> = {
   "follow-up": FollowUpPreview,
   content: ContentPreview,
   "custom-ai": CustomAiPreview,
+};
+
+const posterIcons: Record<ServiceSlug, typeof Check> = {
+  websites: Check,
+  "get-found": MapPin,
+  "ai-calls": CalendarCheck,
+  "follow-up": MessageSquareText,
+  content: CalendarCheck,
+  "custom-ai": FileText,
+};
+
+/** The live poster: the loop, then its one line arriving over it. */
+function LivePoster({ slug }: { slug: ServiceSlug }) {
+  const poster = posters[slug];
+  const Icon = posterIcons[slug];
+  return (
+    <>
+      <DemoVideo src={poster.video} poster={poster.still} className="absolute inset-0" mediaStyle={{ objectPosition: poster.focus }} />
+      <span className="absolute inset-0 bg-gradient-to-t from-[#000]/75 via-[#000]/10 to-[#000]/25" />
+      <span className="absolute top-[3cqw] left-[3cqw] rounded bg-[#000]/55 px-[1.6cqw] py-[0.6cqw] text-[max(9px,2cqw)] font-semibold tracking-wider text-[#fff]/80 uppercase">
+        Example · AI footage
+      </span>
+      <span className="svc-chip-in absolute bottom-[4cqw] left-[4cqw] flex max-w-[86%] items-center gap-[2.2cqw] rounded-[max(8px,2cqw)] border border-[#fff]/15 bg-[var(--svc-phone)]/80 py-[2cqw] pr-[3.2cqw] pl-[2cqw] shadow-2xl backdrop-blur-md">
+        <span
+          className={clsx(
+            "flex h-[max(26px,7.5cqw)] w-[max(26px,7.5cqw)] shrink-0 items-center justify-center rounded-full",
+            poster.tone === "good" ? "bg-emerald-400/20 text-emerald-300" : "bg-brass-400/20 text-brass-300"
+          )}
+        >
+          <Icon className="h-[55%] w-[55%]" strokeWidth={2} />
+        </span>
+        <span className="min-w-0">
+          <span className="block truncate text-[max(11.5px,3.4cqw)] leading-tight font-semibold text-[#fff]">{poster.title}</span>
+          <span className="mt-[0.4cqw] block truncate text-[max(10.5px,2.8cqw)] leading-tight text-[#fff]/70">{poster.detail}</span>
+        </span>
+      </span>
+    </>
+  );
+}
+
+const livePosters: Record<ServiceSlug, () => React.JSX.Element> = {
+  websites: () => <LivePoster slug="websites" />,
+  "get-found": () => <LivePoster slug="get-found" />,
+  "ai-calls": () => <LivePoster slug="ai-calls" />,
+  "follow-up": () => <LivePoster slug="follow-up" />,
+  content: () => <LivePoster slug="content" />,
+  "custom-ai": () => <LivePoster slug="custom-ai" />,
 };
 
 const bar = "rounded-full bg-white/15";
@@ -112,10 +167,10 @@ function WebsitesPreview() {
 
 function GetFoundPreview() {
   const rows = [
-    { name: "Your Roofing Co.", stars: 5, you: true, photo: demoImages.thumbs[0] },
-    { name: "Ridgeline Roofing", stars: 4, photo: demoImages.thumbs[1] },
-    { name: "Summit Exteriors", stars: 4, photo: demoImages.thumbs[2] },
-    { name: "Oak Hill Roof Pros", stars: 3, photo: demoImages.thumbs[3] },
+    { name: "Ridgeline Roofing", stars: 5, you: true, photo: demoImages.thumbs[0] },
+    { name: "Oak Hill Roof Pros", stars: 4, photo: demoImages.thumbs[1] },
+    { name: "Bayside Roofing", stars: 4, photo: demoImages.thumbs[2] },
+    { name: "Granite Ridge Exteriors", stars: 3, photo: demoImages.thumbs[3] },
   ];
   return (
     <div className="svc-a-fade absolute inset-0 px-[5cqw] pt-[4.5cqw]">
@@ -126,7 +181,7 @@ function GetFoundPreview() {
           src={demoImages.map}
           className="h-full w-full object-cover opacity-50 [filter:invert(1)_hue-rotate(180deg)_saturate(0.45)_brightness(0.8)] light:opacity-60 light:[filter:saturate(0.8)]"
         />
-        <span className="absolute inset-0 bg-gradient-to-b from-transparent via-[#050b18]/70 to-[#050b18] light:via-[#f6f7f9]/70 light:to-[#f6f7f9]" />
+        <span className="absolute inset-0 bg-gradient-to-b from-transparent via-[var(--svc-ground)]/70 to-[var(--svc-ground)] light:via-[#f6f7f9]/70 light:to-[#f6f7f9]" />
         <span className="absolute top-[1cqw] right-[1.4cqw] text-[1.6cqw] text-[#fff]/70 light:text-[#000]/60">&copy; OpenStreetMap</span>
       </div>
       <div className="relative flex items-center gap-[1.6cqw] rounded-full border border-white/10 bg-neutral-950/80 px-[2.6cqw] py-[1.4cqw] text-[2.6cqw] text-neutral-300 light:bg-[#fff]">
@@ -141,8 +196,8 @@ function GetFoundPreview() {
             className={clsx(
               "absolute inset-x-0 flex h-[10cqw] items-center gap-[2cqw] rounded-[1cqw] border px-[2.4cqw]",
               row.you
-                ? "svc-a-rankup z-10 border-brass-400/60 bg-[#0f2346] light:bg-[#fff]"
-                : "svc-a-rankdown border-white/10 bg-[#050b18]/85 light:bg-[#fff]/90"
+                ? "svc-a-rankup z-10 border-brass-400/60 bg-[var(--svc-surface)] light:bg-[#fff]"
+                : "svc-a-rankdown border-white/10 bg-[var(--svc-ground)]/85 light:bg-[#fff]/90"
             )}
           >
             <span
@@ -185,7 +240,7 @@ function GetFoundPreview() {
 
 function Phone916({ children }: { children: React.ReactNode }) {
   return (
-    <div className="absolute top-[6%] bottom-[6%] left-1/2 aspect-[9/16] -translate-x-1/2 overflow-hidden rounded-[3cqw] border-[0.6cqw] border-white/15 bg-[#0f2346] light:bg-[#fff]">
+    <div className="absolute top-[6%] bottom-[6%] left-1/2 aspect-[9/16] -translate-x-1/2 overflow-hidden rounded-[3cqw] border-[0.6cqw] border-white/15 bg-[#151619] light:bg-[#fff]">
       {children}
     </div>
   );
@@ -289,7 +344,7 @@ function CustomAiPreview() {
         </span>
         <span className="text-[2.1cqw] text-neutral-400">&ldquo;40 feet of gutter&hellip;&rdquo;</span>
       </div>
-      <div className="relative rounded-[1.2cqw] border border-white/10 bg-[#0f2346] p-[3cqw] light:bg-[#fff]">
+      <div className="relative rounded-[1.2cqw] border border-white/10 bg-[var(--svc-surface)] p-[3cqw] light:bg-[#fff]">
         <p className="text-[2.6cqw] font-bold text-white">Quote</p>
         {[78, 64, 70].map((width, i) => (
           <span

@@ -1,13 +1,15 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { track } from "@vercel/analytics";
 import clsx from "clsx";
 import { Bot, CalendarCheck, Check, MessageSquareText, Pause, Phone, PhoneIncoming, Play } from "lucide-react";
 import { DemoFrame } from "@/components/services/demo/DemoFrame";
-import { useDemo } from "@/components/services/demo/useDemo";
+import { useDemo, type Demo } from "@/components/services/demo/useDemo";
 import { ExampleTag, Panel, Photo, Segmented, TypeText } from "@/components/services/demo/ui";
 import { demoSizes, demoTitles, type DemoProps } from "@/components/services/demo/sizes";
 import { callScenarios, type CallScenario, type CallScenarioId } from "@/data/demos/calls";
+import callTiming from "@/data/demos/call-timing.json";
 import { site } from "@/data/site";
 
 /**
@@ -19,11 +21,15 @@ import { site } from "@/data/site";
  * the transcript appears line by line, a calendar slot fills in as "Booked
  * by AI", and the confirmation text arrives.
  *
- * Audio is optional and never plays by itself: when a recording for the
- * scenario is in public/demos/calls/ (found at build time), a "Listen"
- * button plays it, with the transcript on screen as its captions. "Call our
- * demo line" shows only once a real number is set in data/site.ts
- * (`callAnswering.demoPhone`).
+ * Audio never plays by itself: when a recording for the scenario is in
+ * public/demos/calls/ (found at build time), "Listen" plays it and the demo
+ * follows the voice: it rings, each line appears as it is spoken (from
+ * data/demos/call-timing.json, written with the recordings by
+ * scripts/build-demo-audio.mjs), and the slot books when the call ends. The
+ * recordings are AI voices of made-up callers, and say so beside the button.
+ * The silent run uses the same timings, so both move at the pace of a real
+ * call. "Call our demo line" shows only once a real number is set in
+ * data/site.ts (`callAnswering.demoPhone`).
  */
 
 const RING = 0;
@@ -32,15 +38,34 @@ const LINES = 7; // every scenario has seven lines, so they share one step count
 const BOOKED = FIRST_LINE + LINES;
 const TEXTED = BOOKED + 1;
 
-/** Each line is held long enough to read: longer lines, longer holds. */
+interface CallTiming {
+  /** When each line starts in the recording, in ms. */
+  lines: number[];
+  /** When the recording ends, in ms. */
+  end: number;
+}
+
+const timings = callTiming as Partial<Record<CallScenarioId, CallTiming>>;
+
+/**
+ * Each step's hold: the ring and every line as long as they last in the
+ * recording, or, for a call with no timing yet, long enough to read.
+ */
 function durationsFor(scenario: CallScenario): number[] {
-  return [
-    2200,
-    ...scenario.lines.map(({ text }) => Math.min(3400, 900 + text.length * 26)),
-    2400,
-    2800,
-    3000,
-  ];
+  const timing = timings[scenario.id];
+  const lines = timing
+    ? scenario.lines.map((_, i) => (timing.lines[i + 1] ?? timing.end + 400) - timing.lines[i])
+    : scenario.lines.map(({ text }) => Math.min(3400, 900 + text.length * 26));
+  return [timing ? timing.lines[0] : 2200, ...lines, 2400, 2800, 3000];
+}
+
+/** The step a recording is on at `ms`: the ring, a line, or past the end (booked). */
+function stepAt(timing: CallTiming, ms: number): number {
+  if (ms < timing.lines[0]) return RING;
+  if (ms >= timing.end) return BOOKED;
+  let line = 0;
+  while (line + 1 < timing.lines.length && ms >= timing.lines[line + 1]) line += 1;
+  return FIRST_LINE + line;
 }
 
 const durationsById = Object.fromEntries(
@@ -60,10 +85,13 @@ function captionsFor(scenario: CallScenario): string[] {
 export default function AiCallsDemo({ formPath, assets }: DemoProps) {
   const [scenarioId, setScenarioId] = useState<CallScenarioId>("ac-repair");
   const scenario = callScenarios.find(({ id }) => id === scenarioId)!;
-  const [frameRef, demo] = useDemo({ service: "ai-calls", durations: durationsById[scenarioId] });
+  // True while the recording plays and moves the demo along with it.
+  const [listening, setListening] = useState(false);
+  const [frameRef, demo] = useDemo({ service: "ai-calls", durations: durationsById[scenarioId], hold: listening });
   const sizes = demoSizes["ai-calls"];
   const typing = demo.status === "playing";
   const audio = assets.callAudio[scenarioId];
+  const timing = timings[scenarioId];
 
   const lineCount = Math.max(0, Math.min(LINES, demo.step - FIRST_LINE + 1));
   const ended = demo.reached(BOOKED);
@@ -85,6 +113,7 @@ export default function AiCallsDemo({ formPath, assets }: DemoProps) {
             value={scenarioId}
             onChange={(id) => {
               setScenarioId(id);
+              setListening(false);
               demo.restart();
             }}
             options={callScenarios.map(({ id, label }) => ({ value: id, label }))}
@@ -94,7 +123,7 @@ export default function AiCallsDemo({ formPath, assets }: DemoProps) {
     >
       <div className="grid h-full grid-cols-1 content-start gap-4 p-4 sm:grid-cols-[280px_1fr] sm:p-5 lg:gap-6">
         {/* The phone */}
-        <div className="mx-auto flex h-[440px] w-full max-w-[280px] flex-col overflow-hidden rounded-[2rem] border-[6px] border-neutral-800 bg-[#050b18] shadow-2xl light:bg-[#fff]">
+        <div className="mx-auto flex h-[440px] w-full max-w-[280px] flex-col overflow-hidden rounded-[2rem] border-[6px] border-neutral-800 bg-[var(--svc-phone)] shadow-2xl light:bg-[#fff]">
           {demo.step === RING ? null : (
             <div className="flex items-center gap-3 border-b border-white/10 px-4 pt-6 pb-3">
               <Photo src={scenario.photo} className="h-10 w-10 shrink-0 rounded-full object-cover ring-1 ring-white/15" />
@@ -171,7 +200,7 @@ export default function AiCallsDemo({ formPath, assets }: DemoProps) {
                       key={`${demo.run}-${index}`}
                       text={line.text}
                       play={typing && current}
-                      duration={Math.min(1800, line.text.length * 22)}
+                      duration={Math.min(durationsById[scenarioId][FIRST_LINE + index] * 0.8, line.text.length * 40)}
                     />
                   </li>
                 );
@@ -267,8 +296,39 @@ export default function AiCallsDemo({ formPath, assets }: DemoProps) {
           </Panel>
 
           {(audio || site.callAnswering.demoPhone) && (
-            <div className="flex flex-wrap items-center gap-3">
-              {audio && <ListenButton key={scenarioId} src={audio} label={scenario.label} />}
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+              {audio && timing && (
+                <ListenButton
+                  key={scenarioId}
+                  src={audio}
+                  label={scenario.label}
+                  demo={demo}
+                  onStart={() => {
+                    track("demo_listen", { service: "ai-calls", scenario: scenarioId });
+                    // Under reduced motion the transcript is already all there: the
+                    // recording just plays beside it.
+                    if (demo.reduced) return;
+                    setListening(true);
+                    demo.restart(true);
+                  }}
+                  onResume={() => {
+                    if (demo.reduced) return;
+                    setListening(true);
+                    demo.play();
+                  }}
+                  onTime={(ms) => {
+                    if (listening) demo.seek(stepAt(timing, ms));
+                  }}
+                  onStop={(finished) => {
+                    if (!listening) return;
+                    setListening(false);
+                    if (finished) demo.seek(BOOKED);
+                  }}
+                />
+              )}
+              {audio && timing && (
+                <span className="text-[11px] text-neutral-400">Simulated call · AI voices</span>
+              )}
               {site.callAnswering.demoPhone && (
                 <a
                   href={`tel:${site.callAnswering.demoPhone.replace(/[^\d+]/g, "")}`}
@@ -314,12 +374,39 @@ function CallTimer({ running, fallback }: { running: boolean; fallback: number }
 }
 
 /**
- * Plays the scenario's recording on a tap, never by itself. The transcript
- * beside it is its captions. preload="none": nothing downloads until played.
+ * Plays the scenario's recording on a tap, never by itself, and reports where
+ * it is so the demo can follow it. The transcript on screen is its captions.
+ * preload="none": nothing downloads until played. It pauses when the demo is
+ * paused or scrolled off screen, and the demo pauses when it is; from there
+ * Listen picks the call up where it stopped, and the demo's own Play goes on
+ * silently.
  */
-function ListenButton({ src, label }: { src: string; label: string }) {
+function ListenButton({
+  src,
+  label,
+  demo,
+  onStart,
+  onResume,
+  onTime,
+  onStop,
+}: {
+  src: string;
+  label: string;
+  demo: Demo;
+  onStart: () => void;
+  onResume: () => void;
+  onTime: (ms: number) => void;
+  /** `finished` is true when the recording played to its end. */
+  onStop: (finished: boolean) => void;
+}) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [playing, setPlaying] = useState(false);
+  const shouldPause = playing && (demo.status === "paused" || !demo.active);
+
+  useEffect(() => {
+    if (shouldPause) audioRef.current?.pause();
+  }, [shouldPause]);
+
   return (
     <>
       <button
@@ -327,22 +414,40 @@ function ListenButton({ src, label }: { src: string; label: string }) {
         onClick={() => {
           const audio = audioRef.current;
           if (!audio) return;
-          if (audio.paused) void audio.play();
-          else audio.pause();
+          if (!audio.paused) {
+            audio.pause();
+            return;
+          }
+          if (audio.currentTime === 0 || audio.ended) {
+            audio.currentTime = 0;
+            onStart();
+          } else {
+            onResume();
+          }
+          void audio.play();
         }}
         aria-pressed={playing}
         className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-white/15 px-4 text-sm font-semibold text-white hover:border-brass-400/60"
       >
         {playing ? <Pause aria-hidden="true" className="h-4 w-4" /> : <Play aria-hidden="true" className="h-4 w-4" />}
-        {playing ? "Pause the call" : `Listen to the ${label.toLowerCase()} call`}
+        {playing ? "Pause the call" : `Listen to the ${label.replace(/^[A-Z](?=[a-z])/, (c) => c.toLowerCase())} call`}
       </button>
       <audio
         ref={audioRef}
         src={src}
         preload="none"
         onPlay={() => setPlaying(true)}
-        onPause={() => setPlaying(false)}
-        onEnded={() => setPlaying(false)}
+        onPause={() => {
+          setPlaying(false);
+          if (audioRef.current?.ended) return;
+          demo.pause();
+          onStop(false);
+        }}
+        onTimeUpdate={(event) => onTime(event.currentTarget.currentTime * 1000)}
+        onEnded={() => {
+          setPlaying(false);
+          onStop(true);
+        }}
       />
     </>
   );

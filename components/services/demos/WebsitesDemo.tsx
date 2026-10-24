@@ -16,6 +16,8 @@ import {
 } from "lucide-react";
 import { DemoFrame } from "@/components/services/demo/DemoFrame";
 import { useDemo } from "@/components/services/demo/useDemo";
+import { DemoVideo } from "@/components/services/demo/DemoVideo";
+import { ProductSpin } from "@/components/services/demo/ProductSpin";
 import { Photo, Segmented, Stars } from "@/components/services/demo/ui";
 import { demoSizes, demoTitles, type DemoProps } from "@/components/services/demo/sizes";
 import {
@@ -392,7 +394,7 @@ function NewSite({
   const total = storeProduct.price + storeProduct.shipping;
 
   return (
-    <div className="relative flex h-full flex-col overflow-hidden bg-[#050b18] text-white light:bg-[#fff]">
+    <div className="relative flex h-full flex-col overflow-hidden bg-[var(--svc-site)] text-white light:bg-[#fff]">
       {!isStore && (
         <div
           aria-hidden="true"
@@ -401,19 +403,29 @@ function NewSite({
             compact ? "inset-x-0 top-0 h-[42%]" : "inset-x-0 top-0 h-[38%] @lg:inset-y-0 @lg:right-0 @lg:left-auto @lg:h-auto @lg:w-[56%]"
           )}
         >
-          <Photo
-            key={skin.photo}
-            src={skin.photo}
-            className="svc-photo-in h-full w-full object-cover"
-            style={{ objectPosition: skin.focus }}
-          />
+          {skin.video ? (
+            <DemoVideo
+              key={skin.video.src}
+              src={skin.video.src}
+              poster={skin.video.poster}
+              className="svc-photo-in relative h-full w-full"
+              mediaStyle={{ objectPosition: skin.focus }}
+            />
+          ) : (
+            <Photo
+              key={skin.photo}
+              src={skin.photo}
+              className="svc-photo-in h-full w-full object-cover"
+              style={{ objectPosition: skin.focus }}
+            />
+          )}
           {/* Fades the photo into the page: down on a phone, left on a wide screen. */}
           <span
             className={clsx(
               "absolute inset-0",
               compact
-                ? "bg-gradient-to-t from-[#050b18] via-[#050b18]/40 to-[#050b18]/10 light:from-[#fff] light:via-[#fff]/40 light:to-[#fff]/0"
-                : "bg-gradient-to-t from-[#050b18] via-[#050b18]/40 to-[#050b18]/10 light:from-[#fff] light:via-[#fff]/40 light:to-[#fff]/0 @lg:bg-gradient-to-r @lg:from-[#050b18] @lg:via-[#050b18]/45 @lg:via-30% @lg:to-transparent light:@lg:from-[#fff] light:@lg:via-[#fff]/45"
+                ? "bg-gradient-to-t from-[var(--svc-site)] via-[var(--svc-site)]/40 to-[var(--svc-site)]/10 light:from-[#fff] light:via-[#fff]/40 light:to-[#fff]/0"
+                : "bg-gradient-to-t from-[var(--svc-site)] via-[var(--svc-site)]/40 to-[var(--svc-site)]/10 light:from-[#fff] light:via-[#fff]/40 light:to-[#fff]/0 @lg:bg-gradient-to-r @lg:from-[var(--svc-site)] @lg:via-[var(--svc-site)]/45 @lg:via-30% @lg:to-transparent light:@lg:from-[#fff] light:@lg:via-[#fff]/45"
             )}
           />
         </div>
@@ -557,7 +569,11 @@ function StoreCard({
 
   return (
     <div className="overflow-hidden rounded-lg border border-white/10 bg-white/[0.04] light:bg-[#f6f7f9]">
-      <Photo src={photo} className={clsx("block w-full object-cover", compact ? "aspect-[2/1]" : "aspect-[16/9]")} />
+      {compact ? (
+        <Photo src={photo} className="block aspect-[2/1] w-full object-cover" />
+      ) : (
+        <ProductSpin photo={photo} sheet={storeProduct.spin} />
+      )}
       <div className="p-3">
         <div className="flex items-baseline justify-between gap-2">
           <p className="text-[13px] font-bold">{storeProduct.name}</p>

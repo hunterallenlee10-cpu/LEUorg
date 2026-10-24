@@ -114,6 +114,23 @@ All six went in on 2026-10-06, cropped from Everygen's 1376 x 768 to 800 x
 shows if its id is taken out of `pictured`. To use a photo instead, save it
 under the industry's file name at 800 x 450.
 
+Since 2026-10-24 each card's picture moves: a muted 5-second loop of the
+same picture (`public/demos/video/<id>.mp4`, with its first frame beside it
+as a WebP still), made in Higgsfield from the picture itself with the camera
+locked off, so only the light, weather or steam moves and the loop has no
+seam. `DemoVideo` loads it as the card nears the screen and plays it only on
+screen; under reduced motion or Save-Data the still shows. The Websites demo
+uses the same loops for its mock sites' heroes. `scripts/build-demo-media.sh`
+cuts them (`docs/DEMO-MEDIA-PLAN.md`).
+
+## Onboarding
+
+The onboarding devices sit in front of a desk at night (desktop only): a
+muted loop of a brass lamp and a steaming mug, locked off so only the light
+and steam move (`public/demos/video/onboarding-desk.mp4`, made in
+Higgsfield), faded at the edges, and left out of the light theme, where a
+night scene reads as a smudge. Under reduced motion it is a still.
+
 ## Two paths, and the choice
 
 Two sections of the main page follow The Real World's landing page
@@ -233,13 +250,37 @@ real one.
   button in the page's body), with "Quoted per project · You own your
   domain and content" under it, both from the FAQ.
 
+### The pictures under the videos
+
+Since 2026-10-24 both videos play over a film rather than an empty frame:
+one AI shot per line (made-up places, hands only, no faces, words or
+logos), cut to start exactly when its line does in the timing file. The
+by-hand and outdated runs are graded cold and drained, the AI and built-right
+runs warm, so the two halves look like two different nights. The film is
+muted, dimmed under the panels and captions, kept in time with the
+soundtrack by the player (`syncFilm` in `NarratedVideo.tsx`), and labelled
+"Example · AI footage". It loads with the soundtrack; under reduced motion it
+holds one still per line instead of playing.
+
+The films are `public/lee-systems/two-paths/two-paths-film.mp4` and
+`public/lee-systems/website-video/website-film.mp4` (about 40 seconds and
+under 1 MB each, with a WebP of the first frame). Each line's shot is in
+the `films` table of `scripts/build-demo-films.mjs`; after rebuilding the
+audio (new timings), run
+
+```bash
+node scripts/build-demo-films.mjs path/to/clips
+```
+
+so the cuts follow the new timings.
+
 ### The player, and rebuilding the audio
 
 Both videos play in one player, `components/lee-systems/NarratedVideo.tsx`
 (`useNarratedVideo`, which returns the frame, the run it's on and a way to
 play one run from outside it), with the shape of a line in
 `data/narrated-video.ts`. Each video is two runs of one example: "before"
-(the worse way) and "after" (Lee Systems Co.'s), with a line either side.
+(the worse way) and "after" (LEU's), with a line either side.
 
 To change a line or the voice: edit the video's lines, generate an Everygen
 voiceover of each line on its own (the `spoken` text where a line has

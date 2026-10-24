@@ -5,6 +5,7 @@ import clsx from "clsx";
 import { ArrowRight, MapPin, Phone, Search, Sparkles } from "lucide-react";
 import { DemoFrame } from "@/components/services/demo/DemoFrame";
 import { useDemo } from "@/components/services/demo/useDemo";
+import { DemoVideo } from "@/components/services/demo/DemoVideo";
 import { CountUp, ExampleTag, MapCredit, Panel, Photo, Segmented, Stars, TypeText } from "@/components/services/demo/ui";
 import { demoSizes, demoTitles, type DemoProps } from "@/components/services/demo/sizes";
 import {
@@ -181,7 +182,14 @@ export default function GetFoundDemo({ formPath }: DemoProps) {
           >
             {/* A side thumbnail until the panel is wide enough for a banner. */}
             <div className="relative w-20 shrink-0 lg:w-auto">
-              <Photo src={adPreview.photo} className="block h-full w-full object-cover lg:aspect-[5/2] lg:h-auto" />
+              <DemoVideo
+                src={adPreview.video}
+                poster={adPreview.photo}
+                playing={demo.reached(STEP.ad)}
+                ai
+                className="relative h-full w-full lg:aspect-[5/2] lg:h-auto"
+                tagClassName="hidden lg:block"
+              />
               <span className="absolute top-2 left-2 rounded bg-[#000]/65 px-1.5 py-0.5 text-[9px] font-bold tracking-wider text-[#fff] uppercase">
                 {adPreview.label}
               </span>
@@ -304,7 +312,7 @@ function SearchResults({ after, highlightCall }: { after: boolean; highlightCall
               className={clsx(
                 "absolute inset-x-0 flex h-[50px] items-center gap-2 rounded-lg border px-2 transition-[top,opacity,border-color] duration-700 ease-out motion-reduce:transition-none sm:gap-2.5 sm:px-2.5",
                 us && after
-                  ? "z-10 border-brass-400/60 bg-[#0f2346] light:bg-[#fff]"
+                  ? "z-10 border-brass-400/60 bg-[var(--svc-surface)] light:bg-[#fff]"
                   : "border-white/10 bg-white/[0.02]",
                 index === 3 && "opacity-50"
               )}

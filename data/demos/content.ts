@@ -1,9 +1,9 @@
 /**
  * The Content demo's made-up week (components/services/demos/
  * ContentDemo.tsx): three example hooks for the edited clip, and one week of
- * posts across four platforms. Optional real clips go in
- * public/demos/content/ (lib/demo-assets.ts); without them the phone plays a
- * reel cut from three stock shots (data/demos/images.ts).
+ * posts across four platforms. The clip is in public/demos/content/
+ * (lib/demo-assets.ts); without it the phone plays a reel cut from the
+ * shots' stills (data/demos/images.ts).
  */
 
 export const contentHooks = [

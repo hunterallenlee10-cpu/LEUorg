@@ -9,8 +9,9 @@ import { MiniPreview } from "@/components/services/MiniPreview";
  * "What we do" on the homepage (2026-10-17), right after the hero and its
  * websites / automations offer. It replaced the compact "Everything we do"
  * row (ServiceGroupsRow) with a bento of the six service groups: each tile
- * shows a tiny looping preview of its demo (MiniPreview: CSS only, moving
- * only on screen, still under reduced motion), its icon, name and outcome,
+ * shows a live poster of its service (MiniPreview: a muted 5-second loop
+ * with one line of what just happened, playing only on screen, still under
+ * reduced motion), its icon, name and outcome,
  * and links to its page. "Try every demo" opens the Demo Lab.
  *
  * Four columns on wide screens, with the first and last groups as large

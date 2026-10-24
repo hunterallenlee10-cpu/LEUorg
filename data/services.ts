@@ -812,16 +812,22 @@ export const relatedBuildsExclude: readonly string[] = ["Thread T-Shirts", "H1 P
 /** How many related builds a service page shows. */
 export const relatedBuildsLimit = 6;
 
-/** "Who it's for" cards: the industry's name and picture, by id. */
+/**
+ * "Who it's for" cards: the industry's name and picture, by id, and the same
+ * picture as a 5-second loop (public/demos/video/, AI footage made from the
+ * picture in Higgsfield: docs/DEMO-MEDIA-PLAN.md) with its first frame.
+ */
 export function serviceIndustry(id: ServiceIndustryId): {
   name: string;
-  image: string | null;
+  image: string;
+  video: { src: string; poster: string };
 } {
-  if (id === "online-stores") return { name: "Online stores", image: null };
-  const industry = leeSystemsIndustries.find((entry) => entry.id === id)!;
+  const name =
+    id === "online-stores" ? "Online stores" : leeSystemsIndustries.find((entry) => entry.id === id)!.name;
   return {
-    name: industry.name,
-    image: `/lee-systems/industries/${industry.id}.webp`,
+    name,
+    image: `/lee-systems/industries/${id}.webp`,
+    video: { src: `/demos/video/${id}.mp4`, poster: `/demos/video/${id}.webp` },
   };
 }
 

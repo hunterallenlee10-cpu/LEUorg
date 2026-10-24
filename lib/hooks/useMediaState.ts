@@ -39,3 +39,28 @@ export function usePageVisible(): boolean {
     () => true
   );
 }
+
+interface NetworkInformationLike {
+  saveData?: boolean;
+  addEventListener?: (type: "change", listener: () => void) => void;
+  removeEventListener?: (type: "change", listener: () => void) => void;
+}
+
+function connection(): NetworkInformationLike | undefined {
+  return (navigator as Navigator & { connection?: NetworkInformationLike }).connection;
+}
+
+function subscribeSaveData(onChange: () => void) {
+  const info = connection();
+  info?.addEventListener?.("change", onChange);
+  return () => info?.removeEventListener?.("change", onChange);
+}
+
+/** True when the browser asks for less data (Data Saver), so videos hold their still. */
+export function useSaveData(): boolean {
+  return useSyncExternalStore(
+    subscribeSaveData,
+    () => Boolean(connection()?.saveData),
+    () => false
+  );
+}

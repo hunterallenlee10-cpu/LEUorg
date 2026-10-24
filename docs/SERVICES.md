@@ -60,40 +60,64 @@ Every demo is a client-side simulation from fixture data in `data/demos/`:
 no network requests, no live AI, made-up businesses and 555 numbers, the
 "Example" label and the "Simulated example" footnote.
 
-The small looping pictures on the homepage, `/how-it-works` and `/services`
-are `MiniPreview` (CSS only, `components/services/services.css`): they move
-only on screen and show their finished frame otherwise.
+The small pictures on each service's tile are `MiniPreview`: on the homepage,
+`/how-it-works` and the service pages a "live poster" (a 5-second loop of the
+moment the service is for, with one line of what just happened drawn over it,
+`data/demos/posters.ts`), and on `/services` a CSS-only sketch of the demo
+(`variant="ui"`, `components/services/services.css`). Both move only on
+screen and show their finished frame otherwise.
 
-### Photos in the demos
+### Photos, footage and sound in the demos
 
-The demos and the previews show real photos rather than icons in boxes, all
-listed in `data/demos/images.ts`:
+The demos show real-looking pictures, footage and sound rather than icons in
+boxes. Most of it was generated in Higgsfield on 2026-10-24
+(`docs/DEMO-MEDIA-PLAN.md`): made-up places, no faces, words or logos. Any AI
+photo, clip or voice is labelled as AI where it shows, and the footnote says
+so too. Higgsfield makes the picture; the words, numbers and buttons over it
+are drawn in code, so they stay sharp and match the demo.
 
-- the mock websites, the ringing phone, the contact photo and the photo
-  inspection use the four "Who we help" pictures
-  (`public/lee-systems/industries/`);
-- everything else is in `public/demos/img/`: the store's satchel, the AC
-  unit, a house at dusk, four listing thumbnails, three 9:16 reel shots and
-  the street map. The photos are CC0 / public domain (StockSnap and Flickr,
-  via Openverse), so no credit is owed;
-- the map is OpenStreetMap, which does need its credit: keep the
-  "© OpenStreetMap" label (`MapCredit`) wherever it shows. The dark theme
-  shows it inverted into night colours with a CSS filter; it is one file.
+- **Pictures:** `data/demos/images.ts` lists each one and where it came from.
+  The industry pictures are the "Who we help" ones
+  (`public/lee-systems/industries/`); the rest are in `public/demos/img/`.
+  The older ones are CC0 / public domain (StockSnap and Flickr, via
+  Openverse), so no credit is owed. The map is OpenStreetMap, which does
+  need its credit: keep the "© OpenStreetMap" label (`MapCredit`) wherever it
+  shows. The dark theme shows it inverted into night colours with a CSS
+  filter; it is one file.
+- **Loops:** `public/demos/video/`, muted 5-second loops with a WebP still of
+  the first frame beside each: the tiles' live posters (`tile-*`), the
+  industry loops (the Websites demo's hero and the "Who we help" cards), the
+  sponsored ad in Get Found, and the desk behind the onboarding devices on
+  How It Works. `DemoVideo` loads one only near the screen, plays it only on
+  screen, and shows the still under reduced motion or Save-Data.
+- **The content clip:** `public/demos/content/raw.mp4` and `edited.mp4`, the
+  same shots handheld and flat, then cut, graded and captioned (the captions
+  and hook are drawn in code).
+- **The satchel's drag-to-turn:** `public/demos/img/spin/satchel.webp`, 36
+  frames in one sheet (`ProductSpin`). It loads when the visitor points at or
+  focuses it, and turns with drag, swipe or the arrow keys.
+- **Sound:** the four call recordings (`public/demos/calls/`, AI voices for
+  the receptionist and the caller) and the voice note in Custom AI Tools
+  (`public/demos/voice-note.mp3`). Their timings
+  (`data/demos/call-timing.json`, `data/demos/voice-note.json`) keep the
+  transcript, the booking and the waveform in step with what is heard.
+  Nothing makes a sound until the visitor presses Listen or Play.
 
-To swap a photo, replace the file under the same name (same size and crop)
-or point `data/demos/images.ts` at a new one. Pictures are decorative and
-plain `<img>`s, so keep them small WebPs (the set is about 320 KB).
+The set is about 3.5 MB, each file loaded only when its section nears the
+screen. To swap one, replace the file under the same name (same size and
+crop) or point the data file at a new one. To rebuild them from new
+Higgsfield downloads: `scripts/build-demo-audio.mjs` (the calls and the voice
+note), `scripts/build-demo-media.sh` (the loops, the content clip and the
+turntable) and `scripts/build-demo-films.mjs` (the How It Works films). The
+downloads themselves are not kept (`.media-work/` is ignored by git).
 
 ## To fill in
 
-Nothing here blocks the site; each falls back cleanly until it is added.
+Nothing here blocks the site; it falls back cleanly until it is added.
 
 | What | Where | Until then |
 | --- | --- | --- |
 | A real number for the AI call demo line | `callAnswering.demoPhone` in `data/site.ts` | "Call our demo line" is hidden |
-| Call recordings, one per scenario | `public/demos/calls/ac-repair.mp3`, `law.mp3`, `gym.mp3`, `restaurant.mp3` | Transcript only, no Listen button |
-| The same 9:16 clip raw and edited, plus a still | `public/demos/content/raw.mp4`, `edited.mp4`, `poster.webp` (or `.jpg`) | A reel cut from three stock shots (`data/demos/images.ts`) |
-| A picture for "Online stores" | an `online-stores.webp` beside the other industry pictures, then `serviceIndustry` in `data/services.ts` | An icon card |
 
 Media is found at build time (`lib/demo-assets.ts`), so add the file and
 redeploy. Recordings and clips must be of made-up businesses, and any AI

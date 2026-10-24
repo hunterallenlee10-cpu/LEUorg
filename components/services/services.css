@@ -24,9 +24,20 @@
 
 @media (prefers-reduced-motion: reduce) {
   .svc-mp [class*="svc-a-"],
-  .svc-mp [class*="svc-l-"] {
+  .svc-mp [class*="svc-l-"],
+  .svc-mp .svc-chip-in {
     animation: none !important;
   }
+}
+
+/* The live posters' line arrives once the poster is on screen, then stays
+   (it doesn't loop with the clip). Off screen it is simply there. */
+@keyframes svc-chip-in {
+  from { opacity: 0; transform: translateY(18%) scale(0.97); }
+  to { opacity: 1; transform: none; }
+}
+.svc-mp[data-play] .svc-chip-in {
+  animation: svc-chip-in 0.6s 0.9s cubic-bezier(0.3, 0.7, 0.3, 1) both;
 }
 
 /* A part arriving at a point in the loop, then staying. */
