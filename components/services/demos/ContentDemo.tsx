@@ -27,12 +27,14 @@ import { demoImages } from "@/data/demos/images";
  * day across Instagram, TikTok, YouTube and Facebook, each post with its
  * thumbnail. Anything AI-generated is labelled "AI-generated".
  *
- * Real clips are used when public/demos/content/raw.mp4 and edited.mp4 are
- * there (muted, preload="none", with the poster, playing only while the
- * demo is on screen). Until then the clip is built from three stock shots
- * (data/demos/images.ts): Raw is one long, flat, handheld take; Edited cuts
- * between the three every two seconds, graded, with a punch-in on each cut
- * and the captions in time with them. No sound plays, ever.
+ * The clip is public/demos/content/raw.mp4 and edited.mp4 (muted,
+ * preload="none", with the poster, playing only while the demo is on
+ * screen): AI footage of a made-up roofer, generated in Higgsfield and cut by
+ * scripts/build-demo-media.sh, and tagged "AI-generated" on the phone. Raw is
+ * one flat, handheld take; Edited cuts between three shots every two seconds,
+ * graded, pushing in on each, with the hook and captions drawn here in code,
+ * in time with the cuts. Without the files the clip is built from the
+ * shots' stills instead (StockReel). No sound plays, ever.
  */
 
 type Mode = "raw" | "edited";
@@ -257,8 +259,9 @@ function Reel({
         <StockReel edited={edited} playing={playing} />
       )}
 
-      {/* The edit's overlays, drawn over the placeholder or a raw clip alike. */}
-      {edited && !assets.edited && (
+      {/* The edit's hook and captions, drawn in code over whichever clip is
+          showing, so they stay sharp and match the hook picked above. */}
+      {edited && (
         <div className="svc-mp absolute inset-0" data-play={playing ? "" : undefined}>
           <p className="svc-enter absolute inset-x-3 top-8 rounded-md bg-[#000]/70 px-2 py-1.5 text-center text-[13px] leading-tight font-extrabold text-[#fff]" key={hook}>
             {hook}
@@ -283,6 +286,11 @@ function Reel({
           )}
         />
       </div>
+      {src && (
+        <span className="absolute right-3 bottom-3 rounded bg-[#000]/55 px-1.5 py-0.5 text-[9px] font-semibold tracking-wide text-[#fff]/85 uppercase">
+          AI-generated
+        </span>
+      )}
       <Heart aria-hidden="true" className={clsx("absolute right-3 bottom-8 h-5 w-5 text-[#fff]", edited && "fill-[#fff]")} />
       <span className="absolute bottom-3 left-3 rounded bg-[#000]/60 px-1.5 py-0.5 text-[10px] font-semibold text-[#fff]">
         {edited ? "0:21 · Edited" : "0:47 · Raw"}
@@ -303,7 +311,7 @@ function StockReel({ edited, playing }: { edited: boolean; playing: boolean }) {
     <div aria-hidden="true" className="svc-mp absolute inset-0" data-play={playing ? "" : undefined}>
       {edited ? (
         <>
-          {demoImages.reel.map((src, index) => (
+          {demoImages.reel.slice(0, 3).map((src, index) => (
             <span key={src} className={clsx("absolute inset-0 overflow-hidden", `svc-a-cut${index + 1}`)}>
               <Photo src={src} className="svc-l-punch h-full w-full object-cover saturate-[1.15] contrast-[1.08]" />
             </span>

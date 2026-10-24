@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 import { OnboardingDevices } from "@/components/lee-systems/OnboardingDevices";
+import { DemoVideo } from "@/components/services/demo/DemoVideo";
 import { BookCallLink } from "@/components/ui/BookCallLink";
 import { leeSystemsAnchors, onboardingSteps } from "@/data/lee-systems";
 
@@ -80,7 +81,19 @@ export function LeeSystemsOnboardingSection() {
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
           <div className="lg:order-2">
             <div className="lg:sticky lg:top-[calc(50vh-15rem)] lg:flex lg:h-[30rem] lg:items-center">
-              <OnboardingDevices active={active} />
+              {/* A desk at night under the devices, so they sit somewhere real:
+                  a 5-second loop (AI footage from Higgsfield, the lamp and the
+                  coffee's steam moving), faded out at its edges. Wide screens
+                  only, where the devices have room around them. */}
+              <DemoVideo
+                src="/demos/video/onboarding-desk.mp4"
+                poster="/demos/video/onboarding-desk.webp"
+                className="pointer-events-none absolute inset-x-[-8%] inset-y-[2%] hidden opacity-80 [mask-image:radial-gradient(closest-side,#000_55%,transparent)] lg:block light:lg:hidden"
+                mediaStyle={{ objectPosition: "35% 60%" }}
+              />
+              <div className="relative w-full">
+                <OnboardingDevices active={active} />
+              </div>
             </div>
           </div>
 

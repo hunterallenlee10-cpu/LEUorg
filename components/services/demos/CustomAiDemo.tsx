@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { track } from "@vercel/analytics";
 import clsx from "clsx";
 import {
   BadgeCheck,
@@ -9,6 +10,8 @@ import {
   FileSpreadsheet,
   FileText,
   Mic,
+  Pause,
+  Play,
   ScanSearch,
   TriangleAlert,
 } from "lucide-react";
@@ -114,7 +117,7 @@ const captionsByTool: Record<ToolId, string[]> = {
   ],
 };
 
-export default function CustomAiDemo({ formPath }: DemoProps) {
+export default function CustomAiDemo({ formPath, assets }: DemoProps) {
   const [tool, setTool] = useState<ToolId>("quote");
   const [frameRef, demo] = useDemo({ service: "custom-ai", durations: durations[tool] });
   const sizes = demoSizes["custom-ai"];
@@ -144,7 +147,7 @@ export default function CustomAiDemo({ formPath }: DemoProps) {
       }
     >
       <div className="h-full p-4 sm:p-5">
-        {tool === "quote" && <VoiceToQuote demo={demo} />}
+        {tool === "quote" && <VoiceToQuote demo={demo} audio={assets.voiceNote} />}
         {tool === "inspection" && <PhotoInspection demo={demo} />}
         {tool === "contract" && <ContractCheck demo={demo} />}
         {tool === "report" && <SpreadsheetReport demo={demo} />}
@@ -155,48 +158,62 @@ export default function CustomAiDemo({ formPath }: DemoProps) {
 
 const two = "grid h-full grid-cols-1 content-start gap-4 lg:grid-cols-2";
 
-function VoiceToQuote({ demo }: { demo: Demo }) {
+function VoiceToQuote({ demo, audio }: { demo: Demo; audio?: string }) {
   const typing = demo.status === "playing";
   const shownLines = demo.reached(3) ? 4 : demo.reached(2) ? 2 : 0;
+  // How far through the recording the visitor is, 0 to 1, while it plays.
+  const [heard, setHeard] = useState<number | null>(null);
   return (
     <div className={two}>
       <div className="flex flex-col gap-4">
         <Panel title="Voice note" tag={<ExampleTag />}>
           <div className="flex items-center gap-3">
-            <span
-              className={clsx(
-                "flex h-11 w-11 shrink-0 items-center justify-center rounded-full border",
-                demo.reached(1) ? "border-brass-400 bg-brass-400/15 text-brass-300" : "border-white/15 text-neutral-300"
-              )}
-            >
-              <Mic aria-hidden="true" className="h-5 w-5" />
-            </span>
+            {audio ? (
+              <VoiceNotePlayer src={audio} active={demo.active} onProgress={setHeard} />
+            ) : (
+              <span
+                className={clsx(
+                  "flex h-11 w-11 shrink-0 items-center justify-center rounded-full border",
+                  demo.reached(1) ? "border-brass-400 bg-brass-400/15 text-brass-300" : "border-white/15 text-neutral-300"
+                )}
+              >
+                <Mic aria-hidden="true" className="h-5 w-5" />
+              </span>
+            )}
+            {/* The recording's own shape (scripts/build-demo-audio.mjs); while it
+                plays, the bars heard so far light up. */}
             <span aria-hidden="true" className="flex h-8 min-w-0 flex-1 items-center gap-[3px] overflow-hidden">
-              {Array.from({ length: 28 }, (_, i) => (
-                <span
-                  key={i}
-                  className={clsx(
-                    "w-[3px] rounded-full",
-                    demo.reached(1) ? "bg-brass-300/80" : "bg-white/20",
-                    typing && demo.step === 1 && "svc-l-wave"
-                  )}
-                  style={{ height: `${30 + ((i * 37) % 70)}%`, animationDelay: `${(i % 7) * 0.1}s` }}
-                />
-              ))}
+              {voiceNote.peaks.map((peak, i) => {
+                const lit = heard === null ? demo.reached(1) : i / voiceNote.peaks.length <= heard;
+                return (
+                  <span
+                    key={i}
+                    className={clsx(
+                      "max-w-[3px] min-w-[2px] flex-1 rounded-full transition-colors duration-150 motion-reduce:transition-none",
+                      lit ? "bg-brass-300/80" : "bg-white/20",
+                      heard === null && typing && demo.step === 1 && "svc-l-wave"
+                    )}
+                    style={{ height: `${peak}%`, animationDelay: `${(i % 7) * 0.1}s` }}
+                  />
+                );
+              })}
             </span>
             <span className="shrink-0 text-xs text-neutral-400 tabular-nums">{voiceNote.length}</span>
           </div>
           <p className="mt-3 min-h-[60px] text-[13px] leading-relaxed text-neutral-200">
-            {demo.reached(1) ? (
+            {demo.reached(1) || heard !== null ? (
               <>
                 &ldquo;
                 <TypeText key={demo.run} text={voiceNote.transcript} play={typing && demo.step === 1} duration={3400} />
                 &rdquo;
               </>
             ) : (
-              <span className="text-neutral-400">Press play to hear the voice note.</span>
+              <span className="text-neutral-400">
+                {audio ? "Press the button to hear the voice note." : "Press play to hear the voice note."}
+              </span>
             )}
           </p>
+          {audio && <p className="mt-1 text-[11px] text-neutral-400">Simulated voice note · AI voice</p>}
         </Panel>
 
         <Panel title="Line items found">
@@ -549,5 +566,70 @@ function SpreadsheetReport({ demo }: { demo: Demo }) {
         </p>
       </Panel>
     </div>
+  );
+}
+
+/**
+ * The voice note's play button: it plays the recording on a tap, never by
+ * itself, and reports how far through it is so the waveform can follow.
+ * preload="none": nothing downloads until played; it pauses off screen.
+ */
+function VoiceNotePlayer({
+  src,
+  active,
+  onProgress,
+}: {
+  src: string;
+  /** The demo is on screen in a visible tab. */
+  active: boolean;
+  onProgress: (heard: number | null) => void;
+}) {
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const [playing, setPlaying] = useState(false);
+
+  useEffect(() => {
+    if (!active) audioRef.current?.pause();
+  }, [active]);
+
+  // Stop when the tool is switched away from, so nothing plays unseen.
+  useEffect(() => {
+    const audio = audioRef.current;
+    return () => audio?.pause();
+  }, []);
+
+  return (
+    <>
+      <button
+        type="button"
+        aria-pressed={playing}
+        aria-label={playing ? "Pause the voice note" : "Play the voice note"}
+        onClick={() => {
+          const audio = audioRef.current;
+          if (!audio) return;
+          if (audio.paused) {
+            if (audio.currentTime === 0 || audio.ended) track("demo_listen", { service: "custom-ai", scenario: "voice-note" });
+            void audio.play();
+          } else audio.pause();
+        }}
+        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-brass-400 bg-brass-400/15 text-brass-300 hover:bg-brass-400/25"
+      >
+        {playing ? <Pause aria-hidden="true" className="h-5 w-5" /> : <Play aria-hidden="true" className="h-5 w-5" />}
+      </button>
+      <audio
+        ref={audioRef}
+        src={src}
+        preload="none"
+        onPlay={() => setPlaying(true)}
+        onPause={() => setPlaying(false)}
+        onTimeUpdate={(event) => {
+          const { currentTime, duration } = event.currentTarget;
+          if (duration) onProgress(currentTime / duration);
+        }}
+        onEnded={() => {
+          setPlaying(false);
+          onProgress(1);
+        }}
+      />
+    </>
   );
 }

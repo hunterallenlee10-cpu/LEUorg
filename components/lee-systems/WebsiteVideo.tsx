@@ -62,6 +62,8 @@ export function WebsiteVideo() {
     label: "Video: a customer visits an outdated website, then one built right",
     playLabel: "Play the video: the same visit to two websites",
     runLabels: { before: "Outdated site", after: "Built right" },
+    // AI footage cut to the narration (scripts/build-demo-films.mjs).
+    film: { src: "/lee-systems/website-video/website-film.mp4", poster: "/lee-systems/website-video/website-film.webp" },
   });
 
   return (

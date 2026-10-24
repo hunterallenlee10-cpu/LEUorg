@@ -67,6 +67,8 @@ export function TwoPathsDemo() {
     label: "Video: a new customer calls at 11:48 PM, by hand and then with AI",
     playLabel: "Play the video: a new customer calls at 11:48 PM",
     runLabels: { before: "By hand", after: "With AI" },
+    // AI footage cut to the narration (scripts/build-demo-films.mjs).
+    film: { src: "/lee-systems/two-paths/two-paths-film.mp4", poster: "/lee-systems/two-paths/two-paths-film.webp" },
   });
 
   return (

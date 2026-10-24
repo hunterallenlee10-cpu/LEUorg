@@ -5,14 +5,17 @@
  */
 
 import { demoImages } from "@/data/demos/images";
+import voiceNoteAudio from "@/data/demos/voice-note.json";
 
 export const voiceNote = {
   business: "Ridgeline Roofing",
   quoteNumber: "Q-2071",
   customer: "Jordan P.",
-  length: "0:14",
+  /** The recording's length and waveform (scripts/build-demo-audio.mjs). */
+  length: voiceNoteAudio.length,
+  peaks: voiceNoteAudio.peaks,
   transcript:
-    "Replace 40 feet of gutter on the back, two new downspouts, haul away the old ones, and add gutter guards along the front, about 25 feet.",
+    "Okay, quote for Jordan. Replace 40 feet of gutter on the back, two new downspouts, haul away the old ones, and add gutter guards along the front, about 25 feet.",
   /** Sales tax applied to the subtotal. */
   taxRate: 0.06,
 };
@@ -24,10 +27,13 @@ export const quoteLines = [
   { item: "Gutter guards, front", qty: 25, unit: "ft", rate: 9 },
 ] as const;
 
-/** The job-site photo the inspection runs on (data/demos/images.ts). */
+/**
+ * The job-site photo the inspection runs on (data/demos/images.ts), made for
+ * it: the three hazards below are really in the picture.
+ */
 export const inspectionPhoto = {
-  src: demoImages.homeServices,
-  alt: "A house at dusk with a ladder leaning against the roof",
+  src: demoImages.inspection,
+  alt: "A brick house at dusk: a ladder on muddy ground, damaged shingles near the roof's peak and a gutter hanging off over a lit window",
 };
 
 /**
@@ -35,9 +41,9 @@ export const inspectionPhoto = {
  * width, height. Its number pin sits on the box's top-left corner.
  */
 export const hazards = [
-  { x: 50, y: 76, w: 17, h: 24, title: "Ladder footing not secured", severity: "High" },
-  { x: 72, y: 9, w: 22, h: 20, title: "Worn shingles near the ridge", severity: "Medium" },
-  { x: 21, y: 59, w: 26, h: 12, title: "Gutter pulling away over the window", severity: "Low" },
+  { x: 63, y: 76, w: 14, h: 18, title: "Ladder footing not secured", severity: "High" },
+  { x: 59, y: 20, w: 16, h: 18, title: "Worn shingles near the ridge", severity: "Medium" },
+  { x: 11, y: 34, w: 42, h: 28, title: "Gutter pulling away over the window", severity: "Low" },
 ] as const;
 
 export const contract = {

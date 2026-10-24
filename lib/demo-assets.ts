@@ -14,6 +14,10 @@ import type { DemoAssets } from "@/components/services/demo/sizes";
  * - public/demos/content/raw.mp4 and edited.mp4: the same 9:16 clip before
  *   and after editing, muted, plus poster.webp (or poster.jpg) as the still
  *   shown before either loads.
+ * - public/demos/voice-note.mp3: the voice-to-quote tool's voice note.
+ *
+ * The recordings are built by scripts/build-demo-audio.mjs, which also writes
+ * their timing (data/demos/call-timing.json, data/demos/voice-note.json).
  */
 
 const publicDir = path.join(process.cwd(), "public");
@@ -35,5 +39,6 @@ export function getDemoAssets(): DemoAssets {
       edited: existing("demos/content/edited.mp4"),
       poster: existing("demos/content/poster.webp") ?? existing("demos/content/poster.jpg"),
     },
+    voiceNote: existing("demos/voice-note.mp3"),
   };
 }

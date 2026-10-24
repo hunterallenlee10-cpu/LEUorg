@@ -4042,3 +4042,48 @@ a.ds-card:focus-visible {
   }
 }
 }
+
+/* ---------------------------------------------------------------------------
+   The shared demos' theme (scripts/sync-demos.mjs): the Demo Lab, the service
+   pages and the How It Works animations are the same files on every LEU
+   site, and take the few things that differ between the sites from here:
+   this site's navy surfaces and its eyebrow (the `.ds-eyebrow` look).
+   --------------------------------------------------------------------------- */
+:root {
+  --svc-ground: #050b18; /* the darkest fill inside a demo or preview */
+  --svc-surface: #0f2346; /* cards and panels */
+  --svc-frame: #07101f; /* a demo's frame */
+  --svc-phone: #050b18; /* a phone's screen */
+  --svc-site: #050b18; /* the mock website's page */
+  --svc-tile: #152d58; /* the live demo's step tiles */
+}
+
+.svc-eyebrow,
+.svc-kicker {
+  display: block;
+  font-family: var(--font-mono-ds), ui-monospace, monospace;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--ds-gold-text);
+}
+
+@media (min-width: 768px) {
+  .svc-eyebrow,
+  .svc-kicker {
+    font-size: 0.875rem;
+  }
+}
+
+/* The kicker sits centred over its section's heading; letter-spacing hangs
+   off the last letter, so it is indented by the same amount. */
+.svc-kicker,
+.text-center > .svc-eyebrow {
+  text-align: center;
+  text-indent: 0.42em;
+}
+
+.svc-kicker {
+  margin-bottom: 1rem;
+}

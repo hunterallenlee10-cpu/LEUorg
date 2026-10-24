@@ -3,8 +3,67 @@
 The plan for upgrading every Demo Lab, service and How It Works animation on
 all three LEU sites (leeenterprisesunlimited.com, .net and .org) with media
 made in Higgsfield, so a business owner can open any of them and see, hear and
-try what LEU builds. Written 2026-10-24. Nothing in it is built yet; the
-phases at the end say what ships first.
+try what LEU builds. Written 2026-10-24, and built the same day: the status
+just below says what shipped and what changed from the plan.
+
+## Status: built (2026-10-24)
+
+All four phases shipped on the `claude/practical-clarke-r59bud` branch of
+each site. They go live when that branch is merged.
+
+- **Phase 0, the sites match.** .net is the source. `scripts/sync-demos.mjs`
+  copies the 117 shared files (the demos, the How It Works sections, the
+  media and the scripts) to .com and .org; `--check` lists any drift. Each
+  site's own colours come from tokens in its `app/globals.css` (`--svc-*`,
+  `--gold`, `--ink`, `.svc-eyebrow`, `.svc-kicker`), so the same files look
+  native on all three. .com's How It Works now shows the six service cards
+  like the other two.
+- **Phase 1, sound and photos.** The four call recordings and the voice
+  note, each with the transcript (and the booking, and the waveform) timed
+  to the audio, and a Listen or Play button; nothing makes a sound until
+  it's pressed, and plays are counted as `demo_listen`. New photos for the
+  inspection tool, the sponsored ad, the store, the listing thumbnails and
+  the reel.
+- **Phase 2, motion.** Live posters on the six service tiles, the industry
+  loops (Who we help and the Websites demo's heroes), the sponsored ad as
+  video, the content clip raw and edited, the satchel's drag-to-turn and the
+  desk behind the onboarding devices.
+- **Phase 3, films.** Both narrated videos on How It Works now play over a
+  film, one shot per line, cut to the narration; the by-hand half is cold,
+  the AI half warm.
+
+Changed from the plan:
+
+- **No `ScreenOverlay`.** The words over the footage are plain layers over
+  the clip (the posters' chip, the films' panels), not fitted to a screen
+  inside the shot. Simpler, and it reads better at tile size.
+- **No style-frame vote.** The look follows the industry pictures already on
+  the site (low-key, warm practical light, no people or text), so the six
+  look frames were skipped.
+- **Onboarding got one desk loop, not three scenes.** The three devices
+  already tell Audit, Build, Take off; one quiet backdrop supports them
+  without competing.
+
+Made without Hunter's sign-off, each easy to swap:
+
+- **Faceless footage only:** hands, rooms, vehicles and houses, so nothing
+  could pass for a real client. Two stills that showed part of a face were
+  remade as hands only, and a carmaker's badge was painted out of one van
+  shot.
+- **Ridgeline Roofing** is the example business in every demo.
+- **Voices** (ElevenLabs v4 in Higgsfield): Helena as the AI receptionist;
+  Brielle, Grady, Juno and Reid as the four callers; Barrett as the
+  contractor in the voice note.
+
+**Spend:** about 185 credits, against the 585 planned: 39 Kling 4.0 clips
+(2.5 each, 720p, 5 seconds), 38 Nano Banana Pro stills (2 each) and 29
+ElevenLabs lines. **Weight:** about 5.3 MB of media in all, each file loaded
+only when its section nears the screen, with stills under reduced motion or
+Save-Data.
+
+To redo any of it: `scripts/build-demo-audio.mjs`, `scripts/build-demo-media.sh`
+and `scripts/build-demo-films.mjs` rebuild from a folder of Higgsfield
+downloads; their headers name the files they expect.
 
 ## The short version
 

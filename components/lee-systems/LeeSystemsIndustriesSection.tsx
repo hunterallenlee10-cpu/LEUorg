@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import {
@@ -8,6 +7,7 @@ import {
   otherIndustries,
 } from "@/data/lee-systems";
 import { serviceGroups, servicePath } from "@/data/services";
+import { DemoVideo } from "@/components/services/demo/DemoVideo";
 
 type IndustryId = (typeof leeSystemsIndustries)[number]["id"];
 
@@ -56,7 +56,7 @@ export function LeeSystemsIndustriesSection() {
     <section id="industries" className="relative isolate py-20 md:py-28">
       <div className="section-container">
         <div className="mx-auto mb-14 max-w-3xl text-center">
-          <p className="ds-eyebrow ds-eyebrow--center mb-4">
+          <p className="svc-kicker">
             Who we help
           </p>
           <h2 className="heading-lg text-white">
@@ -71,26 +71,26 @@ export function LeeSystemsIndustriesSection() {
               <div
                 key={id}
                 id={id}
-                className="group/card overflow-hidden rounded-xl border border-white/10 bg-[#0f2346] transition-colors duration-300 hover:border-brass-400/40 light:bg-[#fff] light:shadow-[0_20px_50px_-24px_rgb(15_35_70/0.18)]"
+                className="group/card overflow-hidden rounded-xl border border-white/10 bg-[var(--svc-surface)] transition-colors duration-300 hover:border-brass-400/40 light:bg-[#fff] light:shadow-[0_20px_50px_-24px_rgb(var(--ink)/0.18)]"
               >
                 <div
-                  className="relative aspect-[2/1] overflow-hidden md:aspect-video [--ind-glow:rgb(157_187_240/0.13)] light:bg-[#172554] light:[--ind-glow:rgb(157_187_240/0.2)]"
+                  className="relative aspect-[2/1] overflow-hidden md:aspect-video [--ind-glow:rgb(var(--gold)/0.13)] light:bg-[#172554] light:[--ind-glow:rgb(var(--gold)/0.2)]"
                   style={{
                     backgroundImage: `radial-gradient(60% 85% at ${22 + i * 11}% 30%, var(--ind-glow), transparent 70%)`,
                   }}
                 >
                   {pictured.has(id) && (
-                    <Image
-                      src={`/lee-systems/industries/${id}.webp`}
-                      alt=""
-                      fill
-                      sizes="(min-width: 1024px) 23rem, (min-width: 768px) 50vw, 100vw"
-                      className="object-cover transition-transform duration-700 ease-out motion-safe:group-hover/card:scale-[1.04]"
+                    // The picture as a 5-second loop (public/demos/video/, made
+                    // from it in Higgsfield), still under reduced motion.
+                    <DemoVideo
+                      src={`/demos/video/${id}.mp4`}
+                      poster={`/demos/video/${id}.webp`}
+                      className="absolute inset-0 transition-transform duration-700 ease-out motion-safe:group-hover/card:scale-[1.04]"
                     />
                   )}
                   <div
                     aria-hidden="true"
-                    className="absolute inset-0 bg-gradient-to-t from-[#0f2346] via-[#0f2346]/25 to-transparent light:from-[#0f1a2e]/90 light:via-[#0f1a2e]/20"
+                    className="absolute inset-0 bg-gradient-to-t from-[var(--svc-surface)] via-[var(--svc-surface)]/25 to-transparent light:from-[#0f1a2e]/90 light:via-[#0f1a2e]/20"
                   />
                   <h3
                     className="absolute inset-x-6 bottom-1 text-[2rem] font-bold leading-[1.05] tracking-tight text-brass-200 [text-shadow:0_2px_16px_rgb(0_0_0/0.85)] light:text-[#f6f7f9]"
@@ -138,7 +138,7 @@ export function LeeSystemsIndustriesSection() {
           })}
         </div>
 
-        <div className="relative mx-auto mt-12 max-w-4xl overflow-hidden rounded-2xl border border-brass-400/25 bg-[#0f2346] light:bg-[#fff] light:shadow-[0_24px_60px_-28px_rgb(15_35_70/0.22)] px-6 py-10 text-center md:px-14 md:py-14">
+        <div className="relative mx-auto mt-12 max-w-4xl overflow-hidden rounded-2xl border border-brass-400/25 bg-[var(--svc-surface)] light:bg-[#fff] light:shadow-[0_24px_60px_-28px_rgb(var(--ink)/0.22)] px-6 py-10 text-center md:px-14 md:py-14">
           <div
             aria-hidden="true"
             className="pointer-events-none absolute inset-0 bg-[radial-gradient(70%_90%_at_50%_0%,rgb(var(--gold)/0.16),transparent_70%)] light:opacity-50"

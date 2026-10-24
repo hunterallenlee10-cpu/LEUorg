@@ -1,6 +1,5 @@
-import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, ChevronRight, CircleCheck, ShoppingBag } from "lucide-react";
+import { ArrowRight, ChevronRight, CircleCheck } from "lucide-react";
 import {
   getService,
   relatedBuildsExclude,
@@ -19,6 +18,7 @@ import { BookCallLink } from "@/components/ui/BookCallLink";
 import { serviceIcons } from "@/components/services/serviceIcons";
 import { MiniPreview } from "@/components/services/MiniPreview";
 import { DemoSlot } from "@/components/services/demos/registry";
+import { DemoVideo } from "@/components/services/demo/DemoVideo";
 import { BuildBox } from "@/components/shared/RecentWorkSection";
 import { getDemoAssets } from "@/lib/demo-assets";
 
@@ -30,7 +30,7 @@ import { getDemoAssets } from "@/lib/demo-assets";
  * group's entry in data/services.ts.
  */
 
-const eyebrow = "ds-eyebrow";
+const eyebrow = "svc-eyebrow";
 const section = "border-t border-white/[0.06] py-16 md:py-24";
 export const serviceDemoAnchor = "demo";
 
@@ -159,7 +159,7 @@ export function IncludedSection({ group }: { group: ServiceGroup }) {
                   {part.items.map((item) => (
                     <li
                       key={item.name}
-                      className="rounded-xl border border-white/10 bg-[#0f2346] p-6 light:bg-[#fff] light:shadow-[0_20px_50px_-24px_rgb(15_35_70/0.18)]"
+                      className="rounded-xl border border-white/10 bg-[var(--svc-surface)] p-6 light:bg-[#fff] light:shadow-[0_20px_50px_-24px_rgb(var(--ink)/0.18)]"
                     >
                       <CircleCheck aria-hidden="true" strokeWidth={1.5} className="h-6 w-6 text-brass-400" />
                       <ItemTitle className="mt-4 text-lg leading-snug font-bold text-white">{item.name}</ItemTitle>
@@ -188,27 +188,17 @@ export function AudienceSection({ group }: { group: ServiceGroup }) {
         />
         <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {group.audience.map(({ industry, line }) => {
-            const { name, image } = serviceIndustry(industry);
+            const { name, video } = serviceIndustry(industry);
             return (
               <li
                 key={industry}
-                className="overflow-hidden rounded-xl border border-white/10 bg-[#0f2346] light:bg-[#fff] light:shadow-[0_20px_50px_-24px_rgb(15_35_70/0.18)]"
+                className="overflow-hidden rounded-xl border border-white/10 bg-[var(--svc-surface)] light:bg-[#fff] light:shadow-[0_20px_50px_-24px_rgb(var(--ink)/0.18)]"
               >
-                <div className="relative aspect-[16/9] overflow-hidden border-b border-white/10">
-                  {image ? (
-                    <Image
-                      src={image}
-                      alt=""
-                      fill
-                      sizes="(min-width: 1024px) 18rem, (min-width: 640px) 45vw, 90vw"
-                      className="object-cover"
-                    />
-                  ) : (
-                    <div className="flex h-full items-center justify-center bg-[radial-gradient(80%_80%_at_50%_30%,rgb(var(--gold)/0.18),transparent_70%)]">
-                      <ShoppingBag aria-hidden="true" strokeWidth={1.25} className="h-12 w-12 text-brass-400" />
-                    </div>
-                  )}
-                </div>
+                <DemoVideo
+                  src={video.src}
+                  poster={video.poster}
+                  className="relative aspect-[16/9] border-b border-white/10"
+                />
                 <div className="p-5">
                   <h3 className="font-bold text-white">{name}</h3>
                   <p className="mt-2 leading-relaxed text-neutral-300">{line}</p>
@@ -281,7 +271,7 @@ export function PairsSection({ group }: { group: ServiceGroup }) {
               <li key={slug}>
                 <Link
                   href={servicePath(slug)}
-                  className="group flex h-full flex-col gap-5 rounded-xl border border-white/10 bg-[#0f2346] p-5 transition-colors hover:border-brass-400/50 motion-reduce:transition-none sm:flex-row sm:items-center light:bg-[#fff]"
+                  className="group flex h-full flex-col gap-5 rounded-xl border border-white/10 bg-[var(--svc-surface)] p-5 transition-colors hover:border-brass-400/50 motion-reduce:transition-none sm:flex-row sm:items-center light:bg-[#fff]"
                 >
                   <MiniPreview slug={slug} className="w-full shrink-0 sm:w-56" />
                   <span>

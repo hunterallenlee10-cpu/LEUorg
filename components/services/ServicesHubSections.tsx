@@ -21,7 +21,7 @@ import { getDemoAssets } from "@/lib/demo-assets";
  */
 
 const formAnchor = `#${servicesAnchors.form}`;
-const eyebrow = "ds-eyebrow";
+const eyebrow = "svc-eyebrow";
 
 export function ServicesHero() {
   return (
@@ -145,6 +145,7 @@ export function ServiceRows() {
               </div>
               <div className={flip ? "lg:order-1" : undefined}>
                 <MiniPreview
+                  variant="ui"
                   slug={group.slug}
                   className="shadow-[0_30px_80px_-40px_rgb(var(--gold)/0.35)]"
                 />
@@ -200,7 +201,7 @@ export function ServicesCtaBand({
   return (
     <section aria-labelledby="services-cta-title" className="py-16 md:py-20">
       <div className="section-container">
-        <div className="relative isolate overflow-hidden rounded-2xl border border-brass-400/25 bg-[#0f2346] px-6 py-12 text-center sm:px-12 md:py-16 light:bg-[#fff]">
+        <div className="relative isolate overflow-hidden rounded-2xl border border-brass-400/25 bg-[var(--svc-surface)] px-6 py-12 text-center sm:px-12 md:py-16 light:bg-[#fff]">
           <div
             aria-hidden="true"
             className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(70%_90%_at_50%_0%,rgb(var(--gold)/0.14),transparent_70%)]"
@@ -212,7 +213,7 @@ export function ServicesCtaBand({
           <BookCallLink href={href} variant="glow" arrow className="mt-8" />
           {/* The owner's offer terms (`pricingPromise`), right where the
               decision is made. */}
-          <ul className="mx-auto mt-8 flex max-w-2xl flex-wrap justify-center gap-x-5 gap-y-2 text-sm text-neutral-300">
+          <ul className="mx-auto mt-8 flex max-w-4xl flex-wrap justify-center gap-x-5 gap-y-2 text-sm text-neutral-300">
             {pricingPromise.map((term) => (
               <li key={term} className="flex items-center gap-1.5">
                 <Check aria-hidden="true" className="h-4 w-4 text-brass-400" />

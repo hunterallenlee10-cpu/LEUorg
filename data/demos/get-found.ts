@@ -20,7 +20,7 @@ export interface Listing {
 }
 
 export const ourBusiness: Listing = {
-  name: "Summit Peak Roofing",
+  name: "Ridgeline Roofing",
   rating: 4.9,
   reviews: 212,
   distance: "2.1 mi",
@@ -48,7 +48,10 @@ export const adPreview = {
   headline: "Storm damage? Free roof inspection this week.",
   body: "Local, licensed crew. Book online in a minute.",
   phone: "(555) 010-7730",
-  photo: demoImages.houseDusk,
+  /** The ad's picture: a 5-second loop of a house as a storm clears (AI
+   *  footage, scripts/build-demo-media.sh), its first frame as the still. */
+  photo: demoImages.adHouse,
+  video: "/demos/video/ad.mp4",
 };
 
 /** The outbound strip, counted up one stage at a time. */
