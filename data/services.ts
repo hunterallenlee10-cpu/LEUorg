@@ -12,8 +12,8 @@
  * counts. The platforms named (Google, Instagram and so on) are where the
  * work shows up, not what it is built with.
  *
- * `slug` is the URL (/services/<slug>), the Demo Lab tab (?demo=<slug>) and
- * the form's option value (?service=<slug> or ?interest=<slug> preselects
+ * `slug` is the URL (/services/<slug>), the Demo Lab tab (?demo=<slug>, for
+ * the groups with a demo) and the form's option value (?service=<slug> or ?interest=<slug> preselects
  * it). `anchor` is the card's id on /how-it-works from before the service
  * pages existed, kept so links already made to it still land.
  */
@@ -81,8 +81,10 @@ export interface ServiceGroup {
   /** Whether "Related builds" shows the Recent Builds that fit. Only the
    *  websites page has real matching work; the rest skip the block. */
   showRelatedBuilds: boolean;
-  /** The demo's tab label and its one-line intro in the Demo Lab. */
-  demo: { label: string; intro: string };
+  /** The demo's tab label and its one-line intro in the Demo Lab. Websites
+   *  has none (its before/after demo was taken off, 2026-10-25), so its page
+   *  and its /services row skip the demo. */
+  demo?: { label: string; intro: string };
   /** The service page's <title> and meta description (under 160 characters). */
   seo: { title: string; description: string };
   /**
@@ -185,10 +187,6 @@ export const serviceGroups: readonly ServiceGroup[] = [
     ],
     pairsWith: ["follow-up", "get-found"],
     showRelatedBuilds: true,
-    demo: {
-      label: "Websites",
-      intro: "Drag the slider from an old site to a new one, then switch industries.",
-    },
     seo: {
       title: "Websites & Online Stores | Lee Enterprises Unlimited",
       description:
@@ -752,8 +750,23 @@ export function servicePath(slug: ServiceSlug): string {
   return `/services/${slug}`;
 }
 
+/** The groups with a demo: every one but Websites. */
+export type DemoSlug = Exclude<ServiceSlug, "websites">;
+export type DemoGroup = ServiceGroup & { slug: DemoSlug; demo: NonNullable<ServiceGroup["demo"]> };
+
+export function hasDemo(group: ServiceGroup): group is DemoGroup {
+  return group.demo !== undefined;
+}
+
+/** The Demo Lab's tabs, in order. */
+export const demoGroups: readonly DemoGroup[] = serviceGroups.filter(hasDemo);
+
+export function isDemoSlug(value: string): value is DemoSlug {
+  return demoGroups.some(({ slug }) => slug === value);
+}
+
 /** A Demo Lab tab, opened from anywhere on the site. */
-export function demoLabHref(slug: ServiceSlug): string {
+export function demoLabHref(slug: DemoSlug): string {
   return `${servicesRoutes.hub}?demo=${slug}#${servicesAnchors.demoLab}`;
 }
 
@@ -848,6 +861,11 @@ if (
   serviceSlugs.some((slug) => !serviceGroups.some((group) => group.slug === slug))
 ) {
   throw new Error("data/services.ts: serviceGroups must cover every slug once");
+}
+
+// Fails the build if the groups with a demo stop matching DemoSlug.
+if (serviceGroups.some((group) => (group.slug === "websites") !== (group.demo === undefined))) {
+  throw new Error("data/services.ts: every group but websites needs a demo (see DemoSlug)");
 }
 
 /** A group's items split into runs that share a section, in order. */

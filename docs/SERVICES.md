@@ -2,7 +2,8 @@
 
 Lee Enterprises Unlimited sells six service groups (the owner's list, 2026-10-17). Each
 has its own page, a tile on the homepage, a card on `/how-it-works`, and an
-interactive demo a visitor can watch in under a minute.
+interactive demo a visitor can watch in under a minute (all but Websites,
+whose before/after demo was taken off on 2026-10-25).
 
 ## One list
 
@@ -33,8 +34,8 @@ named (Google, Instagram and so on) are where the work shows up.
 
 | URL | What it is |
 | --- | --- |
-| `/services` | Hero, the six groups as alternating rows ("See it work" opens the group's Demo Lab tab, "Learn more" its page), the Demo Lab (`#demo-lab`), a closing call, and the form. |
-| `/services/[slug]` | Hero, the group's demo (`#demo`), what's included, who it's for, how it works, related builds (websites only), pairs well with, a call, and the form with the group picked. Built at deploy time; any other slug is a 404. |
+| `/services` | Hero, the six groups as alternating rows ("See it work" opens the group's Demo Lab tab, "Learn more" its page; Websites has no demo, so only "Learn more"), the Demo Lab (`#demo-lab`), a closing call, and the form. |
+| `/services/[slug]` | Hero, the group's demo (`#demo`; none on Websites), what's included, who it's for, how it works, related builds (websites only), pairs well with, a call, and the form with the group picked. Built at deploy time; any other slug is a 404. |
 
 Deep links: `/services?demo=ai-calls` or `/services#demo-lab?demo=ai-calls`
 opens a Demo Lab tab. `?service=<slug>` or `?interest=<slug>` on any page with
@@ -43,7 +44,8 @@ demo's "Book a free call" uses it.
 
 ## The demos
 
-`components/services/demos/`, one per group, loaded with `next/dynamic` only
+`components/services/demos/`, one per group but Websites (`DemoSlug` in
+`data/services.ts`), loaded with `next/dynamic` only
 when within about a screen of view, behind a placeholder of exactly the same
 height (`demoSizes` in `components/services/demo/sizes.ts`; change a demo's
 layout and its size there together). They run on `useDemo`, a step clock:
@@ -87,16 +89,13 @@ are drawn in code, so they stay sharp and match the demo.
   filter; it is one file.
 - **Loops:** `public/demos/video/`, muted 5-second loops with a WebP still of
   the first frame beside each: the tiles' live posters (`tile-*`), the
-  industry loops (the Websites demo's hero and the "Who we help" cards), the
+  industry loops (the "Who we help" cards), the
   sponsored ad in Get Found, and the desk behind the onboarding devices on
   How It Works. `DemoVideo` loads one only near the screen, plays it only on
   screen, and shows the still under reduced motion or Save-Data.
 - **The content clip:** `public/demos/content/raw.mp4` and `edited.mp4`, the
   same shots handheld and flat, then cut, graded and captioned (the captions
   and hook are drawn in code).
-- **The satchel's drag-to-turn:** `public/demos/img/spin/satchel.webp`, 36
-  frames in one sheet (`ProductSpin`). It loads when the visitor points at or
-  focuses it, and turns with drag, swipe or the arrow keys.
 - **Sound:** the four call recordings (`public/demos/calls/`, AI voices for
   the receptionist and the caller) and the voice note in Custom AI Tools
   (`public/demos/voice-note.mp3`). Their timings

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight, ChevronRight, CircleCheck } from "lucide-react";
 import {
   getService,
+  hasDemo,
   relatedBuildsExclude,
   relatedBuildsLimit,
   serviceIndustry,
@@ -9,6 +10,7 @@ import {
   servicePath,
   servicesAnchors,
   servicesRoutes,
+  type DemoGroup,
   type ServiceGroup,
   serviceItemParts,
 } from "@/data/services";
@@ -24,7 +26,7 @@ import { getDemoAssets } from "@/lib/demo-assets";
 
 /**
  * The sections of a service page (/services/[slug]), in page order: the
- * hero, the demo, what's included, who it's for, how it works, related
+ * hero, the demo (where the service has one), what's included, who it's for, how it works, related
  * builds (only where real work fits), and what it pairs well with. The CTA
  * band and the form follow, from the page itself. Everything comes from the
  * group's entry in data/services.ts.
@@ -106,12 +108,14 @@ export function ServiceHero({ group }: { group: ServiceGroup }) {
           <p className="mt-4 max-w-xl text-lg leading-relaxed text-neutral-300">{group.description}</p>
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
             <BookCallLink href={`#${servicesAnchors.form}`} variant="glow" arrow className="w-full sm:w-auto" />
-            <a
-              href={`#${serviceDemoAnchor}`}
-              className="btn-ls-secondary inline-flex min-h-11 w-full items-center justify-center sm:w-auto"
-            >
-              Try the demo
-            </a>
+            {hasDemo(group) && (
+              <a
+                href={`#${serviceDemoAnchor}`}
+                className="btn-ls-secondary inline-flex min-h-11 w-full items-center justify-center sm:w-auto"
+              >
+                Try the demo
+              </a>
+            )}
           </div>
         </div>
         <MiniPreview slug={group.slug} className="shadow-[0_30px_80px_-40px_rgb(var(--gold)/0.35)]" />
@@ -120,7 +124,7 @@ export function ServiceHero({ group }: { group: ServiceGroup }) {
   );
 }
 
-export function ServiceDemoSection({ group }: { group: ServiceGroup }) {
+export function ServiceDemoSection({ group }: { group: DemoGroup }) {
   return (
     <section id={serviceDemoAnchor} aria-labelledby="service-demo-title" className={section}>
       <div className="section-container">

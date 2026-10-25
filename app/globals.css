@@ -4054,7 +4054,6 @@ a.ds-card:focus-visible {
   --svc-surface: #0f2346; /* cards and panels */
   --svc-frame: #07101f; /* a demo's frame */
   --svc-phone: #050b18; /* a phone's screen */
-  --svc-site: #050b18; /* the mock website's page */
   --svc-tile: #152d58; /* the live demo's step tiles */
 }
 

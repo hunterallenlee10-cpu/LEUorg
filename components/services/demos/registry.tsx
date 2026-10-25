@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 import type { ComponentType } from "react";
 import clsx from "clsx";
-import type { ServiceSlug } from "@/data/services";
+import type { DemoSlug } from "@/data/services";
 import { useInView } from "@/lib/hooks/useInView";
 import {
   demoSizes,
@@ -17,7 +17,7 @@ import {
   ShellPlaceholderCta,
 } from "@/components/services/demo/DemoFrame";
 
-function Placeholder({ slug }: { slug: ServiceSlug }) {
+function Placeholder({ slug }: { slug: DemoSlug }) {
   const sizes = demoSizes[slug];
   return (
     <div aria-hidden="true">
@@ -34,11 +34,7 @@ function Placeholder({ slug }: { slug: ServiceSlug }) {
   );
 }
 
-const loaders: Record<ServiceSlug, ComponentType<DemoProps>> = {
-  websites: dynamic(() => import("./WebsitesDemo"), {
-    ssr: false,
-    loading: () => <Placeholder slug="websites" />,
-  }),
+const loaders: Record<DemoSlug, ComponentType<DemoProps>> = {
   "get-found": dynamic(() => import("./GetFoundDemo"), {
     ssr: false,
     loading: () => <Placeholder slug="get-found" />,
@@ -71,7 +67,7 @@ export function DemoSlot({
   formPath,
   assets,
 }: {
-  slug: ServiceSlug;
+  slug: DemoSlug;
   formPath: string;
   assets: DemoAssets;
 }) {

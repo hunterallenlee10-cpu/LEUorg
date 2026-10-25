@@ -119,8 +119,7 @@ same picture (`public/demos/video/<id>.mp4`, with its first frame beside it
 as a WebP still), made in Higgsfield from the picture itself with the camera
 locked off, so only the light, weather or steam moves and the loop has no
 seam. `DemoVideo` loads it as the card nears the screen and plays it only on
-screen; under reduced motion or Save-Data the still shows. The Websites demo
-uses the same loops for its mock sites' heroes. `scripts/build-demo-media.sh`
+screen; under reduced motion or Save-Data the still shows. `scripts/build-demo-media.sh`
 cuts them (`docs/DEMO-MEDIA-PLAN.md`).
 
 ## Onboarding

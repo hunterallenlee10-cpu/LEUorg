@@ -1,4 +1,4 @@
-import type { ServiceSlug } from "@/data/services";
+import type { DemoSlug } from "@/data/services";
 import type { CallScenarioId } from "@/data/demos/calls";
 
 /** Optional media found in /public at build time (lib/demo-assets.ts). */
@@ -26,8 +26,7 @@ export interface DemoProps {
  * all inside the /services Demo Lab's padded box) room for it, so nothing
  * spills onto the "Want this for your business?" bar below.
  */
-export const demoSizes: Record<ServiceSlug, { stage: string; toolbar?: string }> = {
-  websites: { stage: "h-[600px] sm:h-[540px]", toolbar: "min-h-[69px]" },
+export const demoSizes: Record<DemoSlug, { stage: string; toolbar?: string }> = {
   "get-found": { stage: "h-[1290px] max-[359px]:h-[1400px] max-[339px]:h-[1470px] sm:h-[770px] lg:h-[520px]", toolbar: "min-h-[69px]" },
   "ai-calls": { stage: "h-[960px] max-[359px]:h-[1015px] sm:h-[500px]", toolbar: "min-h-[69px]" },
   "follow-up": { stage: "h-[1480px] max-[359px]:h-[1535px] max-[339px]:h-[1560px] sm:h-[910px] lg:h-[600px]" },
@@ -36,8 +35,7 @@ export const demoSizes: Record<ServiceSlug, { stage: string; toolbar?: string }>
 };
 
 /** Each demo's title in its frame, shared with its placeholder. */
-export const demoTitles: Record<ServiceSlug, string> = {
-  websites: "An old site vs. a new one",
+export const demoTitles: Record<DemoSlug, string> = {
   "get-found": "Getting found for \u201croofer near me\u201d",
   "ai-calls": "A call at 11:48 PM",
   "follow-up": "You be the lead",

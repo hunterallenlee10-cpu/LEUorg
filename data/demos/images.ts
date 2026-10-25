@@ -6,8 +6,8 @@
  *   (public/lee-systems/industries/), generated for this site.
  * - Generated in Higgsfield on 2026-10-24 (docs/DEMO-MEDIA-PLAN.md), all of
  *   made-up places with no faces, words or logos: the inspection photo, the
- *   satchel, the four listing thumbnails, the storm-cleared house for the ad,
- *   the four reel shots and the online-stores picture.
+ *   four listing thumbnails, the storm-cleared house for the ad,
+ *   and the four reel shots.
  * - The rest of public/demos/img/ is CC0 / public domain (StockSnap and
  *   Flickr, found through Openverse), so no credit is owed, except the map:
  *   map.webp is OpenStreetMap, which must keep its "© OpenStreetMap" credit
@@ -27,9 +27,6 @@ export const demoImages = {
   law: industry("law-firms"),
   fitness: industry("fitness"),
   restaurant: industry("restaurants"),
-  onlineStores: industry("online-stores"),
-  /** 800 x 480, a leather satchel on a stone plinth. */
-  storeProduct: img("store-satchel.webp"),
   /** 720 x 405, an AC condenser beside a house. */
   acUnit: img("ac-unit.webp"),
   /** 800 x 533, a house at dusk. */

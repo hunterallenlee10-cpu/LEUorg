@@ -188,6 +188,9 @@ Priorities: **P1** ships first and costs least; **P3** is the most work.
 
 ### 3. Websites & Online Stores demo — P2
 
+> Taken off the sites on 2026-10-25 (the owner's call): the Websites service
+> has no demo now, so this section is history.
+
 - **Today:** a mock site per industry with a still photo; the slider wipes an
   old site into a new one.
 - **Higgsfield:**

@@ -20,6 +20,7 @@ import { leeSystems } from "@/data/lee-systems";
 import { site } from "@/data/site";
 import {
   getService,
+  hasDemo,
   isServiceSlug,
   serviceFaqs,
   servicePath,
@@ -140,7 +141,7 @@ export default async function ServicePage({
 
       <main className="pt-20">
         <ServiceHero group={group} />
-        <ServiceDemoSection group={group} />
+        {hasDemo(group) && <ServiceDemoSection group={group} />}
         <IncludedSection group={group} />
         <AudienceSection group={group} />
         <StepsSection group={group} />
