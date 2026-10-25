@@ -118,45 +118,25 @@ export const site = {
     { value: "$150,000+", label: "Generated for our clients", definition: "" },
   ] as Stat[],
   /**
-   * "Recent Builds": finished work the owner has permission to show, in the
-   * owner's order (sent 2026-10-05; Copperleaf and Rocha added 2026-10-07;
-   * Lumen Chapel removed 2026-10-23), with our own site last. Names are as
-   * each live site shows them. Each is labeled client work, template or our
-   * venture (`kind`, the owner's call, 2026-10-23). docs/RECENT-BUILDS.md has
-   * the format for adding one.
+   * "Recent Builds" (the ring on .com and .net, the grid on .org, the
+   * Website builds deck and the Websites page's related builds): the
+   * strongest live work, strongest first, with our own site last. Picked
+   * 2026-10-25 from the owner's Vercel account: Photos by Noelle added (a
+   * client who OK'd showing it); Graystone and Fieldhouse removed (their
+   * links went dead); Sage & Stone removed (a placeholder licence number on
+   * the page); Rocha renamed Marque & Mile, as the template now shows.
+   * Concept previews for businesses that aren't clients yet stay off. Names
+   * are as each live site shows them; `kind` is the owner's call.
+   * docs/RECENT-BUILDS.md has the format for adding one.
    */
   projects: [
     {
-      name: "Pelican Power Wash",
+      name: "Photos by Noelle",
       kind: "client",
-      category: "Exterior cleaning · Maryland",
-      built: ["Website", "Backend automation"],
-      href: "https://pelicanpowerwash.vercel.app",
-      image: "/projects/pelican-power-wash.webp",
-    },
-    {
-      name: "Graystone Contracting",
-      kind: "template",
-      category: "Construction · Southern Maryland",
-      built: ["Website", "Backend automation", "Ready-to-go template"],
-      href: "https://template-greystone.vercel.app",
-      image: "/projects/graystone-contracting.webp",
-    },
-    {
-      name: "Sage & Stone",
-      kind: "template",
-      category: "Landscaping · Southern Maryland",
-      built: ["Website", "Backend automation", "Ready-to-go template"],
-      href: "https://landscapingtemplate-eight.vercel.app",
-      image: "/projects/sage-and-stone.webp",
-    },
-    {
-      name: "Thread T-Shirts",
-      kind: "client",
-      category: "Apparel · Ships worldwide",
-      built: ["Website", "Backend automation"],
-      href: "https://tread-two.vercel.app",
-      image: "/projects/thread.webp",
+      category: "Sports & lifestyle photography · Honolulu & Fredericksburg",
+      built: ["Website"],
+      href: "https://photosby-noelle.vercel.app",
+      image: "/projects/photos-by-noelle.webp",
     },
     {
       name: "H1 Performance",
@@ -165,22 +145,6 @@ export const site = {
       built: ["Website", "Backend automation"],
       href: "https://h1-three-sandy.vercel.app",
       image: "/projects/h1-performance.webp",
-    },
-    {
-      name: "Terps Fostering Futures",
-      kind: "client",
-      category: "Student club · University of Maryland",
-      built: ["Website", "Backend automation"],
-      href: "https://www.terpsfosteringfutures.com",
-      image: "/projects/terps-fostering-futures.webp",
-    },
-    {
-      name: "Fieldhouse Athletic Club",
-      kind: "template",
-      category: "Fitness coaching",
-      built: ["Website", "Backend automation", "Ready-to-go template"],
-      href: "https://fitness-orpin-six.vercel.app/?style=fieldhouse",
-      image: "/projects/fieldhouse-athletic-club.webp",
     },
     {
       name: "G1 Baseball & Softball Training",
@@ -192,6 +156,14 @@ export const site = {
       image: "/projects/g1-baseball.webp",
     },
     {
+      name: "Thread T-Shirts",
+      kind: "client",
+      category: "Apparel · Ships worldwide",
+      built: ["Website", "Backend automation"],
+      href: "https://tread-two.vercel.app",
+      image: "/projects/thread.webp",
+    },
+    {
       name: "Copperleaf Grounds Co.",
       kind: "template",
       category: "Lawn care · Brandywine Valley",
@@ -200,12 +172,28 @@ export const site = {
       image: "/projects/copperleaf-grounds.webp",
     },
     {
-      name: "Rocha Family Auto Sales",
+      name: "Pelican Power Wash",
+      kind: "client",
+      category: "Exterior cleaning · Maryland",
+      built: ["Website", "Backend automation"],
+      href: "https://pelicanpowerwash.vercel.app",
+      image: "/projects/pelican-power-wash.webp",
+    },
+    {
+      name: "Marque & Mile",
       kind: "template",
-      category: "Pre-owned vehicles · Sequim, Washington",
+      category: "Pre-owned vehicles · Denver, Colorado",
       built: ["Website", "Backend automation", "Ready-to-go template"],
       href: "https://rocha-nu.vercel.app",
-      image: "/projects/rocha-family-auto-sales.webp",
+      image: "/projects/marque-and-mile.webp",
+    },
+    {
+      name: "Terps Fostering Futures",
+      kind: "client",
+      category: "Student club · University of Maryland",
+      built: ["Website", "Backend automation"],
+      href: "https://www.terpsfosteringfutures.com",
+      image: "/projects/terps-fostering-futures.webp",
     },
     {
       name: "Lee Enterprises Unlimited",

@@ -82,10 +82,11 @@ amounts blurred or fake. Screenshots as full-size PNGs.
    hero that animates can be caught mid-change. Our own homepage swaps its
    headline for an animation a few seconds in, so shoot it with
    `reducedMotion: "reduce"`; H1's stat counter is clean about 1.5 seconds
-   after load. Rocha's hero is a looping driving video: about 6 seconds after
-   load it shows the aerial shot of the green winding road, the frame we use.
+   after load. Marque & Mile (the template that was Rocha) opens on a car in
+   a dark showroom; scroll about 600px and wait two seconds so its lights
+   come on, and shoot that.
 3. With fewer than three builds and `showPlaceholders` on, "coming soon"
    boxes fill the row out to three.
 4. When a client's site changes, retake its shot the same way. All of them
-   were last refreshed on 2026-10-07 (Rocha's again later that day, after
-   its hero changed to a video).
+   were last refreshed on 2026-10-25, when the list was re-picked from the
+   owner's Vercel account.
