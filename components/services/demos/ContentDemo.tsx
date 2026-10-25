@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import clsx from "clsx";
-import { CalendarDays, ChevronLeft, ChevronRight, Heart, Sparkles } from "lucide-react";
+import { CalendarDays, ChevronLeft, ChevronRight, Heart } from "lucide-react";
 import { DemoFrame } from "@/components/services/demo/DemoFrame";
 import { useDemo } from "@/components/services/demo/useDemo";
 import { ExampleTag, Panel, Photo, Segmented } from "@/components/services/demo/ui";
@@ -25,12 +25,12 @@ import { demoImages } from "@/data/demos/images";
  * without and with captions, tighter cuts and a hook title; the hook picker
  * cycles three example hooks. Beside it, a one-week calendar fills in day by
  * day across Instagram, TikTok, YouTube and Facebook, each post with its
- * thumbnail. Anything AI-generated is labelled "AI-generated".
+ * thumbnail. Nothing carries an "AI-generated" tag.
  *
  * The clip is public/demos/content/raw.mp4 and edited.mp4 (muted,
  * preload="none", with the poster, playing only while the demo is on
- * screen): AI footage of a made-up roofer, generated in Higgsfield and cut by
- * scripts/build-demo-media.sh, and tagged "AI-generated" on the phone. Raw is
+ * screen): footage of a made-up roofer, generated in Higgsfield and cut by
+ * scripts/build-demo-media.sh. Raw is
  * one flat, handheld take; Edited cuts between three shots every two seconds,
  * graded, pushing in on each, with the hook and captions drawn here in code,
  * in time with the cuts. Without the files the clip is built from the
@@ -163,24 +163,13 @@ export default function ContentDemo({ formPath, assets }: DemoProps) {
                     return (
                       <td key={column} className="h-9 align-middle">
                         {shown ? (
-                          <span
-                            className={clsx(
-                              "svc-enter flex min-h-9 items-center gap-1.5 rounded-md border px-1 py-0.5 leading-tight sm:px-1",
-                              post.ai ? "border-brass-400/50 bg-brass-400/10" : "border-white/10 bg-white/[0.04]"
-                            )}
-                          >
+                          <span className="svc-enter flex min-h-9 items-center gap-1.5 rounded-md border border-white/10 bg-white/[0.04] px-1 py-0.5 leading-tight sm:px-1">
                             <Photo
                               src={demoImages.reel[(row + column) % demoImages.reel.length]}
                               className="hidden h-7 w-5 shrink-0 rounded-[3px] object-cover lg:block"
                             />
                             <span className="flex min-w-0 flex-col">
                               <span className="truncate font-semibold text-white">{post.format}</span>
-                              {post.ai && (
-                                <span className="flex items-center gap-0.5 text-[8px] leading-none text-brass-200 sm:truncate sm:text-[9px]">
-                                  <Sparkles aria-hidden="true" className="hidden h-2.5 w-2.5 shrink-0 sm:block" />
-                                  AI-generated
-                                </span>
-                              )}
                             </span>
                           </span>
                         ) : (
@@ -205,7 +194,6 @@ export default function ContentDemo({ formPath, assets }: DemoProps) {
               ? `${plannedCount} posts planned across 4 platforms, from one week of clips.`
               : "Fills in as the week is planned."}
           </p>
-          <p className="mt-1 text-[11px] text-neutral-400">AI visuals and AI video ads are always labelled as AI.</p>
         </Panel>
       </div>
     </DemoFrame>
@@ -286,11 +274,6 @@ function Reel({
           )}
         />
       </div>
-      {src && (
-        <span className="absolute right-3 bottom-3 rounded bg-[#000]/55 px-1.5 py-0.5 text-[9px] font-semibold tracking-wide text-[#fff]/85 uppercase">
-          AI-generated
-        </span>
-      )}
       <Heart aria-hidden="true" className={clsx("absolute right-3 bottom-8 h-5 w-5 text-[#fff]", edited && "fill-[#fff]")} />
       <span className="absolute bottom-3 left-3 rounded bg-[#000]/60 px-1.5 py-0.5 text-[10px] font-semibold text-[#fff]">
         {edited ? "0:21 · Edited" : "0:47 · Raw"}

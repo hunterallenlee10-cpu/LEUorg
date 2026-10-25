@@ -504,7 +504,7 @@ function NarratedVideoFrame({
 
       {/* The tag names the run that's playing. */}
       <span className="ls-paths-tag" data-mode={mode} aria-hidden="true">
-        {film ? "Example · AI footage" : "Example"}
+        Example
         {mode && <span className="ls-paths-tag-run">{runLabels[mode]}</span>}
       </span>
 

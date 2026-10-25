@@ -18,7 +18,7 @@ import "./services.css";
  *   service page's hero): a "live poster", a 5-second loop of the moment the
  *   service is for (a phone lighting up on a nightstand at 11:48 PM) with one
  *   line of what just happened over it, drawn in code so it stays sharp at
- *   thumbnail size (data/demos/posters.ts). The loops are AI footage, tagged.
+ *   thumbnail size (data/demos/posters.ts). The loops are tagged "Example".
  * - `ui`: the service's own interface in miniature, an old site turning
  *   into a new one, a business climbing to #1 and so on, in pure CSS
  *   (services.css) that scales with its box (`cqw` units). The /services
@@ -81,7 +81,7 @@ function LivePoster({ slug }: { slug: ServiceSlug }) {
       <DemoVideo src={poster.video} poster={poster.still} className="absolute inset-0" mediaStyle={{ objectPosition: poster.focus }} />
       <span className="absolute inset-0 bg-gradient-to-t from-[#000]/75 via-[#000]/10 to-[#000]/25" />
       <span className="absolute top-[3cqw] left-[3cqw] rounded bg-[#000]/55 px-[1.6cqw] py-[0.6cqw] text-[max(9px,2cqw)] font-semibold tracking-wider text-[#fff]/80 uppercase">
-        Example · AI footage
+        Example
       </span>
       <span className="svc-chip-in absolute bottom-[4cqw] left-[4cqw] flex max-w-[86%] items-center gap-[2.2cqw] rounded-[max(8px,2cqw)] border border-[#fff]/15 bg-[var(--svc-phone)]/80 py-[2cqw] pr-[3.2cqw] pl-[2cqw] shadow-2xl backdrop-blur-md">
         <span

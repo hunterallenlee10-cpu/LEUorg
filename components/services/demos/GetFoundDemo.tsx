@@ -186,9 +186,7 @@ export default function GetFoundDemo({ formPath }: DemoProps) {
                 src={adPreview.video}
                 poster={adPreview.photo}
                 playing={demo.reached(STEP.ad)}
-                ai
                 className="relative h-full w-full lg:aspect-[5/2] lg:h-auto"
-                tagClassName="hidden lg:block"
               />
               <span className="absolute top-2 left-2 rounded bg-[#000]/65 px-1.5 py-0.5 text-[9px] font-bold tracking-wider text-[#fff] uppercase">
                 {adPreview.label}

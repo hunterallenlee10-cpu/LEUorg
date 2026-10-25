@@ -17,31 +17,26 @@ import { usePageVisible, useReducedMotion, useSaveData } from "@/lib/hooks/useMe
  * - Under reduced motion or Data Saver the video is never loaded: the still
  *   stays.
  * - It is decorative (the words beside it say what it shows), so screen
- *   readers skip it. `ai` adds the small "AI-generated" tag the brand rules
- *   ask for on AI footage.
+ *   readers skip it. It carries no "AI-generated" tag.
  */
 export function DemoVideo({
   src,
   poster,
   playing = true,
-  ai = false,
   className,
   mediaClassName,
   mediaStyle,
-  tagClassName,
 }: {
   /** An H.264 MP4, muted (it never plays sound). */
   src: string;
   /** The first frame as a WebP, the same size and crop. */
   poster: string;
   playing?: boolean;
-  ai?: boolean;
   className?: string;
   /** Classes for the still and the video alike (filters and the like). */
   mediaClassName?: string;
   /** Style for the still and the video alike (an object-position). */
   mediaStyle?: React.CSSProperties;
-  tagClassName?: string;
 }) {
   const [ref, near] = useInView<HTMLDivElement>({ rootMargin: "200px 0px" });
   const reduced = useReducedMotion();
@@ -69,16 +64,6 @@ export function DemoVideo({
       <img src={poster} alt="" decoding="async" loading="lazy" className={media} style={mediaStyle} />
       {armed && !still && (
         <video ref={videoRef} src={src} poster={poster} muted loop playsInline preload="auto" className={media} style={mediaStyle} />
-      )}
-      {ai && (
-        <span
-          className={clsx(
-            "absolute top-2 right-2 rounded bg-[#000]/60 px-1.5 py-0.5 text-[9px] font-semibold tracking-wide text-[#fff]/85 uppercase",
-            tagClassName
-          )}
-        >
-          AI-generated
-        </span>
       )}
     </div>
   );

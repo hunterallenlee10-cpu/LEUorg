@@ -71,9 +71,10 @@ screen and show their finished frame otherwise.
 
 The demos show real-looking pictures, footage and sound rather than icons in
 boxes. Most of it was generated in Higgsfield on 2026-10-24
-(`docs/DEMO-MEDIA-PLAN.md`): made-up places, no faces, words or logos. Any AI
-photo, clip or voice is labelled as AI where it shows, and the footnote says
-so too. Higgsfield makes the picture; the words, numbers and buttons over it
+(`docs/DEMO-MEDIA-PLAN.md`): made-up places, no faces, words or logos. Photos and
+footage carry no "AI-generated" tag (the owner's call, 2026-10-25); AI voices
+are still named beside their play buttons, and the footnote says the example
+is simulated. Higgsfield makes the picture; the words, numbers and buttons over it
 are drawn in code, so they stay sharp and match the demo.
 
 - **Pictures:** `data/demos/images.ts` lists each one and where it came from.
@@ -120,8 +121,8 @@ Nothing here blocks the site; it falls back cleanly until it is added.
 | A real number for the AI call demo line | `callAnswering.demoPhone` in `data/site.ts` | "Call our demo line" is hidden |
 
 Media is found at build time (`lib/demo-assets.ts`), so add the file and
-redeploy. Recordings and clips must be of made-up businesses, and any AI
-voice or video must be labelled as AI.
+redeploy. Recordings and clips must be of made-up businesses. Name an AI
+voice beside its play button; photos and video get no AI tag.
 
 ## Testing the forms
 

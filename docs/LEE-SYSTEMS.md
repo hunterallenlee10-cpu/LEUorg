@@ -259,7 +259,7 @@ by-hand and outdated runs are graded cold and drained, the AI and built-right
 runs warm, so the two halves look like two different nights. The film is
 muted, dimmed under the panels and captions, kept in time with the
 soundtrack by the player (`syncFilm` in `NarratedVideo.tsx`), and labelled
-"Example · AI footage". It loads with the soundtrack; under reduced motion it
+"Example". It loads with the soundtrack; under reduced motion it
 holds one still per line instead of playing.
 
 The films are `public/lee-systems/two-paths/two-paths-film.mp4` and
