@@ -93,9 +93,13 @@ are drawn in code, so they stay sharp and match the demo.
   sponsored ad in Get Found, and the desk behind the onboarding devices on
   How It Works. `DemoVideo` loads one only near the screen, plays it only on
   screen, and shows the still under reduced motion or Save-Data.
-- **The content clip:** `public/demos/content/raw.mp4` and `edited.mp4`, the
-  same shots handheld and flat, then cut, graded and captioned (the captions
-  and hook are drawn in code).
+- **The content clip:** `public/demos/content/edited.mp4`, three shots cut,
+  graded and captioned (the captions and hook are drawn in code).
+
+No demo or tile shows a before and after: the Websites slider, the Marketing
+demo's Before/After switch, the Content demo's Raw/Edited switch and the
+old-site opening of the Websites tile were all taken off (the owner's call,
+2026-10-25). Show the result, not the comparison.
 - **Sound:** the four call recordings (`public/demos/calls/`, AI voices for
   the receptionist and the caller) and the voice note in Custom AI Tools
   (`public/demos/voice-note.mp3`). Their timings

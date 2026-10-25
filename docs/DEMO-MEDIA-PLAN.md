@@ -171,6 +171,9 @@ Priorities: **P1** ships first and costs least; **P3** is the most work.
 
 ### 2. Content & Social Media demo — P2
 
+> The Raw/Edited switch and `raw.mp4` were taken off on 2026-10-25 (the
+> owner's call): the phone plays the edited clip only.
+
 - **Today:** `raw.mp4`, `edited.mp4` and `poster.webp` are missing, so the
   phone plays a reel cut from three still photos. The week's 21 posts reuse
   the same three thumbnails.
@@ -210,6 +213,9 @@ Priorities: **P1** ships first and costs least; **P3** is the most work.
 - **Cost:** about 45 credits for loops, 8 for stills, 10 for the orbit.
 
 ### 4. Marketing & Lead Generation demo — P2
+
+> The Before/After switch was taken off on 2026-10-25 (the owner's call):
+> the business shows first in the results from the start.
 
 - **Today:** a map with four listings, an AI answer and a sponsored ad, all
   on stock thumbnails; the ad is a still.

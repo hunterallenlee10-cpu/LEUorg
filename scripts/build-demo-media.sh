@@ -32,7 +32,7 @@ loop() { # in out W H crf
     "${X264[@]}" -crf "$5" "$2"
 }
 
-# --- Content & Social Media: the same clip raw and edited (9:16) -----------
+# --- Content & Social Media: the edited clip (9:16) ------------------------
 content="$root/public/demos/content"
 mkdir -p "$content"
 if have v-reel-ladder.mp4 && have v-reel-gutter.mp4 && have v-reel-house.mp4; then
@@ -44,13 +44,6 @@ if have v-reel-ladder.mp4 && have v-reel-gutter.mp4 && have v-reel-house.mp4; th
     -filter_complex "[0]setpts=PTS-STARTPTS,$shot[a];[1]setpts=PTS-STARTPTS,$shot[b];[2]setpts=PTS-STARTPTS,$shot[c];[a][b][c]concat=n=3:v=1:a=0" \
     "${X264[@]}" -crf 27 "$content/edited.mp4"
   poster "$content/edited.mp4" "$content/poster.webp"
-fi
-if have v-reel-belt.mp4; then
-  # Raw: one flat, handheld take, ungraded and a little washed out, with the
-  # small wobble of a phone held by hand.
-  ff -i "$src/v-reel-belt.mp4" \
-    -vf "scale=600:-2,crop=540:960:30+12*sin(2*PI*t*0.7):(ih-960)/2+10*sin(2*PI*t*0.9+1),eq=contrast=0.84:saturation=0.62:brightness=0.035:gamma=1.06,setsar=1,fps=24" \
-    "${X264[@]}" -crf 28 "$content/raw.mp4"
 fi
 
 # --- Marketing & Lead Generation: the sponsored ad as video ----------------

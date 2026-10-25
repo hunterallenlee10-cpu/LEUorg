@@ -1,16 +1,15 @@
 "use client";
 
-import { useState } from "react";
 import clsx from "clsx";
 import { ArrowRight, MapPin, Phone, Search, Sparkles } from "lucide-react";
 import { DemoFrame } from "@/components/services/demo/DemoFrame";
 import { useDemo } from "@/components/services/demo/useDemo";
 import { DemoVideo } from "@/components/services/demo/DemoVideo";
-import { CountUp, ExampleTag, MapCredit, Panel, Photo, Segmented, Stars, TypeText } from "@/components/services/demo/ui";
+import { CountUp, ExampleTag, MapCredit, Panel, Photo, Stars, TypeText } from "@/components/services/demo/ui";
 import { demoSizes, demoTitles, type DemoProps } from "@/components/services/demo/sizes";
 import {
   adPreview,
-  aiAnswers,
+  aiAnswer,
   aiQuestion,
   competitors,
   ourBusiness,
@@ -23,23 +22,20 @@ import { demoImages } from "@/data/demos/images";
 /**
  * Get Found & Get Leads, in three panels:
  * 1. A plain local search for "roofer near me", over a real street map
- *    (OpenStreetMap). Before, the made-up business sits on page two; After,
- *    it moves into the top three map results with its photo, stars and a
- *    Call button, and its pin lights up on the map.
- * 2. An AI answer to "Who's the best roofer near me?" that names it (After),
- *    with the business's card under it, or doesn't (Before).
+ *    (OpenStreetMap), with the made-up business first in the map results:
+ *    its photo, stars and a Call button, and its pin lit up on the map.
+ * 2. An AI answer to "Who's the best roofer near me?" that names it, with
+ *    the business's card under it.
  * 3. An ad with a photo, then the outbound strip counting up: leads found,
  *    emails sent, replies, calls booked.
- * Everything is labelled Example, and the footer says rankings aren't
- * guaranteed. The Before/After switch is the visitor's to flip.
+ * Everything is labelled Example, and the note under the panels says
+ * rankings aren't guaranteed. There is no before/after (taken off,
+ * 2026-10-25): it only shows the business already found.
  */
 
-type Mode = "before" | "after";
-
-const durations = [2600, 2600, 2000, 2400, 3400, 2400, 1700, 1700, 1700, 1700, 3000];
+const durations = [2600, 2000, 2400, 3400, 2400, 1700, 1700, 1700, 1700, 3000];
 const captions = [
-  "Before: the business is on page two of local results for roofer near me.",
-  "After: it moves into the top three map results.",
+  "Someone searches roofer near me, and the business is first in the map results.",
   "With its rating and a Call button.",
   "Someone asks an AI assistant who the best roofer near them is.",
   "The answer names the business.",
@@ -51,14 +47,11 @@ const captions = [
   "More people find the business, and more of them reach out.",
 ];
 
-const STEP = { after: 1, call: 2, question: 3, answer: 4, ad: 5, pipeline: 6 } as const;
+const STEP = { call: 1, question: 2, answer: 3, ad: 4, pipeline: 5 } as const;
 const ROW = 58; // px, one result row and its gap
 
 export default function GetFoundDemo({ formPath }: DemoProps) {
   const [frameRef, demo] = useDemo({ service: "get-found", durations });
-  const [choice, setChoice] = useState<{ run: number; mode: Mode } | null>(null);
-  const mode: Mode =
-    choice && choice.run === demo.run ? choice.mode : demo.reached(STEP.after) ? "after" : "before";
   const typing = demo.status === "playing";
   const sizes = demoSizes["get-found"];
 
@@ -69,28 +62,7 @@ export default function GetFoundDemo({ formPath }: DemoProps) {
       title={demoTitles["get-found"]}
       formPath={formPath}
       stageClassName={sizes.stage}
-      toolbarClassName={sizes.toolbar}
       captions={captions}
-      toolbar={
-        <div className="flex items-center justify-between gap-3">
-          <Segmented
-            label="Show results"
-            wrap={false}
-            value={mode}
-            onChange={(value) => {
-              setChoice({ run: demo.run, mode: value });
-              demo.pause();
-            }}
-            options={[
-              { value: "before", label: "Before" },
-              { value: "after", label: "After" },
-            ]}
-          />
-          <p className="hidden text-xs text-neutral-400 sm:block">
-            Example results. Rankings aren&apos;t guaranteed.
-          </p>
-        </div>
-      }
     >
       <div className="grid h-full grid-cols-1 content-start gap-3 p-4 sm:grid-cols-2 sm:p-5 lg:grid-cols-[1.25fr_1fr_1fr]">
         {/* 1. Local search */}
@@ -109,9 +81,9 @@ export default function GetFoundDemo({ formPath }: DemoProps) {
             <TypeText key={`q-${demo.run}`} text={searchQuery} play={typing && demo.step === 0} duration={900} />
           </div>
 
-          <MapStrip after={mode === "after"} />
+          <MapStrip />
 
-          <SearchResults after={mode === "after"} highlightCall={demo.reached(STEP.call)} />
+          <SearchResults highlightCall={demo.reached(STEP.call)} />
         </Panel>
 
         {/* 2. AI answer */}
@@ -141,13 +113,9 @@ export default function GetFoundDemo({ formPath }: DemoProps) {
                   Assistant
                 </p>
                 <p className="rounded-lg border border-white/10 px-3 py-2 text-neutral-300">
-                  <AiAnswer
-                    key={`aa-${demo.run}-${mode}`}
-                    mode={mode}
-                    play={typing && demo.step === STEP.answer}
-                  />
+                  <AiAnswer key={`aa-${demo.run}`} play={typing && demo.step === STEP.answer} />
                 </p>
-                {mode === "after" && !(typing && demo.step === STEP.answer) && (
+                {!(typing && demo.step === STEP.answer) && (
                   <div className="svc-enter flex items-center gap-2.5 rounded-lg border border-brass-400/40 bg-brass-400/[0.06] p-2">
                     <Photo src={ourBusiness.photo} className="h-10 w-10 shrink-0 rounded-md object-cover" />
                     <span className="min-w-0 text-[11px] leading-tight">
@@ -236,7 +204,7 @@ export default function GetFoundDemo({ formPath }: DemoProps) {
           </ol>
         </Panel>
 
-        <p className="text-xs text-neutral-400 sm:hidden">
+        <p className="text-xs text-neutral-400 sm:col-span-2 lg:col-span-3">
           Example results. Rankings aren&apos;t guaranteed.
         </p>
       </div>
@@ -246,10 +214,10 @@ export default function GetFoundDemo({ formPath }: DemoProps) {
 
 /**
  * A strip of real streets (OpenStreetMap, data/demos/images.ts) with the
- * competitors' pins; the business's pin drops in After. The dark theme shows
- * the map inverted into night colours; the light theme shows it as it is.
+ * competitors' pins and the business's, lit up. The dark theme shows the map
+ * inverted into night colours; the light theme shows it as it is.
  */
-function MapStrip({ after }: { after: boolean }) {
+function MapStrip() {
   const pins = [
     { x: 18, y: 38 },
     { x: 61, y: 30 },
@@ -270,10 +238,7 @@ function MapStrip({ after }: { after: boolean }) {
         />
       ))}
       <MapPin
-        className={clsx(
-          "absolute h-7 w-7 origin-bottom -translate-x-1/2 -translate-y-full fill-brass-400 text-neutral-950 drop-shadow-lg transition-[opacity,scale] duration-500 motion-reduce:transition-none",
-          after ? "opacity-100" : "scale-50 opacity-0"
-        )}
+        className="absolute h-7 w-7 origin-bottom -translate-x-1/2 -translate-y-full fill-brass-400 text-neutral-950 drop-shadow-lg"
         style={{ left: "44%", top: "72%" }}
       />
       <MapCredit />
@@ -282,14 +247,11 @@ function MapStrip({ after }: { after: boolean }) {
 }
 
 /**
- * The map results. Rows are placed by their rank and slide when it changes:
- * Before, the business waits on "page 2" under the top three; After, it is
- * first and the third competitor drops out of the top three.
+ * The map results: the business first, two competitors under it, and the
+ * third competitor under "More results".
  */
-function SearchResults({ after, highlightCall }: { after: boolean; highlightCall: boolean }) {
-  const order: Listing[] = after
-    ? [ourBusiness, competitors[0], competitors[1], competitors[2]]
-    : [competitors[0], competitors[1], competitors[2], ourBusiness];
+function SearchResults({ highlightCall }: { highlightCall: boolean }) {
+  const order: Listing[] = [ourBusiness, competitors[0], competitors[1], competitors[2]];
 
   return (
     <div className="relative mt-3" style={{ height: ROW * 4 + 22 }}>
@@ -298,9 +260,9 @@ function SearchResults({ after, highlightCall }: { after: boolean; highlightCall
         className="absolute left-0 text-[10px] font-semibold tracking-wider text-neutral-400 uppercase"
         style={{ top: ROW * 3 + 2 }}
       >
-        {after ? "More results" : "Page 2"}
+        More results
       </p>
-      <ol aria-label={`Map results, ${after ? "after" : "before"}`}>
+      <ol aria-label="Map results">
         {order.map((listing, index) => {
           const us = listing === ourBusiness;
           const top = index < 3 ? index * ROW : ROW * 3 + 22;
@@ -308,8 +270,8 @@ function SearchResults({ after, highlightCall }: { after: boolean; highlightCall
             <li
               key={listing.name}
               className={clsx(
-                "absolute inset-x-0 flex h-[50px] items-center gap-2 rounded-lg border px-2 transition-[top,opacity,border-color] duration-700 ease-out motion-reduce:transition-none sm:gap-2.5 sm:px-2.5",
-                us && after
+                "absolute inset-x-0 flex h-[50px] items-center gap-2 rounded-lg border px-2 sm:gap-2.5 sm:px-2.5",
+                us
                   ? "z-10 border-brass-400/60 bg-[var(--svc-surface)] light:bg-[#fff]"
                   : "border-white/10 bg-white/[0.02]",
                 index === 3 && "opacity-50"
@@ -319,7 +281,7 @@ function SearchResults({ after, highlightCall }: { after: boolean; highlightCall
               <span
                 className={clsx(
                   "flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-[11px] font-bold",
-                  us && after ? "bg-brass-400 text-neutral-950" : "bg-white/10 text-neutral-300"
+                  us ? "bg-brass-400 text-neutral-950" : "bg-white/10 text-neutral-300"
                 )}
               >
                 {index < 3 ? index + 1 : "·"}
@@ -333,7 +295,7 @@ function SearchResults({ after, highlightCall }: { after: boolean; highlightCall
                   <span className="truncate">({listing.reviews}) · {listing.distance}</span>
                 </span>
               </span>
-              {us && after && (
+              {us && (
                 <span
                   className={clsx(
                     "inline-flex items-center gap-1 rounded-md px-2 py-1 text-[11px] font-semibold transition-colors duration-500 motion-reduce:transition-none",
@@ -352,11 +314,8 @@ function SearchResults({ after, highlightCall }: { after: boolean; highlightCall
   );
 }
 
-function AiAnswer({ mode, play }: { mode: Mode; play: boolean }) {
-  if (mode === "before") {
-    return <TypeText text={aiAnswers.before} play={play} duration={2400} />;
-  }
-  const [lead, rest] = aiAnswers.after.split("{us}");
+function AiAnswer({ play }: { play: boolean }) {
+  const [lead, rest] = aiAnswer.split("{us}");
   // Type the plain text, then show it with the business picked out.
   return play ? (
     <TypeText text={`${lead}${ourBusiness.name}${rest}`} play duration={2600} />

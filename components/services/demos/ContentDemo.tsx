@@ -5,7 +5,7 @@ import clsx from "clsx";
 import { CalendarDays, ChevronLeft, ChevronRight, Heart } from "lucide-react";
 import { DemoFrame } from "@/components/services/demo/DemoFrame";
 import { useDemo } from "@/components/services/demo/useDemo";
-import { ExampleTag, Panel, Photo, Segmented } from "@/components/services/demo/ui";
+import { ExampleTag, Panel, Photo } from "@/components/services/demo/ui";
 import { PlatformIcon } from "@/components/services/demo/platformIcons";
 import { demoSizes, demoTitles, type DemoProps } from "@/components/services/demo/sizes";
 import {
@@ -19,32 +19,28 @@ import {
 import { demoImages } from "@/data/demos/images";
 
 /**
- * Content & Social Media: from a raw clip to a week of posts.
+ * Content & Social Media: from one clip to a week of posts.
  *
- * A phone plays a 9:16 clip. Raw / Edited switches between the same clip
- * without and with captions, tighter cuts and a hook title; the hook picker
- * cycles three example hooks. Beside it, a one-week calendar fills in day by
- * day across Instagram, TikTok, YouTube and Facebook, each post with its
- * thumbnail. Nothing carries an "AI-generated" tag.
+ * A phone plays a 9:16 clip, edited: captions, tighter cuts and a hook
+ * title; the hook picker cycles three example hooks. Beside it, a one-week
+ * calendar fills in day by day across Instagram, TikTok, YouTube and
+ * Facebook, each post with its thumbnail. Nothing carries an "AI-generated"
+ * tag, and there is no raw/edited before and after (taken off, 2026-10-25).
  *
- * The clip is public/demos/content/raw.mp4 and edited.mp4 (muted,
- * preload="none", with the poster, playing only while the demo is on
- * screen): footage of a made-up roofer, generated in Higgsfield and cut by
- * scripts/build-demo-media.sh. Raw is
- * one flat, handheld take; Edited cuts between three shots every two seconds,
- * graded, pushing in on each, with the hook and captions drawn here in code,
- * in time with the cuts. Without the files the clip is built from the
- * shots' stills instead (StockReel). No sound plays, ever.
+ * The clip is public/demos/content/edited.mp4 (muted, preload="none", with
+ * the poster, playing only while the demo is on screen): footage of a
+ * made-up roofer, generated in Higgsfield and cut by
+ * scripts/build-demo-media.sh, three shots cut every two seconds, graded,
+ * pushing in on each, with the hook and captions drawn here in code, in time
+ * with the cuts. Without the file the clip is built from the shots' stills
+ * instead (StockReel). No sound plays, ever.
  */
 
-type Mode = "raw" | "edited";
-
-const S = { raw: 0, edited: 1, hook2: 2, hook3: 3, firstDay: 4, summary: 11 } as const;
-const durations = [3000, 3000, 2400, 2400, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 3000];
+const S = { hook2: 1, hook3: 2, firstDay: 3, summary: 10 } as const;
+const durations = [3000, 2400, 2400, 1500, 1500, 1500, 1500, 1500, 1500, 1500, 3000];
 
 const captions = [
-  "The raw clip: no captions, slow start.",
-  `Edited: captions, tighter cuts and a hook title, "${contentHooks[0]}".`,
+  `An edited clip: captions, tighter cuts and a hook title, "${contentHooks[0]}".`,
   `Another hook: "${contentHooks[1]}".`,
   `Another hook: "${contentHooks[2]}".`,
   ...days.map((day) => `${day}'s posts are planned.`),
@@ -53,7 +49,6 @@ const captions = [
 
 interface Choices {
   run: number;
-  mode?: Mode;
   hook?: number;
 }
 
@@ -62,7 +57,6 @@ export default function ContentDemo({ formPath, assets }: DemoProps) {
   const [choices, setChoices] = useState<Choices>({ run: -1 });
   const mine: Partial<Choices> = choices.run === demo.run ? choices : {};
 
-  const mode: Mode = mine.mode ?? (demo.reached(S.edited) ? "edited" : "raw");
   const hook = mine.hook ?? (demo.reached(S.hook3) ? 2 : demo.reached(S.hook2) ? 1 : 0);
   const daysShown = Math.max(0, Math.min(days.length, demo.step - S.firstDay + 1));
 
@@ -82,30 +76,17 @@ export default function ContentDemo({ formPath, assets }: DemoProps) {
     >
       <div className="grid h-full grid-cols-1 content-start gap-5 p-4 sm:grid-cols-[250px_1fr] sm:p-5 lg:gap-8">
         <div className="flex flex-col items-center gap-3">
-          <Segmented
-            label="Clip version"
-            value={mode}
-            onChange={(value) => choose({ mode: value })}
-            options={[
-              { value: "raw", label: "Raw" },
-              { value: "edited", label: "Edited" },
-            ]}
-          />
-
-          <Reel mode={mode} hook={contentHooks[hook]} playing={demo.active && !demo.reduced} assets={assets.reel} />
+          <Reel hook={contentHooks[hook]} playing={demo.active && !demo.reduced} assets={assets.reel} />
 
           <div
             role="group"
             aria-label="Example hooks"
-            className={clsx(
-              "flex w-full max-w-[250px] items-center justify-between gap-2 transition-opacity motion-reduce:transition-none",
-              mode === "raw" && "opacity-50"
-            )}
+            className="flex w-full max-w-[250px] items-center justify-between gap-2"
           >
             <button
               type="button"
               aria-label="Previous hook"
-              onClick={() => choose({ mode: "edited", hook: (hook + contentHooks.length - 1) % contentHooks.length })}
+              onClick={() => choose({ hook: (hook + contentHooks.length - 1) % contentHooks.length })}
               className="flex h-11 w-11 items-center justify-center rounded-lg border border-white/15 text-white hover:border-brass-400/60"
             >
               <ChevronLeft aria-hidden="true" className="h-4 w-4" />
@@ -116,7 +97,7 @@ export default function ContentDemo({ formPath, assets }: DemoProps) {
             <button
               type="button"
               aria-label="Next hook"
-              onClick={() => choose({ mode: "edited", hook: (hook + 1) % contentHooks.length })}
+              onClick={() => choose({ hook: (hook + 1) % contentHooks.length })}
               className="flex h-11 w-11 items-center justify-center rounded-lg border border-white/15 text-white hover:border-brass-400/60"
             >
               <ChevronRight aria-hidden="true" className="h-4 w-4" />
@@ -201,23 +182,21 @@ export default function ContentDemo({ formPath, assets }: DemoProps) {
 }
 
 /**
- * The phone. A real clip when one is in /public, otherwise the stock-photo
- * reel (StockReel): flat and uncaptioned raw, cut and captioned edited.
- * Moves only while the demo is on screen and motion is allowed.
+ * The phone. The edited clip when it is in /public, otherwise the
+ * stock-photo reel (StockReel), with the hook and captions over it. Moves
+ * only while the demo is on screen and motion is allowed.
  */
 function Reel({
-  mode,
   hook,
   playing,
   assets,
 }: {
-  mode: Mode;
   hook: string;
   playing: boolean;
-  assets: { raw?: string; edited?: string; poster?: string };
+  assets: { edited?: string; poster?: string };
 }) {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const src = mode === "raw" ? assets.raw : assets.edited;
+  const src = assets.edited;
 
   useEffect(() => {
     const video = videoRef.current;
@@ -225,8 +204,6 @@ function Reel({
     if (playing) void video.play().catch(() => {});
     else video.pause();
   }, [playing, src]);
-
-  const edited = mode === "edited";
 
   return (
     <div className="relative aspect-[9/16] h-[420px] overflow-hidden rounded-[1.75rem] border-[6px] border-neutral-800 bg-black shadow-2xl">
@@ -240,73 +217,61 @@ function Reel({
           loop
           playsInline
           preload="none"
-          aria-label={edited ? "Sample clip, edited" : "Sample clip, raw"}
+          aria-label="Sample clip"
           className="absolute inset-0 h-full w-full object-cover"
         />
       ) : (
-        <StockReel edited={edited} playing={playing} />
+        <StockReel playing={playing} />
       )}
 
-      {/* The edit's hook and captions, drawn in code over whichever clip is
-          showing, so they stay sharp and match the hook picked above. */}
-      {edited && (
-        <div className="svc-mp absolute inset-0" data-play={playing ? "" : undefined}>
-          <p className="svc-enter absolute inset-x-3 top-8 rounded-md bg-[#000]/70 px-2 py-1.5 text-center text-[13px] leading-tight font-extrabold text-[#fff]" key={hook}>
-            {hook}
-          </p>
-          <span className="absolute inset-x-0 bottom-24 flex justify-center">
-            <span className="relative h-7 w-40 text-center text-sm font-extrabold tracking-tight text-[#fff] uppercase">
-              <span className="svc-a-word1 absolute inset-0 rounded bg-[#000]/60 px-2 py-1">{captionWords[0]}</span>
-              <span className="svc-a-word2 absolute inset-0 rounded bg-[#000]/60 px-2 py-1">{captionWords[1]}</span>
-              <span className="svc-a-word3 absolute inset-0 rounded bg-brass-400 px-2 py-1 text-neutral-950">
-                {captionWords[2]}
-              </span>
+      {/* The edit's hook and captions, drawn in code over the clip, so they
+          stay sharp and match the hook picked below. */}
+      <div className="svc-mp absolute inset-0" data-play={playing ? "" : undefined}>
+        <p className="svc-enter absolute inset-x-3 top-8 rounded-md bg-[#000]/70 px-2 py-1.5 text-center text-[13px] leading-tight font-extrabold text-[#fff]" key={hook}>
+          {hook}
+        </p>
+        <span className="absolute inset-x-0 bottom-24 flex justify-center">
+          <span className="relative h-7 w-40 text-center text-sm font-extrabold tracking-tight text-[#fff] uppercase">
+            <span className="svc-a-word1 absolute inset-0 rounded bg-[#000]/60 px-2 py-1">{captionWords[0]}</span>
+            <span className="svc-a-word2 absolute inset-0 rounded bg-[#000]/60 px-2 py-1">{captionWords[1]}</span>
+            <span className="svc-a-word3 absolute inset-0 rounded bg-brass-400 px-2 py-1 text-neutral-950">
+              {captionWords[2]}
             </span>
           </span>
-        </div>
-      )}
+        </span>
+      </div>
 
       <div className="absolute inset-x-3 top-3 h-1 overflow-hidden rounded-full bg-[#fff]/25">
         <span
           className={clsx(
             "block h-full origin-left rounded-full bg-[#fff]",
-            playing ? (edited ? "svc-reel-fast" : "svc-reel-slow") : "w-full"
+            playing ? "svc-reel-fast" : "w-full"
           )}
         />
       </div>
-      <Heart aria-hidden="true" className={clsx("absolute right-3 bottom-8 h-5 w-5 text-[#fff]", edited && "fill-[#fff]")} />
+      <Heart aria-hidden="true" className="absolute right-3 bottom-8 h-5 w-5 fill-[#fff] text-[#fff]" />
       <span className="absolute bottom-3 left-3 rounded bg-[#000]/60 px-1.5 py-0.5 text-[10px] font-semibold text-[#fff]">
-        {edited ? "0:21 · Edited" : "0:47 · Raw"}
+        0:21
       </span>
     </div>
   );
 }
 
 /**
- * The clip built from stock shots, for when no video is in /public. Raw is
- * the first shot held, flat and drifting like a handheld take. Edited cuts
- * between all three on a six-second loop (services.css, `svc-a-cut*`), the
+ * The clip built from stock shots, for when no video is in /public: it cuts
+ * between three on a six-second loop (services.css, `svc-a-cut*`), the
  * captions' timing, each graded and pushing in. Still (off screen, paused or
  * reduced motion) it holds the first shot.
  */
-function StockReel({ edited, playing }: { edited: boolean; playing: boolean }) {
+function StockReel({ playing }: { playing: boolean }) {
   return (
     <div aria-hidden="true" className="svc-mp absolute inset-0" data-play={playing ? "" : undefined}>
-      {edited ? (
-        <>
-          {demoImages.reel.slice(0, 3).map((src, index) => (
-            <span key={src} className={clsx("absolute inset-0 overflow-hidden", `svc-a-cut${index + 1}`)}>
-              <Photo src={src} className="svc-l-punch h-full w-full object-cover saturate-[1.15] contrast-[1.08]" />
-            </span>
-          ))}
-          <span className="absolute inset-0 bg-gradient-to-b from-[#000]/35 via-transparent to-[#000]/45" />
-        </>
-      ) : (
-        <>
-          <Photo src={demoImages.reel[0]} className="svc-l-drift h-full w-full scale-110 object-cover brightness-90 contrast-[0.85] saturate-[0.6]" />
-          <span className="absolute inset-0 bg-[#000]/15" />
-        </>
-      )}
+      {demoImages.reel.slice(0, 3).map((src, index) => (
+        <span key={src} className={clsx("absolute inset-0 overflow-hidden", `svc-a-cut${index + 1}`)}>
+          <Photo src={src} className="svc-l-punch h-full w-full object-cover saturate-[1.15] contrast-[1.08]" />
+        </span>
+      ))}
+      <span className="absolute inset-0 bg-gradient-to-b from-[#000]/35 via-transparent to-[#000]/45" />
     </div>
   );
 }
