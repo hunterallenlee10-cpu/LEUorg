@@ -1,10 +1,10 @@
-import type { ServiceSlug } from "@/data/services";
+import type { DemoSlug } from "@/data/services";
 import type { CallScenarioId } from "@/data/demos/calls";
 
 /** Optional media found in /public at build time (lib/demo-assets.ts). */
 export interface DemoAssets {
   callAudio: Partial<Record<CallScenarioId, string>>;
-  reel: { raw?: string; edited?: string; poster?: string };
+  reel: { edited?: string; poster?: string };
   /** The voice-to-quote tool's recording. */
   voiceNote?: string;
 }
@@ -26,21 +26,19 @@ export interface DemoProps {
  * all inside the /services Demo Lab's padded box) room for it, so nothing
  * spills onto the "Want this for your business?" bar below.
  */
-export const demoSizes: Record<ServiceSlug, { stage: string; toolbar?: string }> = {
-  websites: { stage: "h-[600px] sm:h-[540px]", toolbar: "min-h-[69px]" },
-  "get-found": { stage: "h-[1290px] max-[359px]:h-[1400px] max-[339px]:h-[1470px] sm:h-[770px] lg:h-[520px]", toolbar: "min-h-[69px]" },
+export const demoSizes: Record<DemoSlug, { stage: string; toolbar?: string }> = {
+  "get-found": { stage: "h-[1290px] max-[359px]:h-[1400px] max-[339px]:h-[1470px] sm:h-[830px] lg:h-[550px]" },
   "ai-calls": { stage: "h-[960px] max-[359px]:h-[1015px] sm:h-[500px]", toolbar: "min-h-[69px]" },
   "follow-up": { stage: "h-[1480px] max-[359px]:h-[1535px] max-[339px]:h-[1560px] sm:h-[910px] lg:h-[600px]" },
-  content: { stage: "h-[1100px] sm:h-[640px] lg:h-[620px]" },
+  content: { stage: "h-[1045px] sm:h-[585px] lg:h-[565px]" },
   "custom-ai": { stage: "h-[900px] max-[359px]:h-[940px] max-[339px]:h-[1015px] sm:h-[840px] lg:h-[520px]", toolbar: "min-h-[69px]" },
 };
 
 /** Each demo's title in its frame, shared with its placeholder. */
-export const demoTitles: Record<ServiceSlug, string> = {
-  websites: "An old site vs. a new one",
+export const demoTitles: Record<DemoSlug, string> = {
   "get-found": "Getting found for \u201croofer near me\u201d",
   "ai-calls": "A call at 11:48 PM",
   "follow-up": "You be the lead",
-  content: "From raw clip to a week of posts",
+  content: "From one clip to a week of posts",
   "custom-ai": "Four small tools",
 };

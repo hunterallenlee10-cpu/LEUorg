@@ -4,10 +4,10 @@ import { Suspense, useEffect, useRef, useState, useSyncExternalStore } from "rea
 import { useSearchParams } from "next/navigation";
 import clsx from "clsx";
 import {
-  isServiceSlug,
-  serviceGroups,
+  demoGroups,
+  isDemoSlug,
   servicesAnchors,
-  type ServiceSlug,
+  type DemoSlug,
 } from "@/data/services";
 import { serviceIcons } from "@/components/services/serviceIcons";
 import { DemoSlot } from "@/components/services/demos/registry";
@@ -15,8 +15,10 @@ import type { DemoAssets } from "@/components/services/demo/sizes";
 import "./services.css";
 
 /**
- * The Demo Lab on /services (#demo-lab): one tab per service group, each
- * loading that group's demo, the same component its service page shows.
+ * The Demo Lab on /services (#demo-lab): one tab per service group with a
+ * demo (all but Websites), each loading that group's demo, the same
+ * component its service page shows. An old ?demo=websites link opens the
+ * first tab.
  *
  * Tabs follow the WAI-ARIA tabs pattern: one tab stop for the whole row
  * (roving tabindex), Left/Right arrows move and select, Home/End jump to the
@@ -58,19 +60,19 @@ function Lab({ requested, assets }: { requested: string | null; assets: DemoAsse
   const fromHash = useSyncExternalStore(subscribeHash, demoFromHash, () => null);
   const wanted = fromHash ?? requested;
 
-  const [selected, setSelected] = useState<ServiceSlug>(
-    wanted && isServiceSlug(wanted) ? wanted : serviceGroups[0].slug
+  const [selected, setSelected] = useState<DemoSlug>(
+    wanted && isDemoSlug(wanted) ? wanted : demoGroups[0].slug
   );
   // A new ?demo= (a "See it work" link on this page) switches the tab.
   const [lastWanted, setLastWanted] = useState(wanted);
   if (wanted !== lastWanted) {
     setLastWanted(wanted);
-    if (wanted && isServiceSlug(wanted)) setSelected(wanted);
+    if (wanted && isDemoSlug(wanted)) setSelected(wanted);
   }
 
   const sectionRef = useRef<HTMLDivElement>(null);
   const tablistRef = useRef<HTMLDivElement>(null);
-  const tabRefs = useRef<Partial<Record<ServiceSlug, HTMLButtonElement | null>>>({});
+  const tabRefs = useRef<Partial<Record<DemoSlug, HTMLButtonElement | null>>>({});
 
   // Arriving on #demo-lab?demo=..., which the browser can't scroll to.
   useEffect(() => {
@@ -89,7 +91,7 @@ function Lab({ requested, assets }: { requested: string | null; assets: DemoAsse
     }
   }, [selected]);
 
-  const choose = (slug: ServiceSlug, focus = false) => {
+  const choose = (slug: DemoSlug, focus = false) => {
     setSelected(slug);
     if (focus) tabRefs.current[slug]?.focus();
     const url = new URL(window.location.href);
@@ -99,8 +101,8 @@ function Lab({ requested, assets }: { requested: string | null; assets: DemoAsse
   };
 
   const onKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
-    const index = serviceGroups.findIndex(({ slug }) => slug === selected);
-    const count = serviceGroups.length;
+    const index = demoGroups.findIndex(({ slug }) => slug === selected);
+    const count = demoGroups.length;
     const target = {
       ArrowRight: (index + 1) % count,
       ArrowLeft: (index - 1 + count) % count,
@@ -109,7 +111,7 @@ function Lab({ requested, assets }: { requested: string | null; assets: DemoAsse
     }[event.key];
     if (target === undefined) return;
     event.preventDefault();
-    choose(serviceGroups[target].slug, true);
+    choose(demoGroups[target].slug, true);
   };
 
   return (
@@ -120,7 +122,7 @@ function Lab({ requested, assets }: { requested: string | null; assets: DemoAsse
         aria-label="Service demos"
         className="svc-tabs relative -mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:justify-center sm:px-0"
       >
-        {serviceGroups.map(({ slug, demo, icon }) => {
+        {demoGroups.map(({ slug, demo, icon }) => {
           const Icon = serviceIcons[icon];
           const isSelected = slug === selected;
           return (
@@ -151,7 +153,7 @@ function Lab({ requested, assets }: { requested: string | null; assets: DemoAsse
         })}
       </div>
 
-      {serviceGroups.map(({ slug, demo }) => {
+      {demoGroups.map(({ slug, demo }) => {
         const isSelected = slug === selected;
         return (
           <div

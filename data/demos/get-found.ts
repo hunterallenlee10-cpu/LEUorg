@@ -35,13 +35,9 @@ export const competitors: readonly Listing[] = [
 
 export const aiQuestion = "Who's the best roofer near me?";
 
-/** The AI answer, before and after. `{us}` marks where the business is named. */
-export const aiAnswers = {
-  before:
-    "Well-reviewed roofers near you include Oak Hill Roof Pros, Bayside Roofing and Granite Ridge Exteriors. Compare reviews and ask for a free estimate.",
-  after:
-    "{us} is a well-reviewed local option, with free roof inspections and repairs scheduled the same week. Oak Hill Roof Pros and Bayside Roofing are also nearby.",
-} as const;
+/** The AI answer. `{us}` marks where the business is named. */
+export const aiAnswer =
+  "{us} is a well-reviewed local option, with free roof inspections and repairs scheduled the same week. Oak Hill Roof Pros and Bayside Roofing are also nearby.";
 
 export const adPreview = {
   label: "Sponsored",

@@ -11,9 +11,8 @@ import type { DemoAssets } from "@/components/services/demo/sizes";
  *
  * - public/demos/calls/<scenario>.mp3: one recording per AI call scenario
  *   (ac-repair, law, gym, restaurant), played only on a visitor's tap.
- * - public/demos/content/raw.mp4 and edited.mp4: the same 9:16 clip before
- *   and after editing, muted, plus poster.webp (or poster.jpg) as the still
- *   shown before either loads.
+ * - public/demos/content/edited.mp4: the 9:16 edited clip, muted, plus
+ *   poster.webp (or poster.jpg) as the still shown before it loads.
  * - public/demos/voice-note.mp3: the voice-to-quote tool's voice note.
  *
  * The recordings are built by scripts/build-demo-audio.mjs, which also writes
@@ -35,7 +34,6 @@ export function getDemoAssets(): DemoAssets {
   return {
     callAudio,
     reel: {
-      raw: existing("demos/content/raw.mp4"),
       edited: existing("demos/content/edited.mp4"),
       poster: existing("demos/content/poster.webp") ?? existing("demos/content/poster.jpg"),
     },

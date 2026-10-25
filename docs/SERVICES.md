@@ -2,7 +2,8 @@
 
 Lee Enterprises Unlimited sells six service groups (the owner's list, 2026-10-17). Each
 has its own page, a tile on the homepage, a card on `/how-it-works`, and an
-interactive demo a visitor can watch in under a minute.
+interactive demo a visitor can watch in under a minute (all but Websites,
+whose before/after demo was taken off on 2026-10-25).
 
 ## One list
 
@@ -33,8 +34,8 @@ named (Google, Instagram and so on) are where the work shows up.
 
 | URL | What it is |
 | --- | --- |
-| `/services` | Hero, the six groups as alternating rows ("See it work" opens the group's Demo Lab tab, "Learn more" its page), the Demo Lab (`#demo-lab`), a closing call, and the form. |
-| `/services/[slug]` | Hero, the group's demo (`#demo`), what's included, who it's for, how it works, related builds (websites only), pairs well with, a call, and the form with the group picked. Built at deploy time; any other slug is a 404. |
+| `/services` | Hero, the six groups as alternating rows ("See it work" opens the group's Demo Lab tab, "Learn more" its page; Websites has no demo, so only "Learn more"), the Demo Lab (`#demo-lab`), a closing call, and the form. |
+| `/services/[slug]` | Hero, the group's demo (`#demo`; none on Websites), what's included, who it's for, how it works, related builds (websites only), pairs well with, a call, and the form with the group picked. Built at deploy time; any other slug is a 404. |
 
 Deep links: `/services?demo=ai-calls` or `/services#demo-lab?demo=ai-calls`
 opens a Demo Lab tab. `?service=<slug>` or `?interest=<slug>` on any page with
@@ -43,7 +44,8 @@ demo's "Book a free call" uses it.
 
 ## The demos
 
-`components/services/demos/`, one per group, loaded with `next/dynamic` only
+`components/services/demos/`, one per group but Websites (`DemoSlug` in
+`data/services.ts`), loaded with `next/dynamic` only
 when within about a screen of view, behind a placeholder of exactly the same
 height (`demoSizes` in `components/services/demo/sizes.ts`; change a demo's
 layout and its size there together). They run on `useDemo`, a step clock:
@@ -71,9 +73,10 @@ screen and show their finished frame otherwise.
 
 The demos show real-looking pictures, footage and sound rather than icons in
 boxes. Most of it was generated in Higgsfield on 2026-10-24
-(`docs/DEMO-MEDIA-PLAN.md`): made-up places, no faces, words or logos. Any AI
-photo, clip or voice is labelled as AI where it shows, and the footnote says
-so too. Higgsfield makes the picture; the words, numbers and buttons over it
+(`docs/DEMO-MEDIA-PLAN.md`): made-up places, no faces, words or logos. Photos and
+footage carry no "AI-generated" tag (the owner's call, 2026-10-25); AI voices
+are still named beside their play buttons, and the footnote says the example
+is simulated. Higgsfield makes the picture; the words, numbers and buttons over it
 are drawn in code, so they stay sharp and match the demo.
 
 - **Pictures:** `data/demos/images.ts` lists each one and where it came from.
@@ -86,16 +89,17 @@ are drawn in code, so they stay sharp and match the demo.
   filter; it is one file.
 - **Loops:** `public/demos/video/`, muted 5-second loops with a WebP still of
   the first frame beside each: the tiles' live posters (`tile-*`), the
-  industry loops (the Websites demo's hero and the "Who we help" cards), the
+  industry loops (the "Who we help" cards), the
   sponsored ad in Get Found, and the desk behind the onboarding devices on
   How It Works. `DemoVideo` loads one only near the screen, plays it only on
   screen, and shows the still under reduced motion or Save-Data.
-- **The content clip:** `public/demos/content/raw.mp4` and `edited.mp4`, the
-  same shots handheld and flat, then cut, graded and captioned (the captions
-  and hook are drawn in code).
-- **The satchel's drag-to-turn:** `public/demos/img/spin/satchel.webp`, 36
-  frames in one sheet (`ProductSpin`). It loads when the visitor points at or
-  focuses it, and turns with drag, swipe or the arrow keys.
+- **The content clip:** `public/demos/content/edited.mp4`, three shots cut,
+  graded and captioned (the captions and hook are drawn in code).
+
+No demo or tile shows a before and after: the Websites slider, the Marketing
+demo's Before/After switch, the Content demo's Raw/Edited switch and the
+old-site opening of the Websites tile were all taken off (the owner's call,
+2026-10-25). Show the result, not the comparison.
 - **Sound:** the four call recordings (`public/demos/calls/`, AI voices for
   the receptionist and the caller) and the voice note in Custom AI Tools
   (`public/demos/voice-note.mp3`). Their timings
@@ -120,8 +124,8 @@ Nothing here blocks the site; it falls back cleanly until it is added.
 | A real number for the AI call demo line | `callAnswering.demoPhone` in `data/site.ts` | "Call our demo line" is hidden |
 
 Media is found at build time (`lib/demo-assets.ts`), so add the file and
-redeploy. Recordings and clips must be of made-up businesses, and any AI
-voice or video must be labelled as AI.
+redeploy. Recordings and clips must be of made-up businesses. Name an AI
+voice beside its play button; photos and video get no AI tag.
 
 ## Testing the forms
 

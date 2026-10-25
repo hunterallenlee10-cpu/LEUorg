@@ -18,9 +18,9 @@ import "./services.css";
  *   service page's hero): a "live poster", a 5-second loop of the moment the
  *   service is for (a phone lighting up on a nightstand at 11:48 PM) with one
  *   line of what just happened over it, drawn in code so it stays sharp at
- *   thumbnail size (data/demos/posters.ts). The loops are AI footage, tagged.
- * - `ui`: the service's own interface in miniature, an old site turning
- *   into a new one, a business climbing to #1 and so on, in pure CSS
+ *   thumbnail size (data/demos/posters.ts). The loops are tagged "Example".
+ * - `ui`: the service's own interface in miniature, a new site taking a
+ *   lead, a business climbing to #1 and so on, in pure CSS
  *   (services.css) that scales with its box (`cqw` units). The /services
  *   rows use it, where the tile is large enough to read.
  *
@@ -81,7 +81,7 @@ function LivePoster({ slug }: { slug: ServiceSlug }) {
       <DemoVideo src={poster.video} poster={poster.still} className="absolute inset-0" mediaStyle={{ objectPosition: poster.focus }} />
       <span className="absolute inset-0 bg-gradient-to-t from-[#000]/75 via-[#000]/10 to-[#000]/25" />
       <span className="absolute top-[3cqw] left-[3cqw] rounded bg-[#000]/55 px-[1.6cqw] py-[0.6cqw] text-[max(9px,2cqw)] font-semibold tracking-wider text-[#fff]/80 uppercase">
-        Example · AI footage
+        Example
       </span>
       <span className="svc-chip-in absolute bottom-[4cqw] left-[4cqw] flex max-w-[86%] items-center gap-[2.2cqw] rounded-[max(8px,2cqw)] border border-[#fff]/15 bg-[var(--svc-phone)]/80 py-[2cqw] pr-[3.2cqw] pl-[2cqw] shadow-2xl backdrop-blur-md">
         <span
@@ -124,20 +124,9 @@ function WebsitesPreview() {
         </span>
       </div>
 
-      {/* The old site: cluttered and still loading. */}
-      <div className="svc-a-out25 absolute inset-x-0 top-[11%] bottom-0 grid grid-cols-3 gap-[1.5cqw] p-[4cqw]">
-        {Array.from({ length: 9 }, (_, i) =>
-          i === 0 ? (
-            <Photo key={i} src={demoImages.homeServices} className="h-full w-full rounded-sm object-fill opacity-60 saturate-50 sepia-[.4]" />
-          ) : (
-            <span key={i} className="rounded-sm bg-white/[0.07]" />
-          )
-        )}
-        <span className="svc-l-spin absolute top-1/2 left-1/2 -mt-[3cqw] -ml-[3cqw] h-[6cqw] w-[6cqw] rounded-full border-[0.6cqw] border-white/20 border-t-white/60" />
-      </div>
-
-      {/* The new one: one headline, one button. */}
-      <div className="svc-a-in25 absolute inset-x-0 top-[11%] bottom-0 grid grid-cols-[1.15fr_1fr] items-center gap-[4cqw] px-[6cqw]">
+      {/* The site: one headline, one button. No old site before it (the
+          before/after was taken off, 2026-10-25). */}
+      <div className="absolute inset-x-0 top-[11%] bottom-0 grid grid-cols-[1.15fr_1fr] items-center gap-[4cqw] px-[6cqw]">
         <div>
           <span className="block h-[1.4cqw] w-[30%] rounded-full bg-brass-400/70" />
           <p className="mt-[2cqw] text-[4.6cqw] leading-[1.05] font-bold text-white">

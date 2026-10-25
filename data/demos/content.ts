@@ -22,8 +22,6 @@ export type PostFormat = "Reel" | "Carousel" | "Story" | "Short";
 
 export interface PlannedPost {
   format: PostFormat;
-  /** Labelled "AI-generated" wherever it shows. */
-  ai?: boolean;
 }
 
 export const days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"] as const;
@@ -33,9 +31,9 @@ export const weekPlan: readonly (readonly (PlannedPost | null)[])[] = [
   [{ format: "Reel" }, { format: "Reel" }, { format: "Short" }, { format: "Reel" }],
   [{ format: "Carousel" }, null, null, { format: "Story" }],
   [{ format: "Reel" }, { format: "Reel" }, { format: "Short" }, null],
-  [{ format: "Story" }, { format: "Reel" }, null, { format: "Carousel", ai: true }],
+  [{ format: "Story" }, { format: "Reel" }, null, { format: "Carousel" }],
   [{ format: "Reel" }, { format: "Reel" }, { format: "Short" }, { format: "Reel" }],
-  [{ format: "Carousel", ai: true }, null, null, { format: "Story" }],
+  [{ format: "Carousel" }, null, null, { format: "Story" }],
   [{ format: "Story" }, { format: "Reel" }, { format: "Short" }, null],
 ];
 

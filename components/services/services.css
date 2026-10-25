@@ -53,9 +53,7 @@
 .svc-a-in70 { animation-name: svc-in-70; }
 
 /* A part on screen for the first part of the loop only. */
-@keyframes svc-out-25 { 0%, 22% { opacity: 1; } 28%, 100% { opacity: 0; } }
 @keyframes svc-out-40 { 0%, 37% { opacity: 1; } 43%, 100% { opacity: 0; } }
-.svc-a-out25 { animation-name: svc-out-25; opacity: 0; }
 .svc-a-out40 { animation-name: svc-out-40; opacity: 0; }
 
 /* The whole picture fading back in as the loop restarts. */
@@ -79,8 +77,6 @@
 .svc-a-progress { animation-name: svc-progress; animation-timing-function: linear !important; transform-origin: left; }
 
 /* Short inner loops (a spinner, a ringing pulse, a voice waveform). */
-.svc-l-spin { animation: svc-spin 0.9s linear infinite; }
-@keyframes svc-spin { to { transform: rotate(360deg); } }
 .svc-l-pulse { animation: svc-pulse 1.4s ease-out infinite; }
 @keyframes svc-pulse { 0% { transform: scale(0.8); opacity: 0.7; } 100% { transform: scale(1.6); opacity: 0; } }
 .svc-l-wave { animation: svc-wave 0.9s ease-in-out infinite alternate; transform-origin: center; }
@@ -109,15 +105,13 @@
 .svc-scan { animation: svc-scan 2.4s ease-in-out both; }
 @keyframes svc-scan { from { top: 0; } to { top: 100%; } }
 
-/* The Content demo's clip progress: the edit is shorter, so it runs faster. */
+/* A six-second progress bar: the Content demo's clip, the voice note. */
 .svc-reel-fast { animation: svc-progress 6s linear infinite; }
-.svc-reel-slow { animation: svc-progress 14s linear infinite; }
 
 @media (prefers-reduced-motion: reduce) {
   .svc-enter,
   .svc-dot,
   .svc-reel-fast,
-  .svc-reel-slow,
   .svc-scan {
     animation: none !important;
   }
@@ -158,9 +152,3 @@
 .svc-a-cut3 { animation-name: svc-cut-3; animation-timing-function: linear !important; opacity: 0; }
 .svc-l-punch { animation: svc-punch 2s linear infinite; }
 @keyframes svc-punch { from { scale: 1; } to { scale: 1.09; } }
-.svc-l-drift { animation: svc-drift 5s ease-in-out infinite alternate; }
-@keyframes svc-drift {
-  0% { translate: -1.5% 0.5%; rotate: -0.4deg; }
-  50% { translate: 1% -0.8%; rotate: 0.3deg; }
-  100% { translate: -0.5% 1.2%; rotate: -0.2deg; }
-}

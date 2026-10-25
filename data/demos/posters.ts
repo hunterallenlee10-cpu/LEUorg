@@ -5,7 +5,8 @@
  * are AI footage of made-up places, generated in Higgsfield
  * (docs/DEMO-MEDIA-PLAN.md) and cut by scripts/build-demo-media.sh; every
  * line below is taken from the service's own demo, so the tile and the demo
- * it opens tell the same story.
+ * it opens tell the same story (Websites has no demo now; its line is the
+ * one its old demo ended on).
  */
 
 import type { ServiceSlug } from "@/data/services";
@@ -14,7 +15,6 @@ import { quoteLines, voiceNote } from "@/data/demos/custom-ai";
 import { ourBusiness, searchQuery } from "@/data/demos/get-found";
 import { followUpTexts } from "@/data/demos/follow-up";
 import { plannedCount } from "@/data/demos/content";
-import { websiteSkins } from "@/data/demos/websites";
 
 export type PosterTone = "good" | "accent";
 
@@ -42,7 +42,7 @@ export const posters: Record<ServiceSlug, Poster> = {
     ...loop("tile-websites"),
     focus: "50% 50%",
     title: "New lead received",
-    detail: websiteSkins[0].lead,
+    detail: "Jordan P. booked a free inspection",
     tone: "good",
   },
   "get-found": {

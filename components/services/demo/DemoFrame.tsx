@@ -157,7 +157,7 @@ export function FrameShell({
       </div>
 
       <p className="px-4 pb-4 text-xs text-neutral-400 sm:px-5">
-        Simulated example. Names, numbers and businesses are made up; some photos, footage and voices are AI-generated.
+        Simulated example. Names, numbers and businesses are made up.
       </p>
     </div>
   );

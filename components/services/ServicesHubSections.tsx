@@ -3,6 +3,7 @@ import { ArrowRight, Check } from "lucide-react";
 import { pricingPromise } from "@/data/lee-systems";
 import {
   demoLabHref,
+  hasDemo,
   serviceGroups,
   servicePath,
   servicesAnchors,
@@ -120,16 +121,19 @@ export function ServiceRows() {
                   ))}
                 </ul>
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-                  <QueryHashLink
-                    href={demoLabHref(group.slug)}
-                    aria-label={`See it work: ${group.name} demo`}
-                    className="btn-ls-primary inline-flex min-h-11 items-center justify-center"
-                  >
-                    See it work
-                  </QueryHashLink>
+                  {hasDemo(group) && (
+                    <QueryHashLink
+                      href={demoLabHref(group.slug)}
+                      aria-label={`See it work: ${group.name} demo`}
+                      className="btn-ls-primary inline-flex min-h-11 items-center justify-center"
+                    >
+                      See it work
+                    </QueryHashLink>
+                  )}
+                  {/* Without a demo, Learn more is the row's main button. */}
                   <Link
                     href={servicePath(group.slug)}
-                    className="btn-ls-secondary group inline-flex min-h-11 items-center justify-center gap-2"
+                    className={`${hasDemo(group) ? "btn-ls-secondary" : "btn-ls-primary"} group inline-flex min-h-11 items-center justify-center gap-2`}
                   >
                     {/* One flex item, so the hidden words join the visible
                         ones without a stray space. */}

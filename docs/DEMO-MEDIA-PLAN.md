@@ -126,9 +126,9 @@ and the brand brief.
 2. **No generated text.** Higgsfield frames carry no words, numbers, logos or
    screen content. Device screens are generated dark and the real interface
    is laid over them in code.
-3. **Labelled as AI.** Any AI voice reads "AI voice" beside its play button,
-   and any AI footage carries a small "AI-generated" tag. The existing
-   "Simulated example" footnote stays.
+3. **Voices named, pictures untagged.** Any AI voice reads "AI voice" beside
+   its play button. Photos and footage carry no "AI-generated" tag (the
+   owner's call, 2026-10-25). The "Simulated example" footnote stays.
 4. **No faces standing in for customers** (recommended; see the decisions).
    Hands, backs, silhouettes and empty rooms only, as the industry pictures
    already do. Nothing implies a client, a testimonial or a result.
@@ -171,6 +171,9 @@ Priorities: **P1** ships first and costs least; **P3** is the most work.
 
 ### 2. Content & Social Media demo — P2
 
+> The Raw/Edited switch and `raw.mp4` were taken off on 2026-10-25 (the
+> owner's call): the phone plays the edited clip only.
+
 - **Today:** `raw.mp4`, `edited.mp4` and `poster.webp` are missing, so the
   phone plays a reel cut from three still photos. The week's 21 posts reuse
   the same three thumbnails.
@@ -183,11 +186,13 @@ Priorities: **P1** ships first and costs least; **P3** is the most work.
   on each cut (cut locally with ffmpeg). Then 8 more stills so the calendar
   shows a varied week; the reel and short cells use frames from the clips.
 - **Code:** none beyond adding the files (`lib/demo-assets.ts` finds them).
-  The captions and hooks already sit over the clip in code. Add the
-  "AI-generated" tag on the phone.
+  The captions and hooks already sit over the clip in code.
 - **Cost:** about 50 credits for the clips, 16 for thumbnails.
 
 ### 3. Websites & Online Stores demo — P2
+
+> Taken off the sites on 2026-10-25 (the owner's call): the Websites service
+> has no demo now, so this section is history.
 
 - **Today:** a mock site per industry with a still photo; the slider wipes an
   old site into a new one.
@@ -208,6 +213,9 @@ Priorities: **P1** ships first and costs least; **P3** is the most work.
 - **Cost:** about 45 credits for loops, 8 for stills, 10 for the orbit.
 
 ### 4. Marketing & Lead Generation demo — P2
+
+> The Before/After switch was taken off on 2026-10-25 (the owner's call):
+> the business shows first in the results from the start.
 
 - **Today:** a map with four listings, an AI answer and a sponsored ad, all
   on stock thumbnails; the ad is a still.
@@ -342,13 +350,11 @@ sites in one change.
    files into the sibling repos and lists any file that differs, so drift
    shows up before it ships.
 5. **One media list**, `data/demos/media.ts`: every generated file with its
-   path, size, poster, screen corners where it has a device, whether it's AI
-   (for the tag) and the prompt it was made from. It replaces the file
+   path, size, poster, screen corners where it has a device, and the prompt it was made from. It replaces the file
    checks in `lib/demo-assets.ts`, with the same fallbacks when a file is
    missing.
 6. **Two small components:** `DemoVideo` (muted, inline, looping, loads near
-   view, pauses off screen, still under reduced motion and Data Saver,
-   optional "AI-generated" tag), built on the clock the demos already use;
+   view, pauses off screen, still under reduced motion and Data Saver), built on the clock the demos already use;
    and `ScreenOverlay`.
 7. **Hosting:** in each repo's `public/`, as today. If video passes about
    20 MB per site, move video to one shared Vercel Blob store that all three
@@ -377,8 +383,7 @@ sites in one change.
    under 1.2 MB, each film run under 4 MB, call audio at 64 kbps mono.
 8. **Checks before it ships:** no garbled text, logos or extra fingers; no
    faces; the screen holds still; the loop has no visible seam; the size is
-   on budget; the still shows under reduced motion; the AI tag is there;
-   it looks right in both themes on all three sites, at 375 px and on desktop.
+   on budget; the still shows under reduced motion; it looks right in both themes on all three sites, at 375 px and on desktop.
 
 ## Phases and budget
 
@@ -405,7 +410,7 @@ before and after each phase, per site.
 2. **Voices:** pick the AI receptionist's voice, the four callers' and the
    contractor's from previews. One receptionist voice for every call.
 3. **Faces:** faceless only (recommended, and how the industry pictures were
-   made), or people allowed with the AI tag.
+   made), or people allowed.
 4. **The source site:** .net as the one the others copy from (recommended).
 5. **One roofer:** the demos use both Ridgeline Roofing and Summit Peak
    Roofing, and the homepage preview lists Ridgeline as a competitor. Making

@@ -119,8 +119,7 @@ same picture (`public/demos/video/<id>.mp4`, with its first frame beside it
 as a WebP still), made in Higgsfield from the picture itself with the camera
 locked off, so only the light, weather or steam moves and the loop has no
 seam. `DemoVideo` loads it as the card nears the screen and plays it only on
-screen; under reduced motion or Save-Data the still shows. The Websites demo
-uses the same loops for its mock sites' heroes. `scripts/build-demo-media.sh`
+screen; under reduced motion or Save-Data the still shows. `scripts/build-demo-media.sh`
 cuts them (`docs/DEMO-MEDIA-PLAN.md`).
 
 ## Onboarding
@@ -259,7 +258,7 @@ by-hand and outdated runs are graded cold and drained, the AI and built-right
 runs warm, so the two halves look like two different nights. The film is
 muted, dimmed under the panels and captions, kept in time with the
 soundtrack by the player (`syncFilm` in `NarratedVideo.tsx`), and labelled
-"Example · AI footage". It loads with the soundtrack; under reduced motion it
+"Example". It loads with the soundtrack; under reduced motion it
 holds one still per line instead of playing.
 
 The films are `public/lee-systems/two-paths/two-paths-film.mp4` and
