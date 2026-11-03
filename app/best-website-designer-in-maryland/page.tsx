@@ -9,6 +9,7 @@ import { StatTiles } from "@/components/ui/ds";
 import { SITE_URL } from "@/data/company";
 import { site, telHref } from "@/data/site";
 import {
+  assertNoPlaceholders,
   formatLastUpdated,
   marylandAudience,
   marylandCta,
@@ -62,11 +63,20 @@ const crumbs = [
   { name: marylandLabel, href: marylandRoute },
 ];
 
-/** The three builds, looked up by name so the links and pictures stay the site's own. */
+/**
+ * The three builds, looked up by name so the pictures stay the site's own.
+ * A build links to its live site only when `linked` is true; G1's card is
+ * the screenshot alone until its real domain is confirmed.
+ */
 const work = marylandWork.items.flatMap((item) => {
   const project = site.projects.find((p) => p.name === item.project);
-  return project?.image ? [{ ...item, href: project.href, image: project.image }] : [];
+  if (!project?.image) return [];
+  const href = item.linked ? (item.href ?? project.href) : undefined;
+  return [{ ...item, href, image: project.image }];
 });
+
+// Stops the build if any copy still holds a stand-in.
+assertNoPlaceholders();
 
 const maryland = { "@type": "State", name: "Maryland" } as const;
 const businessId = `${SITE_URL}/#organization`;
@@ -344,42 +354,55 @@ export default function BestWebsiteDesignerInMarylandPage() {
                 <p className="ds-sub mt-6">{marylandWork.intro}</p>
               </div>
               <ul className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-                {work.map((item) => (
-                  <li key={item.href} className="flex">
-                    <a href={item.href} target="_blank" rel="noopener noreferrer" className="ds-card group w-full">
-                      <div className="ds-card-body">
-                        <div className="border-b border-white/10">
-                          <div className="flex h-8 items-center gap-1.5 bg-white/[0.04] px-4" aria-hidden="true">
-                            <span className="h-2 w-2 rounded-full bg-white/20" />
-                            <span className="h-2 w-2 rounded-full bg-white/20" />
-                            <span className="h-2 w-2 rounded-full bg-white/20" />
+                {work.map((item) => {
+                  const body = (
+                    <div className="ds-card-body">
+                      <div className="border-b border-white/10">
+                        <div className="flex h-8 items-center gap-1.5 bg-white/[0.04] px-4" aria-hidden="true">
+                          <span className="h-2 w-2 rounded-full bg-white/20" />
+                          <span className="h-2 w-2 rounded-full bg-white/20" />
+                          <span className="h-2 w-2 rounded-full bg-white/20" />
+                          {item.href && (
                             <span className="ml-2 min-w-0 truncate font-mono text-[0.6875rem] text-neutral-400">
                               {hostname(item.href)}
                             </span>
-                          </div>
-                          <Image
-                            src={item.image}
-                            alt={item.alt}
-                            width={960}
-                            height={600}
-                            loading="lazy"
-                            sizes="(min-width: 1024px) 23rem, (min-width: 640px) 45vw, 90vw"
-                            className="block aspect-[16/10] h-auto w-full object-cover object-top"
-                          />
+                          )}
                         </div>
-                        <div className="flex flex-1 flex-col p-6">
-                          <h3 className="text-xl leading-tight font-bold text-white">{item.project}</h3>
-                          <p className="mt-2 leading-relaxed text-neutral-300">{item.line}</p>
+                        <Image
+                          src={item.image}
+                          alt={item.alt}
+                          width={960}
+                          height={600}
+                          loading="lazy"
+                          sizes="(min-width: 1024px) 23rem, (min-width: 640px) 45vw, 90vw"
+                          className="block aspect-[16/10] h-auto w-full object-cover object-top"
+                        />
+                      </div>
+                      <div className="flex flex-1 flex-col p-6">
+                        <h3 className="text-xl leading-tight font-bold text-white">{item.project}</h3>
+                        <p className="mt-2 leading-relaxed text-neutral-300">{item.line}</p>
+                        {item.href && (
                           <span className="mt-auto inline-flex items-center gap-1.5 pt-6 text-sm font-bold text-brass-400">
                             Visit the live site
                             <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
                             <span className="sr-only">(opens in a new tab)</span>
                           </span>
-                        </div>
+                        )}
                       </div>
-                    </a>
-                  </li>
-                ))}
+                    </div>
+                  );
+                  return (
+                    <li key={item.project} className="flex">
+                      {item.href ? (
+                        <a href={item.href} target="_blank" rel="noopener noreferrer" className="ds-card group w-full">
+                          {body}
+                        </a>
+                      ) : (
+                        <div className="ds-card w-full">{body}</div>
+                      )}
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           </section>
@@ -424,13 +447,7 @@ export default function BestWebsiteDesignerInMarylandPage() {
                     <span className="ds-faq-icon" aria-hidden="true" />
                   </summary>
                   <div className="ds-faq-answer">
-                    {faq.answer.startsWith("[PLACEHOLDER") ? (
-                      <p>
-                        <span className="ds-todo">{faq.answer}</span>
-                      </p>
-                    ) : (
-                      <p>{faq.answer}</p>
-                    )}
+                    <p>{faq.answer}</p>
                   </div>
                 </details>
               ))}
