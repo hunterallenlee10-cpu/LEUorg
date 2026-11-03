@@ -154,6 +154,17 @@ export function MainFooter({
           <p className="text-center text-sm text-neutral-400 md:text-left">
             {footerContent.copyright}
           </p>
+          <p className="mt-2 text-center text-xs text-neutral-400 md:text-left">
+            Website by{" "}
+            <a
+              href="https://www.leeenterprisesunlimited.com/"
+              target="_blank"
+              rel="noopener"
+              className="underline decoration-neutral-600 underline-offset-4 transition-colors hover:text-amber-400"
+            >
+              Lee Enterprises Unlimited
+            </a>
+          </p>
         </div>
       </div>
     </footer>
