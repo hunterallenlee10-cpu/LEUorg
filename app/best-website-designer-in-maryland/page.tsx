@@ -427,6 +427,18 @@ export default function BestWebsiteDesignerInMarylandPage() {
                 </li>
               ))}
             </ul>
+            {/* The contextual link to the sister phrase page on the .com site
+                (2026-11-03), so the two Maryland pages point at each other. */}
+            <p className="mt-10 text-lg text-neutral-300">
+              Need more than a website? See why Hunter Lee is known as the{" "}
+              <a
+                href="https://www.leeenterprisesunlimited.com/best-marketer-in-maryland"
+                className={linkClass}
+              >
+                best marketer in Maryland
+              </a>
+              .
+            </p>
           </div>
         </section>
 
