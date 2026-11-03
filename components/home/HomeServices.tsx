@@ -4,6 +4,7 @@ import { serviceGroups, servicePath, servicesRoutes } from "@/data/services";
 import { serviceIcons } from "@/components/services/serviceIcons";
 import { MiniPreview } from "@/components/services/MiniPreview";
 import { SectionHead } from "@/components/ui/ds";
+import { marylandRoute } from "@/data/maryland-page";
 
 /**
  * "What we do" (the black-and-gold redesign, 2026-10-18): the six service
@@ -61,7 +62,19 @@ export function HomeServices() {
           })}
         </ul>
 
-        <div className="mt-12 flex justify-center">
+        {/* The contextual link to the Maryland website design page. */}
+        <p className="mx-auto mt-10 max-w-2xl text-center leading-relaxed text-neutral-300">
+          Run a business in Maryland? See what goes into our{" "}
+          <Link
+            href={marylandRoute}
+            className="font-semibold text-white underline decoration-brass-400/60 underline-offset-4 hover:text-brass-400"
+          >
+            website design for Maryland businesses
+          </Link>
+          , and how it works from the free call to launch.
+        </p>
+
+        <div className="mt-10 flex justify-center">
           <Link href={servicesRoutes.demoLab} className="btn-ds-outline group">
             Try every demo
             <ArrowRight

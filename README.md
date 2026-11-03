@@ -6,7 +6,9 @@ The Lee Enterprises Unlimited website, .org edition
 (`/how-it-works`, formerly `/lee-systems`), Business Mastery (its own copy,
 separate from the .com's and .net's, at /business-mastery until
 mastery.leeenterprisesunlimited.org is attached; see
-[docs/BUSINESS-MASTERY.md](docs/BUSINESS-MASTERY.md)), `/contact` and `/legal`, plus `/book`, a short address that forwards to wherever "Book a free
+[docs/BUSINESS-MASTERY.md](docs/BUSINESS-MASTERY.md)), `/contact`, `/legal` and `/best-website-designer-in-maryland` (the Maryland
+website design page; copy in `data/maryland-page.ts`, plan in
+`implementation/best-website-designer-in-maryland.md`), plus `/book`, a short address that forwards to wherever "Book a free
 call" goes. Next.js 16 (App Router), React 19, Tailwind CSS v4 and TypeScript,
 hosted on Vercel.
 

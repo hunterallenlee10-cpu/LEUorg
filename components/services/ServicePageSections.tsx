@@ -106,6 +106,18 @@ export function ServiceHero({ group }: { group: ServiceGroup }) {
           </h1>
           <p className="mt-5 text-xl font-semibold text-white md:text-2xl">{group.outcome}</p>
           <p className="mt-4 max-w-xl text-lg leading-relaxed text-neutral-300">{group.description}</p>
+          {group.localLink && (
+            <p className="mt-4 max-w-xl leading-relaxed text-neutral-300">
+              {group.localLink.lead}{" "}
+              <Link
+                href={group.localLink.href}
+                className="font-semibold text-white underline decoration-brass-400/60 underline-offset-4 hover:text-brass-400"
+              >
+                {group.localLink.label}
+              </Link>
+              .
+            </p>
+          )}
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
             <BookCallLink href={`#${servicesAnchors.form}`} variant="glow" arrow className="w-full sm:w-auto" />
             {hasDemo(group) && (
