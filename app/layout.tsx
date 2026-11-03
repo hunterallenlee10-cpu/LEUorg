@@ -23,6 +23,7 @@ export const metadata: Metadata = {
   creator: 'Lee Enterprises Unlimited',
   publisher: 'Lee Enterprises Unlimited',
   robots: 'index, follow',
+  verification: { google: '9sPT20fVDhngCuL56ChqW8vZdZlh9MOI1elwCs-FueE' },
   // No `url`: it would tell every page that inherits this its shares are the
   // homepage. A page that sets `openGraph` replaces this whole object.
   openGraph: {
