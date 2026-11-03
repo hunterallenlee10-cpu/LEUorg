@@ -61,6 +61,9 @@ export const footerPages = [
   // The Maryland website design page (2026-11-03): linked from every page's
   // footer, with its own heading as the link text.
   { label: marylandLabel, href: marylandRoute },
+  // The sister phrase page on the .com site (2026-11-03): one footer link so
+  // the two Maryland pages point at each other. Never in the header nav.
+  { label: "Best Marketer in Maryland", href: "https://www.leeenterprisesunlimited.com/best-marketer-in-maryland" },
 ] as const;
 
 export const sectionIds = {
