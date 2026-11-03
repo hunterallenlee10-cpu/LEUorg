@@ -19,6 +19,7 @@
  */
 
 import { leeSystemsFaqs, leeSystemsIndustries } from "@/data/lee-systems";
+import { marylandRoute } from "@/data/maryland-page";
 
 export const serviceSlugs = [
   "websites",
@@ -85,6 +86,8 @@ export interface ServiceGroup {
    *  has none (its before/after demo was taken off, 2026-10-25), so its page
    *  and its /services row skip the demo. */
   demo?: { label: string; intro: string };
+  /** Optional: a line under the hero linking to a related local page. */
+  localLink?: { lead: string; label: string; href: string };
   /** The service page's <title> and meta description (under 160 characters). */
   seo: { title: string; description: string };
   /**
@@ -187,6 +190,11 @@ export const serviceGroups: readonly ServiceGroup[] = [
     ],
     pairsWith: ["follow-up", "get-found"],
     showRelatedBuilds: true,
+    localLink: {
+      lead: "In Maryland?",
+      label: "See our website design for Maryland businesses",
+      href: marylandRoute,
+    },
     seo: {
       title: "Websites & Online Stores | Lee Enterprises Unlimited",
       description:

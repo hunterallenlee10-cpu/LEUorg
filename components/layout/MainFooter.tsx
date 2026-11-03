@@ -3,6 +3,7 @@ import Link from "next/link";
 import { SITE_URL, companyInfo, footerContent } from "@/data/company";
 import { footerPages } from "@/data/navigation";
 import { site, telHref } from "@/data/site";
+import { marylandLabel, marylandRoute } from "@/data/maryland-page";
 
 /** 44px tall, so every row is a comfortable tap target on a phone. */
 const footerLinkClass =
@@ -58,6 +59,16 @@ export function MainFooter({
                   className="underline decoration-neutral-600 underline-offset-4 transition-colors hover:text-amber-400"
                 >
                   {site.name}
+                </a>
+              </p>
+            )}
+            {/* The main site's footer lists this page under Pages; Business
+                Mastery's has no Pages column, so it links here instead, by
+                full address, since this footer may be on the subdomain. */}
+            {isBm && (
+              <p className="mb-3 text-sm">
+                <a href={`${SITE_URL}${marylandRoute}`} className={footerLinkClass}>
+                  {marylandLabel}
                 </a>
               </p>
             )}

@@ -1,6 +1,7 @@
 import { NavItem } from "@/types";
 import { leeSystemsRoutes } from "@/data/lee-systems";
 import { servicesRoutes } from "@/data/services";
+import { marylandLabel, marylandRoute } from "@/data/maryland-page";
 import {
   BUSINESS_MASTERY_SITE_LIVE,
   BUSINESS_MASTERY_SITE_URL,
@@ -57,6 +58,9 @@ export const footerPages = [
   { label: "Services", href: servicesRoutes.hub },
   { label: "Business Mastery", href: businessMasteryPage },
   { label: "Contact", href: contactPage },
+  // The Maryland website design page (2026-11-03): linked from every page's
+  // footer, with its own heading as the link text.
+  { label: marylandLabel, href: marylandRoute },
 ] as const;
 
 export const sectionIds = {
