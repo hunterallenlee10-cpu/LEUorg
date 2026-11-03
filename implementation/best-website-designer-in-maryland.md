@@ -102,3 +102,16 @@ Live (https://www.leeenterprisesunlimited.org/best-website-designer-in-maryland)
 - [ ] footer link on the homepage
 - [ ] /llms.txt lists the page
 - [ ] Lighthouse mobile: SEO 100, A11y ≥95, BP ≥95, Perf ≥90
+
+## Follow-up fixes (2026-11-03)
+
+- The build-timeline question came off the page and the FAQPage schema (no
+  answer given yet); the FAQ is 7 questions. Add it back to `marylandFaqs`
+  once there is an answer, and both update together.
+- G1's card shows its screenshot with no link and no URL label until its
+  real domain is confirmed (`linked` / `href` in `marylandWork`).
+- Pelican Power Wash is described as LEU's own exterior cleaning brand.
+- "plus ads" (SEO answer) and "We show you how to make simple changes
+  yourself" (after-launch answer) are off until confirmed.
+- `assertNoPlaceholders()` fails the build if any copy on the page contains
+  PLACEHOLDER, TODO or square brackets.

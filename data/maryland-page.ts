@@ -9,8 +9,9 @@ import { site } from "@/data/site";
  * Facts rules (the owner's brief): only facts the owner gave or that
  * data/site.ts already states. No prices, no tool or vendor names, no
  * testimonials, ratings, awards or rankings, no city or county. Anything
- * still missing shows as a visible [PLACEHOLDER: ...] so it can't pass as
- * fact.
+ * still missing is left off the page rather than filled with a stand-in;
+ * `assertNoPlaceholders` below fails the build if any copy contains
+ * "PLACEHOLDER", "TODO" or square brackets.
  */
 
 /** The locked phrase. Used word for word where the brief requires it. */
@@ -139,22 +140,31 @@ export const marylandSteps = {
  * previews, no prospects), with one or two lines each built from what
  * data/site.ts says was built. G1 is the owner's approved showcase.
  */
-export const marylandWork = {
+export const marylandWork: {
+  title: string;
+  intro: string;
+  items: { project: string; linked: boolean; href?: string; line: string; alt: string }[];
+} = {
   title: "Recent work",
   intro: "Real sites we built and launched. Each one is live, so open it and look around.",
   items: [
     {
       project: "G1 Baseball & Softball Training",
+      // No link: the build's address is a preview URL, and the owner hasn't
+      // given G1's real domain yet. Add `href: "https://..."` here to link it.
+      linked: false,
       line: "A rebuild of the old g1-baseball.com for a baseball and softball training business. We built the new website and the backend automation behind it.",
       alt: "G1 Baseball & Softball Training website, first screen",
     },
     {
       project: "Pelican Power Wash",
-      line: "A website for an exterior cleaning company in Maryland, with backend automation built in.",
+      linked: true,
+      line: "LEU's own exterior cleaning brand in Maryland. We built its website and the backend automation behind it.",
       alt: "Pelican Power Wash exterior cleaning website, first screen",
     },
     {
       project: "Terps Fostering Futures",
+      linked: true,
       line: "A website for a student club at the University of Maryland, with backend automation built in.",
       alt: "Terps Fostering Futures student club website, first screen",
     },
@@ -190,10 +200,6 @@ export const marylandFaqs: MarylandFaq[] = [
       "Every site gets a flat quote on the free call. The price depends on how many pages you need and what the site has to do. There are no hidden fees and no revenue share.",
   },
   {
-    question: "How long does it take to build a website?",
-    answer: "[PLACEHOLDER: confirm with Hunter]",
-  },
-  {
     question: "Do you only work with businesses in Maryland?",
     answer:
       "No. We're based in Maryland and build for businesses across Maryland, and we work with businesses in other states too.",
@@ -201,7 +207,7 @@ export const marylandFaqs: MarylandFaq[] = [
   {
     question: "Do you handle Google and SEO?",
     answer:
-      "Yes. Basic SEO is part of every build, so local customers can find you on Google. If you want more, we also do Google Maps and local SEO work, plus ads.",
+      "Yes. Basic SEO is part of every build, so local customers can find you on Google. If you want more, we also do Google Maps and local SEO work.",
   },
   {
     question: "Can you redo my current website?",
@@ -216,7 +222,7 @@ export const marylandFaqs: MarylandFaq[] = [
   {
     question: "What happens after launch?",
     answer:
-      "We show you how to make simple changes yourself. If you'd rather not deal with it, the optional Care Plan covers hosting, updates, speed and security.",
+      "After launch, the optional Care Plan covers hosting, updates, speed and security, so the site stays fast and safe while you run your business.",
   },
   {
     question: "How do I get started?",
@@ -237,4 +243,23 @@ export function formatLastUpdated(iso: string): string {
     day: "numeric",
     timeZone: "UTC",
   });
+}
+
+/**
+ * Fails the build if any copy on the page still holds a stand-in: the words
+ * PLACEHOLDER or TODO, or square brackets. The page calls it at build time.
+ */
+export function assertNoPlaceholders(): void {
+  const strings: string[] = [];
+  JSON.stringify(
+    [marylandSeo, marylandLead, marylandAudience, marylandFeatures, marylandSteps, marylandWork, marylandWhy, marylandFaqs, marylandCta],
+    (_key, value) => {
+      if (typeof value === "string") strings.push(value);
+      return value;
+    }
+  );
+  const bad = strings.filter((text) => /PLACEHOLDER|TODO|[[\]]/i.test(text));
+  if (bad.length > 0) {
+    throw new Error(`Placeholder copy on ${marylandRoute}: ${bad.join(" | ")}`);
+  }
 }
