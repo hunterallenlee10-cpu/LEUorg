@@ -19,22 +19,24 @@ export interface Stat {
 }
 
 /** What a portfolio item is, shown as a badge on its card. */
-export type ProjectKind = "client" | "template" | "venture";
+export type ProjectKind = "client" | "template" | "venture" | "concept";
 
 /** The badge's words for each kind (the owner's wording, 2026-10-23). */
 export const projectKindLabels: Record<ProjectKind, string> = {
   client: "Client work",
   template: "Template",
   venture: "Our venture",
+  concept: "Concept",
 };
 
 export interface Project {
   /** The name as the live site shows it. */
   name: string;
   /**
-   * Client work (a site for someone else's business), a template (a demo
-   * site with a made-up business, sold ready to go), or our own venture.
-   * Set by the owner, 2026-10-23.
+   * Client work (a site for someone else's business), a concept (a site we
+   * built for a business ahead of it signing on, added 2026-11-10), a
+   * template (a demo site with a made-up business, sold ready to go), or our
+   * own venture. Set by the owner, 2026-10-23.
    */
   kind: ProjectKind;
   /** The kind of business and where, e.g. "Landscaping · Southern Maryland". */
@@ -120,23 +122,60 @@ export const site = {
   /**
    * "Recent Builds" (the ring on .com and .net, the grid on .org, the
    * Website builds deck and the Websites page's related builds): the
-   * strongest live work, strongest first, with our own site last. Picked
-   * 2026-10-25 from the owner's Vercel account: Photos by Noelle added (a
-   * client who OK'd showing it); Graystone and Fieldhouse removed (their
-   * links went dead); Sage & Stone removed (a placeholder licence number on
-   * the page); Rocha renamed Marque & Mile, as the template now shows.
-   * Concept previews for businesses that aren't clients yet stay off. Names
-   * are as each live site shows them; `kind` is the owner's call.
-   * docs/RECENT-BUILDS.md has the format for adding one.
+   * strongest live work, strongest first, with our own site last. Client
+   * work leads, because the first few boxes double as "real client sites"
+   * elsewhere (the .org hero thumbnails and laptop, the related builds on
+   * service pages). Re-picked 2026-11-10 from the owner's Vercel account, with
+   * the owner's all-clear on every entry: Two Roads, Brix, Mike's, Digital
+   * Skinz, Pinnacle, Jeff's Gym, Culture Shock, Ashton, Brushy Bear and
+   * Investing Mastery Signals added as client work; Truckin Thunder,
+   * Sweetbay, Dolly's and Capital Property Works added as concepts; Redline,
+   * Northfield and Detail Theater added as templates. Photos by Noelle
+   * removed (its link went dead). Left off at the owner's word: Panda
+   * Exteriors, Kelly Robertson and Pearl Bakery. Names are as each live site
+   * shows them (Detail Theater's still shows "[Business Name]"); `kind` is
+   * the owner's call. docs/RECENT-BUILDS.md has the format for adding one.
    */
   projects: [
     {
-      name: "Photos by Noelle",
+      name: "Two Roads Travel Service",
       kind: "client",
-      category: "Sports & lifestyle photography · Honolulu & Fredericksburg",
+      category: "Travel advisor · Cruises, tours & destination weddings",
       built: ["Website"],
-      href: "https://photosby-noelle.vercel.app",
-      image: "/projects/photos-by-noelle.webp",
+      href: "https://tworoadstravelservice.com",
+      image: "/projects/two-roads-travel-service.webp",
+    },
+    {
+      name: "Brix Brewhouse",
+      kind: "client",
+      category: "Craft brewery · Brodheadsville, PA",
+      built: ["Website"],
+      href: "https://brixbrewhouse.com",
+      image: "/projects/brix-brewhouse.webp",
+    },
+    {
+      name: "Mike's Automotive Detailing",
+      kind: "client",
+      category: "Detailing & ceramic coating · Leonardtown, MD",
+      built: ["Website"],
+      href: "https://mikes-detailing-xi.vercel.app",
+      image: "/projects/mikes-automotive-detailing.webp",
+    },
+    {
+      name: "Digital Skinz",
+      kind: "client",
+      category: "Vehicle wraps & signs · Central Virginia",
+      built: ["Website"],
+      href: "https://skinz-seven.vercel.app",
+      image: "/projects/digital-skinz.webp",
+    },
+    {
+      name: "Pinnacle Baseball Academy",
+      kind: "client",
+      category: "Baseball training · Spotsylvania, VA",
+      built: ["Website"],
+      href: "https://pinnaclebaseball.vercel.app",
+      image: "/projects/pinnacle-baseball-academy.webp",
     },
     {
       name: "H1 Performance",
@@ -145,6 +184,22 @@ export const site = {
       built: ["Website", "Backend automation"],
       href: "https://h1-three-sandy.vercel.app",
       image: "/projects/h1-performance.webp",
+    },
+    {
+      name: "Jeff's Gym",
+      kind: "client",
+      category: "Personal training · Jacksonville, FL",
+      built: ["Website"],
+      href: "https://gymlead-ashy.vercel.app",
+      image: "/projects/jeffs-gym.webp",
+    },
+    {
+      name: "Culture Shock",
+      kind: "client",
+      category: "Film & media production · DMV",
+      built: ["Website"],
+      href: "https://culture-shock-on-air.vercel.app",
+      image: "/projects/culture-shock.webp",
     },
     {
       name: "G1 Baseball & Softball Training",
@@ -156,6 +211,22 @@ export const site = {
       image: "/projects/g1-baseball.webp",
     },
     {
+      name: "Truckin Thunder",
+      kind: "concept",
+      category: "Truck accessories & upfitting · Virginia",
+      built: ["Website"],
+      href: "https://truckin-thunder-concept.vercel.app",
+      image: "/projects/truckin-thunder.webp",
+    },
+    {
+      name: "Ashton Innovations",
+      kind: "client",
+      category: "Decorative drywall & epoxy floors · Fredericksburg, VA",
+      built: ["Website"],
+      href: "https://ashton-innovations.vercel.app",
+      image: "/projects/ashton-innovations.webp",
+    },
+    {
       name: "Thread T-Shirts",
       kind: "client",
       category: "Apparel · Ships worldwide",
@@ -164,12 +235,44 @@ export const site = {
       image: "/projects/thread.webp",
     },
     {
-      name: "Copperleaf Grounds Co.",
-      kind: "template",
-      category: "Lawn care · Brandywine Valley",
-      built: ["Website", "Backend automation", "Ready-to-go template"],
-      href: "https://boltlandscaping.vercel.app",
-      image: "/projects/copperleaf-grounds.webp",
+      name: "Sweetbay Restaurant & Bar",
+      kind: "concept",
+      category: "Restaurant & bar · Leonardtown, MD",
+      built: ["Website"],
+      href: "https://sweetbay-restaurant-concept.vercel.app",
+      image: "/projects/sweetbay.webp",
+    },
+    {
+      name: "Brushy Bear Painters",
+      kind: "client",
+      category: "House painting · Eastside & Seattle, WA",
+      built: ["Website"],
+      href: "https://brushybear.vercel.app",
+      image: "/projects/brushy-bear-painters.webp",
+    },
+    {
+      name: "Dolly's Tax & Advisory",
+      kind: "concept",
+      category: "CPA & financial planning · Southern Maryland",
+      built: ["Website"],
+      href: "https://dolly-cpa-concept.vercel.app",
+      image: "/projects/dollys-tax-and-advisory.webp",
+    },
+    {
+      name: "Capital Property Works",
+      kind: "concept",
+      category: "Excavation & site work · Southern Maryland",
+      built: ["Website"],
+      href: "https://capital-property-works-concept.vercel.app",
+      image: "/projects/capital-property-works.webp",
+    },
+    {
+      name: "Investing Mastery Signals",
+      kind: "client",
+      category: "Crypto research memberships · Online",
+      built: ["Website"],
+      href: "https://www.investingmasterysignals.com",
+      image: "/projects/investing-mastery-signals.webp",
     },
     {
       name: "Pelican Power Wash",
@@ -178,6 +281,38 @@ export const site = {
       built: ["Website", "Backend automation"],
       href: "https://pelicanpowerwash.vercel.app",
       image: "/projects/pelican-power-wash.webp",
+    },
+    {
+      name: "Redline Detail Studio",
+      kind: "template",
+      category: "Car detailing · Frederick, MD",
+      built: ["Website", "Ready-to-go template"],
+      href: "https://bring-it-dirty-detailing.vercel.app",
+      image: "/projects/redline-detail-studio.webp",
+    },
+    {
+      name: "Northfield Heating & Air",
+      kind: "template",
+      category: "Heating & AC · Frederick, MD",
+      built: ["Website", "Ready-to-go template"],
+      href: "https://hvactemplate.vercel.app",
+      image: "/projects/northfield-heating-and-air.webp",
+    },
+    {
+      name: "Detail Theater",
+      kind: "template",
+      category: "Mobile car detailing",
+      built: ["Website", "Ready-to-go template"],
+      href: "https://detail-theater.vercel.app",
+      image: "/projects/detail-theater.webp",
+    },
+    {
+      name: "Copperleaf Grounds Co.",
+      kind: "template",
+      category: "Lawn care · Brandywine Valley",
+      built: ["Website", "Backend automation", "Ready-to-go template"],
+      href: "https://boltlandscaping.vercel.app",
+      image: "/projects/copperleaf-grounds.webp",
     },
     {
       name: "Marque & Mile",
