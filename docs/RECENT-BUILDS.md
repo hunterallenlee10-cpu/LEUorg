@@ -87,6 +87,8 @@ amounts blurred or fake. Screenshots as full-size PNGs.
    come on, and shoot that.
 3. With fewer than three builds and `showPlaceholders` on, "coming soon"
    boxes fill the row out to three.
-4. When a client's site changes, retake its shot the same way. All of them
-   were last refreshed on 2026-10-25, when the list was re-picked from the
-   owner's Vercel account.
+4. When a client's site changes, retake its shot the same way. The list was
+   last re-picked from the owner's Vercel account on 2026-11-10, when the 17
+   new builds were shot; the older shots date from 2026-10-25. Brix
+   Brewhouse opens on an age check, so click "Yes, open the door" and wait
+   about four seconds before shooting it.
