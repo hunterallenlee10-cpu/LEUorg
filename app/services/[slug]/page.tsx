@@ -15,7 +15,7 @@ import {
 } from "@/components/services/ServicePageSections";
 import { ServicesCtaBand } from "@/components/services/ServicesHubSections";
 import { LeeSystemsContactSection } from "@/components/lee-systems/LeeSystemsContactSection";
-import { SITE_URL } from "@/data/company";
+import { SITE_URL, primaryUrl } from "@/data/company";
 import { leeSystems } from "@/data/lee-systems";
 import { site } from "@/data/site";
 import {
@@ -55,7 +55,7 @@ export async function generateMetadata({
   return {
     title: { absolute: title },
     description,
-    alternates: { canonical: url },
+    alternates: { canonical: primaryUrl(servicePath(group.slug)) },
     openGraph: { type: "website", url, siteName: leeSystems.name, title, description },
     twitter: { card: "summary_large_image", title, description },
   };
