@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { MainHeader } from "@/components/layout/MainHeader";
 import { MainFooter } from "@/components/layout/MainFooter";
 import { LegalSection } from "@/components/sections/LegalSection";
-import { companyInfo } from "@/data/company";
+import { companyInfo, primaryUrl } from "@/data/company";
 
 const title = `Privacy Policy & Terms of Service | ${companyInfo.name}`;
 const description = `Privacy Policy and Terms of Service for ${companyInfo.name}.`;
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   title: { absolute: title },
   description,
   alternates: {
-    canonical: "/legal",
+    canonical: primaryUrl("/legal"),
   },
   openGraph: {
     type: "website",
