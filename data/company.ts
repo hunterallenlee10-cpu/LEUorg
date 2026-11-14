@@ -9,20 +9,6 @@ import { bmTerms } from "@/data/business-mastery-terms";
  */
 export const SITE_URL = site.url;
 
-/**
- * The .com, .net and .org sites serve the same shared pages, and Google
- * picks one copy as canonical. This repo is the .org site, so its shared
- * pages name their .com twin as canonical. Pages unique to .org (the
- * Maryland page) keep their own .org canonical.
- */
-export const PRIMARY_SITE_URL = "https://www.leeenterprisesunlimited.com";
-export const PRIMARY_BUSINESS_MASTERY_URL = "https://mastery.leeenterprisesunlimited.com";
-
-/** The .com address of a shared page, e.g. primaryUrl("/contact"). */
-export function primaryUrl(path: string): string {
-  return path === "/" ? PRIMARY_SITE_URL : `${PRIMARY_SITE_URL}${path}`;
-}
-
 export const companyInfo = {
   name: site.name,
   logoAlt: "Lee Enterprises Unlimited logo",

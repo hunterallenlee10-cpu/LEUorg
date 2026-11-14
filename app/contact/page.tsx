@@ -4,7 +4,6 @@ import { MainFooter } from "@/components/layout/MainFooter";
 import { ContactFormBlock } from "@/components/contact/ContactFormBlock";
 import { TalkNow } from "@/components/contact/TalkNow";
 import { site } from "@/data/site";
-import { primaryUrl } from "@/data/company";
 
 const title = "Contact | Lee Enterprises Unlimited";
 const description =
@@ -14,7 +13,7 @@ export const metadata: Metadata = {
   title: { absolute: title },
   description,
   alternates: {
-    canonical: primaryUrl("/contact"),
+    canonical: "/contact",
   },
   openGraph: {
     type: "website",

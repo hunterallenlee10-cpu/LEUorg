@@ -13,7 +13,7 @@ import { LeeSystemsOnboardingSection } from "@/components/lee-systems/LeeSystems
 import { LeeSystemsFAQSection } from "@/components/lee-systems/LeeSystemsFAQSection";
 import { LeeSystemsChoiceSection } from "@/components/lee-systems/LeeSystemsChoiceSection";
 import { LeeSystemsContactSection } from "@/components/lee-systems/LeeSystemsContactSection";
-import { SITE_URL, primaryUrl } from "@/data/company";
+import { SITE_URL } from "@/data/company";
 import {
   leeSystems,
   leeSystemsFaqs,
@@ -42,14 +42,14 @@ const title = "How It Works | Lee Enterprises Unlimited";
 const description =
   "How Lee Enterprises Unlimited builds websites that bring in customers, AI that answers calls and follows up every lead, plus marketing and content that gets you found.";
 
-/** The page's own URL, on this site's www host (og:url). */
+/** The page's one canonical URL, on the www host. */
 const pageUrl = `${SITE_URL}${leeSystemsRoutes.home}`;
 
 export const metadata: Metadata = {
   title: { absolute: title },
   description,
   alternates: {
-    canonical: primaryUrl(leeSystemsRoutes.home),
+    canonical: pageUrl,
   },
   openGraph: {
     type: "website",

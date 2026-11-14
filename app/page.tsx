@@ -16,7 +16,6 @@ import { BmJourneyLocked } from "@/components/business-mastery/BmJourneyLocked";
 import { ContactSection } from "@/components/sections/ContactSection";
 import { StatTiles } from "@/components/ui/ds";
 import { site } from "@/data/site";
-import { primaryUrl } from "@/data/company";
 import { BM_JOURNEY_LOCKED } from "@/data/business-mastery";
 
 const title = "Lee Enterprises Unlimited | AI Automation & Websites";
@@ -30,7 +29,7 @@ export const metadata: Metadata = {
   title: { absolute: title },
   description,
   alternates: {
-    canonical: primaryUrl("/"),
+    canonical: "/",
   },
   openGraph: {
     type: "website",
