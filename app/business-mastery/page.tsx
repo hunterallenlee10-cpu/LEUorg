@@ -8,20 +8,20 @@ import { BmProofSection } from "@/components/business-mastery/BmProofSection";
 import { BmManifestoSection } from "@/components/business-mastery/BmManifestoSection";
 import { BmFoundingOfferSection } from "@/components/business-mastery/BmFoundingOfferSection";
 import { businessMasteryPage } from "@/data/navigation";
-import { PRIMARY_BUSINESS_MASTERY_URL } from "@/data/company";
 
 const title = "Business Mastery | Learn to Start a Business and Use AI | LEU";
 const description =
   "Courses, coaching, and a community for people starting a business and learning to use AI. A $199/month membership, part of Lee Enterprises Unlimited.";
 
 // The share image is app/business-mastery/opengraph-image.tsx. The canonical
-// is the .com's Business Mastery subdomain, since the .com, .net and .org
-// sites all serve this page (see PRIMARY_SITE_URL in data/company.ts).
+// address is the subdomain's root once BUSINESS_MASTERY_SITE_LIVE is on
+// (config/business-mastery-site.mjs), and this site's /business-mastery
+// until then, so search engines treat the subdomain as a copy before launch.
 export const metadata: Metadata = {
   title: { absolute: title },
   description,
   alternates: {
-    canonical: PRIMARY_BUSINESS_MASTERY_URL,
+    canonical: businessMasteryPage,
   },
   openGraph: {
     type: "website",

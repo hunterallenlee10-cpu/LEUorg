@@ -8,7 +8,7 @@ import {
   ServicesHero,
 } from "@/components/services/ServicesHubSections";
 import { LeeSystemsContactSection } from "@/components/lee-systems/LeeSystemsContactSection";
-import { SITE_URL, primaryUrl } from "@/data/company";
+import { SITE_URL } from "@/data/company";
 import { leeSystems } from "@/data/lee-systems";
 import { serviceGroups, servicePath, servicesRoutes } from "@/data/services";
 
@@ -29,7 +29,7 @@ const pageUrl = `${SITE_URL}${servicesRoutes.hub}`;
 export const metadata: Metadata = {
   title: { absolute: title },
   description,
-  alternates: { canonical: primaryUrl(servicesRoutes.hub) },
+  alternates: { canonical: pageUrl },
   openGraph: {
     type: "website",
     url: pageUrl,
